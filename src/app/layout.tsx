@@ -15,10 +15,32 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
-// Metadata for SEO and browser tab
+// Metadata for SEO, social sharing, and browser tab
 export const metadata: Metadata = {
-  title: "Nathan Nguyen | Portfolio",
-  description: "Personal portfolio website",
+  title: "Nhan Nguyen | Software Engineer",
+  description: "Full-stack software engineer at JPMorgan Chase. Interested in AI agents, drones, rockets, and software development. Contributor to React Native, Kubernetes, Go, and LangChain.",
+  keywords: ["software engineer", "AI", "ML", "React", "TypeScript", "Go", "Kubernetes", "React Native", "LangChain", "JPMorgan Chase"],
+  authors: [{ name: "Nhan Nguyen", url: "https://github.com/nathannewyen" }],
+  creator: "Nhan Nguyen",
+  openGraph: {
+    title: "Nhan Nguyen | Software Engineer",
+    description: "Full-stack software engineer at JPMorgan Chase. Interested in AI agents, drones, rockets, and software development.",
+    url: "https://nathan-v4.vercel.app",
+    siteName: "Nhan Nguyen Portfolio",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nhan Nguyen | Software Engineer",
+    description: "Full-stack software engineer at JPMorgan Chase. Interested in AI agents, drones, rockets, and software development.",
+    creator: "@nathannewyenn",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  metadataBase: new URL("https://nathan-v4.vercel.app"),
 };
 
 // Root layout component - wraps all pages with fonts and global styles

@@ -155,21 +155,18 @@ const Portfolio = () => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Navigation section names for consistent usage
+  const navigationSections = ["intro", "experience", "projects"] as const;
+
   return (
-    <div className="min-h-screen bg-[#f5f5f5] text-[#1a1a2e] selection:bg-[#1a1a2e] selection:text-white">
-      {/* Google Fonts */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap');
-
-        * {
-          font-family: 'Space Mono', monospace;
-        }
-
-        .font-display {
-          font-family: 'Space Grotesk', sans-serif;
-          font-weight: 700;
-        }
-      `}</style>
+    <div className="min-h-screen bg-[#f5f5f5] text-[#1a1a2e] selection:bg-[#1a1a2e] selection:text-white font-mono">
+      {/* Skip to main content link for accessibility */}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#1a1a2e] focus:text-white"
+      >
+        Skip to main content
+      </a>
 
       {/* Navigation - Fixed header with section links */}
       <nav
@@ -184,12 +181,13 @@ const Portfolio = () => {
             >
               NHAN.NGUYEN
             </a>
-            <div className="flex gap-10">
-              {["intro", "experience", "projects"].map((section) => (
+            <div className="flex gap-10" role="navigation" aria-label="Main navigation">
+              {navigationSections.map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
-                  className={`font-mono-custom text-base font-bold tracking-wide uppercase transition-all duration-200 ${
+                  aria-current={activeSection === section ? "page" : undefined}
+                  className={`text-base font-bold tracking-wide uppercase transition-all duration-200 ${
                     activeSection === section
                       ? "text-white underline underline-offset-4 decoration-2"
                       : "text-white hover:underline hover:underline-offset-4 hover:decoration-2"
@@ -203,7 +201,7 @@ const Portfolio = () => {
         </div>
       </nav>
 
-      <main className="relative">
+      <main id="main" className="relative">
         {/* Hero Section - Introduction with name, title, and social links */}
         <section id="intro" className="min-h-screen flex items-center px-16">
           <div className="max-w-[1440px] mx-auto w-full">
@@ -267,9 +265,10 @@ const Portfolio = () => {
                 </div>
               </div>
 
-              {/* Right Side - Decorative overlapping boxes */}
+              {/* Right Side - Decorative overlapping boxes (hidden from screen readers) */}
               <div
                 className={`hidden lg:block relative w-[520px] h-[400px] transition-all duration-700 delay-300 ${isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}
+                aria-hidden="true"
               >
                 {/* OSS Box - Bottom left, in front */}
                 <div className="absolute bottom-0 -left-40 w-48 h-48 md:w-64 md:h-64 bg-[#CBD5E1] border-4 border-[#1A2234] flex items-center justify-center z-20">

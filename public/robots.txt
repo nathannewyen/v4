@@ -1,0 +1,6 @@
+# Robots.txt for Nhan Nguyen Portfolio
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://nathan-v4.vercel.app/sitemap.xml
