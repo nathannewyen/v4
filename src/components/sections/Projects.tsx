@@ -4,13 +4,15 @@ import { Project } from "@/types";
 import { SOCIAL_LINKS } from "@/constants";
 import { ExternalLinkIcon } from "@/components/icons";
 import { useScrollAnimation } from "@/hooks";
+import Skeleton from "@/components/Skeleton";
 
 interface ProjectsProps {
   projects: Project[];
+  isLoading: boolean;
 }
 
 // Projects section - Open source projects grid
-const Projects = ({ projects }: ProjectsProps) => {
+const Projects = ({ projects, isLoading }: ProjectsProps) => {
   const [sectionRef, isVisible] = useScrollAnimation(0.1);
 
   return (
@@ -40,10 +42,14 @@ const Projects = ({ projects }: ProjectsProps) => {
                 </h3>
                 <span className="flex items-center gap-1 px-3 py-1 bg-[#1A2234] dark:bg-white text-white dark:text-[#1A2234] text-sm">
                   <span>★</span>
-                  {project.stars}
+                  {isLoading ? (
+                    <Skeleton className="w-8 h-4 bg-white/30 dark:bg-[#1A2234]/30" />
+                  ) : (
+                    project.stars
+                  )}
                 </span>
               </div>
-              <p className="font-body text-sm text-[#666] dark:text-[#999] mb-4 leading-relaxed">
+              <p className="font-body text-sm text-[#666] dark:text-[#a0a0a0] mb-4 leading-relaxed">
                 {project.description}
               </p>
               <div className="flex flex-wrap gap-2">
@@ -75,7 +81,7 @@ const Projects = ({ projects }: ProjectsProps) => {
           <h3 className="text-xl md:text-3xl font-bold mb-4 text-[#1A2234] dark:text-white">
             MORE OPEN SOURCE PROJECTS
           </h3>
-          <p className="text-base md:text-lg text-[#1A2234] dark:text-[#999] mb-6">
+          <p className="text-base md:text-lg text-[#1A2234] dark:text-[#a0a0a0] mb-6">
             Check out my GitHub for more open source projects, tutorials, and
             resources.
           </p>

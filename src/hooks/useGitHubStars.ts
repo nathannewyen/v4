@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import { Project } from "@/types";
 
+// Return type for useGitHubStars hook
+interface UseGitHubStarsResult {
+  projects: Project[];
+  isLoading: boolean;
+}
+
 // Format star count to human-readable format (e.g., 120000 -> "120k")
 const formatStarCount = (starCount: number): string => {
   if (starCount >= 1000) {
@@ -11,11 +17,13 @@ const formatStarCount = (starCount: number): string => {
 
 // Custom hook to fetch GitHub star counts for projects
 // Takes initial projects with fallback star counts and returns updated projects with live data
-const useGitHubStars = (initialProjects: Project[]): Project[] => {
+const useGitHubStars = (initialProjects: Project[]): UseGitHubStarsResult => {
   const [projects, setProjects] = useState<Project[]>(initialProjects);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchStars = async () => {
+      setIsLoading(true);
       const updatedProjects = await Promise.all(
         initialProjects.map(async (project) => {
           try {
@@ -35,12 +43,13 @@ const useGitHubStars = (initialProjects: Project[]): Project[] => {
         })
       );
       setProjects(updatedProjects);
+      setIsLoading(false);
     };
 
     fetchStars();
   }, [initialProjects]);
 
-  return projects;
+  return { projects, isLoading };
 };
 
 export default useGitHubStars;

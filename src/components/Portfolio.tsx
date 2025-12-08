@@ -6,13 +6,14 @@ import { initialProjects } from "@/data/projects";
 import { useGitHubStars, useActiveSection } from "@/hooks";
 import { Hero, Experience, Projects, Connect, Footer } from "@/components/sections";
 import ThemeToggle from "@/components/ThemeToggle";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Portfolio component - main landing page with hero, experience, projects, and contact sections
 const Portfolio = () => {
   // Track if the page has finished loading for animation purposes
   const [isLoaded, setIsLoaded] = useState(false);
   // Fetch and update project star counts from GitHub API
-  const projects = useGitHubStars(initialProjects);
+  const { projects, isLoading: isLoadingStars } = useGitHubStars(initialProjects);
   // Track which navigation section is currently visible based on scroll position
   const activeSection = useActiveSection(NAVIGATION_SECTIONS);
 
@@ -74,10 +75,18 @@ const Portfolio = () => {
       </nav>
 
       <main id="main" className="relative">
-        <Hero isLoaded={isLoaded} />
-        <Experience />
-        <Projects projects={projects} />
-        <Connect />
+        <ErrorBoundary>
+          <Hero isLoaded={isLoaded} />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <Experience />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <Projects projects={projects} isLoading={isLoadingStars} />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <Connect />
+        </ErrorBoundary>
         <Footer />
       </main>
     </div>

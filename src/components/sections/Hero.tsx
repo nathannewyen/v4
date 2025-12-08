@@ -65,7 +65,7 @@ const Hero = ({ isLoaded }: HeroProps) => {
             aria-hidden="true"
           >
             {/* OSS Box - Bottom left, in front */}
-            <div className="absolute bottom-0 -left-40 w-48 h-48 md:w-64 md:h-64 bg-[#CBD5E1] dark:bg-[#2a2a3e] border-4 border-[#1A2234] dark:border-[#4a4a5e] flex items-center justify-center z-20">
+            <div className="absolute bottom-0 -left-40 w-48 h-48 md:w-64 md:h-64 bg-[#CBD5E1] dark:bg-[#2a2a3e] border-4 border-[#1A2234] dark:border-[#3a3a4e] flex items-center justify-center z-20">
               <span className="font-display text-3xl text-[#1A2234] dark:text-white">OSS</span>
             </div>
             {/* AI Box - Top right, behind OSS */}
