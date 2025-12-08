@@ -1,5 +1,11 @@
-import { useState, useEffect } from "react";
+import useSWR from "swr";
 import { Project } from "@/types";
+import { fetcher } from "@/lib/fetcher";
+
+// GitHub API response type for repository data
+interface GitHubRepoResponse {
+  stargazers_count: number;
+}
 
 // Return type for useGitHubStars hook
 interface UseGitHubStarsResult {
@@ -15,41 +21,50 @@ const formatStarCount = (starCount: number): string => {
   return starCount.toString();
 };
 
-// Custom hook to fetch GitHub star counts for projects
-// Takes initial projects with fallback star counts and returns updated projects with live data
+// Custom hook to fetch GitHub star counts for projects using SWR
+// Provides caching, deduplication, and offline support
+// Cache duration: 5 minutes (respects GitHub API rate limits of 60/hour)
 const useGitHubStars = (initialProjects: Project[]): UseGitHubStarsResult => {
-  const [projects, setProjects] = useState<Project[]>(initialProjects);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  // Create a stable cache key from all repo names
+  const repoNames = initialProjects.map((project) => project.repo).join(",");
 
-  useEffect(() => {
-    const fetchStars = async () => {
-      setIsLoading(true);
-      const updatedProjects = await Promise.all(
-        initialProjects.map(async (project) => {
-          try {
-            const response = await fetch(
-              `https://api.github.com/repos/${project.repo}`
-            );
-            if (response.ok) {
-              const data = await response.json();
-              const formattedStars = formatStarCount(data.stargazers_count);
-              return { ...project, stars: formattedStars };
-            }
-          } catch (error) {
-            console.error(`Failed to fetch stars for ${project.repo}:`, error);
-          }
-          // Return original project with fallback stars if fetch fails
-          return project;
-        })
+  const { data, isLoading } = useSWR<GitHubRepoResponse[]>(
+    repoNames ? `github-stars:${repoNames}` : null,
+    async () => {
+      // Fetch all repos in parallel
+      const responses = await Promise.all(
+        initialProjects.map((project) =>
+          fetcher<GitHubRepoResponse>(`https://api.github.com/repos/${project.repo}`)
+        )
       );
-      setProjects(updatedProjects);
-      setIsLoading(false);
-    };
+      return responses;
+    },
+    {
+      // Cache for 5 minutes (300000ms) to reduce API calls
+      dedupingInterval: 300000,
+      // Revalidate every 5 minutes
+      refreshInterval: 300000,
+      // Keep stale data while revalidating
+      revalidateOnFocus: false,
+      // Retry failed requests up to 3 times
+      errorRetryCount: 3,
+    }
+  );
 
-    fetchStars();
-  }, [initialProjects]);
+  // Merge fetched star counts with initial project data
+  const projectsWithStars: Project[] = initialProjects.map((project, index) => {
+    if (data && data[index]) {
+      const formattedStars = formatStarCount(data[index].stargazers_count);
+      return { ...project, stars: formattedStars };
+    }
+    // Return original project with fallback stars if fetch fails
+    return project;
+  });
 
-  return { projects, isLoading };
+  return {
+    projects: projectsWithStars,
+    isLoading,
+  };
 };
 
 export default useGitHubStars;

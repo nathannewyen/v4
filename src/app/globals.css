@@ -10,7 +10,11 @@
 
 /* Global styles for portfolio */
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
 }
 
 /* Smooth scrolling for anchor links */

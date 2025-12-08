@@ -46,9 +46,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       return (
         <div className="py-16 px-4 text-center">
           <div className="max-w-md mx-auto">
-            <p className="text-[#1A2234] dark:text-[#a0a0a0] mb-4">
-              This section failed to load.
-            </p>
+            <p className="text-[#1A2234] dark:text-[#a0a0a0] mb-4">This section failed to load.</p>
             <button
               onClick={this.handleReset}
               className="px-4 py-2 border-2 border-[#1A2234] dark:border-white text-[#1A2234] dark:text-white font-mono text-sm uppercase hover:bg-[#1A2234] dark:hover:bg-white hover:text-white dark:hover:text-[#1A2234] transition-colors cursor-pointer"

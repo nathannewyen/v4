@@ -34,8 +34,7 @@ const Hero = ({ isLoaded }: HeroProps) => {
 
             {/* Description */}
             <p className="text-lg md:text-xl text-[#1A2234] dark:text-[#a0a0a0] font-medium mb-8">
-              AI/ML/Engineer. Interested in AI agents, drones, rockets, and
-              software development.
+              AI/ML/Engineer. Interested in AI agents, drones, rockets, and software development.
             </p>
 
             {/* Social Links - X/Twitter and GitHub */}
@@ -45,9 +44,7 @@ const Hero = ({ isLoaded }: HeroProps) => {
                 className="group flex items-center gap-2 px-4 py-2.5 border-2 border-[#1A2234] dark:border-white text-[#1A2234] dark:text-white hover:bg-[#1A2234] dark:hover:bg-white hover:text-white dark:hover:text-[#1A2234] transition-all duration-200"
               >
                 <XIcon />
-                <span className="text-xs font-bold tracking-wider">
-                  X / TWITTER
-                </span>
+                <span className="text-xs font-bold tracking-wider">X / TWITTER</span>
               </a>
               <a
                 href={SOCIAL_LINKS.github}
@@ -74,7 +71,6 @@ const Hero = ({ isLoaded }: HeroProps) => {
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );

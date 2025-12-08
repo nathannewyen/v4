@@ -82,8 +82,7 @@ const Projects = ({ projects, isLoading }: ProjectsProps) => {
             MORE OPEN SOURCE PROJECTS
           </h3>
           <p className="text-base md:text-lg text-[#1A2234] dark:text-[#a0a0a0] mb-6">
-            Check out my GitHub for more open source projects, tutorials, and
-            resources.
+            Check out my GitHub for more open source projects, tutorials, and resources.
           </p>
           <a
             href={SOCIAL_LINKS.github}

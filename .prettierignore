@@ -1,0 +1,8 @@
+node_modules
+.next
+out
+build
+coverage
+public/sw.js
+public/workbox-*.js
+package-lock.json

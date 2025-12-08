@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import ThemeProvider from "@/components/ThemeProvider";
@@ -17,16 +17,46 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
-// Metadata for SEO, social sharing, and browser tab
+// Viewport configuration for PWA
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#1A2234" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0f" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
+// Metadata for SEO, social sharing, PWA, and browser tab
 export const metadata: Metadata = {
   title: "Nhan Nguyen | Software Engineer",
-  description: "Full-stack software engineer at JPMorgan Chase. Interested in AI agents, drones, rockets, and software development. Contributor to React Native, Kubernetes, Go, and LangChain.",
-  keywords: ["software engineer", "AI", "ML", "React", "TypeScript", "Go", "Kubernetes", "React Native", "LangChain", "JPMorgan Chase"],
+  description:
+    "Full-stack software engineer at JPMorgan Chase. Interested in AI agents, drones, rockets, and software development. Contributor to React Native, Kubernetes, Go, and LangChain.",
+  keywords: [
+    "software engineer",
+    "AI",
+    "ML",
+    "React",
+    "TypeScript",
+    "Go",
+    "Kubernetes",
+    "React Native",
+    "LangChain",
+    "JPMorgan Chase",
+  ],
   authors: [{ name: "Nhan Nguyen", url: "https://github.com/nathannewyen" }],
   creator: "Nhan Nguyen",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Nhan Nguyen",
+  },
   openGraph: {
     title: "Nhan Nguyen | Software Engineer",
-    description: "Full-stack software engineer at JPMorgan Chase. Interested in AI agents, drones, rockets, and software development.",
+    description:
+      "Full-stack software engineer at JPMorgan Chase. Interested in AI agents, drones, rockets, and software development.",
     url: "https://nathan-v4.vercel.app",
     siteName: "Nhan Nguyen Portfolio",
     type: "website",
@@ -35,7 +65,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Nhan Nguyen | Software Engineer",
-    description: "Full-stack software engineer at JPMorgan Chase. Interested in AI agents, drones, rockets, and software development.",
+    description:
+      "Full-stack software engineer at JPMorgan Chase. Interested in AI agents, drones, rockets, and software development.",
     creator: "@nathannewyenn",
   },
   robots: {

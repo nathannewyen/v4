@@ -43,18 +43,11 @@ const Portfolio = () => {
       >
         <div className="px-4 md:px-16 py-5">
           <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
-            <a
-              href="#"
-              className="text-white font-mono text-xl font-bold"
-            >
+            <a href="#" className="text-white font-mono text-xl font-bold">
               NHAN.NGUYEN
             </a>
             <div className="flex items-center gap-4 md:gap-10">
-              <div
-                className="hidden md:flex gap-10"
-                role="navigation"
-                aria-label="Main navigation"
-              >
+              <div className="hidden md:flex gap-10" role="navigation" aria-label="Main navigation">
                 {NAVIGATION_SECTIONS.map((section) => (
                   <button
                     key={section}

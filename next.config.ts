@@ -1,6 +1,18 @@
 import type { NextConfig } from "next";
+import withPWAInit from "next-pwa";
+
+// Initialize PWA with configuration
+const withPWA = withPWAInit({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  // Disable in development to avoid caching issues
+  disable: process.env.NODE_ENV === "development",
+});
 
 const nextConfig: NextConfig = {
+  // Empty turbopack config to allow both turbopack and webpack plugins
+  turbopack: {},
   // Security headers for production
   async headers() {
     return [
@@ -29,4 +41,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPWA(nextConfig);

@@ -7,7 +7,7 @@ interface GlobalErrorProps {
 
 // Global error boundary for root layout errors
 // This catches errors that error.tsx cannot handle
-const GlobalError = ({ error, reset }: GlobalErrorProps) => {
+const GlobalError = ({ error: _error, reset }: GlobalErrorProps) => {
   return (
     <html lang="en">
       <body className="min-h-screen bg-[#f5f5f5] flex items-center justify-center px-4">
@@ -18,12 +18,8 @@ const GlobalError = ({ error, reset }: GlobalErrorProps) => {
           </div>
 
           {/* Error message */}
-          <h1 className="font-mono text-2xl font-bold text-[#1A2234] mb-4">
-            Something went wrong
-          </h1>
-          <p className="text-[#1A2234] mb-8">
-            A critical error occurred. Please try again.
-          </p>
+          <h1 className="font-mono text-2xl font-bold text-[#1A2234] mb-4">Something went wrong</h1>
+          <p className="text-[#1A2234] mb-8">A critical error occurred. Please try again.</p>
 
           {/* Retry button */}
           <button
