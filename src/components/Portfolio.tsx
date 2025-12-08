@@ -172,22 +172,22 @@ const Portfolio = () => {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 bg-[#1a1a2e] transition-all duration-500 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}
       >
-        <div className="px-16 py-5">
-          <div className="max-w-[1440px] mx-auto flex items-center justify-between">
+        <div className="px-4 md:px-16 py-5">
+          <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
             <a
               href="#"
-              className="text-base font-black tracking-tight text-white"
+              className="text-sm md:text-base font-black tracking-tight text-white shrink-0"
               style={{ fontFamily: "'Arial Black', 'Helvetica Neue', sans-serif" }}
             >
               NHAN.NGUYEN
             </a>
-            <div className="flex gap-10" role="navigation" aria-label="Main navigation">
+            <div className="flex gap-4 md:gap-10" role="navigation" aria-label="Main navigation">
               {navigationSections.map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
                   aria-current={activeSection === section ? "page" : undefined}
-                  className={`text-base font-bold tracking-wide uppercase transition-all duration-200 ${
+                  className={`text-xs md:text-base font-bold tracking-wide uppercase transition-all duration-200 ${
                     activeSection === section
                       ? "text-white underline underline-offset-4 decoration-2"
                       : "text-white hover:underline hover:underline-offset-4 hover:decoration-2"
@@ -203,7 +203,7 @@ const Portfolio = () => {
 
       <main id="main" className="relative">
         {/* Hero Section - Introduction with name, title, and social links */}
-        <section id="intro" className="min-h-screen flex items-center px-16">
+        <section id="intro" className="min-h-screen flex items-center px-4 md:px-16">
           <div className="max-w-[1440px] mx-auto w-full">
             <div className="flex items-center justify-between">
               {/* Left Content - Name, title, description, and social links */}
@@ -307,7 +307,7 @@ const Portfolio = () => {
         </section>
 
         {/* Experience Section - Work history with companies and roles */}
-        <section id="experience" className="py-32 px-16 bg-white">
+        <section id="experience" className="py-16 md:py-32 px-4 md:px-16 bg-white">
           <div className="max-w-[1440px] mx-auto">
             {/* Section heading with thick bottom border */}
             <h2 className="text-5xl md:text-6xl font-bold mb-12 border-b-8 border-[#1A2234] pb-4 inline-block">
@@ -326,15 +326,15 @@ const Portfolio = () => {
                     {/* Square marker at top of border */}
                     <div className="absolute -left-4 top-0 w-8 h-8 bg-[#1A2234]" />
 
-                    {/* Company name and location */}
-                    <div className="flex flex-col md:flex-row md:items-baseline md:justify-between mb-4">
+                    {/* Company name and location - stacked on mobile */}
+                    <div className="mb-4">
                       <a
                         href={job.url}
-                        className="text-3xl font-bold text-[#1A2234] underline underline-offset-4 decoration-2"
+                        className="text-2xl md:text-3xl font-bold text-[#1A2234] underline underline-offset-4 decoration-2"
                       >
                         {job.company}
                       </a>
-                      <span className="text-xl text-[#888] mt-2 md:mt-0">
+                      <span className="text-base md:text-xl text-[#888] block mt-1">
                         {job.location}
                       </span>
                     </div>
@@ -347,16 +347,14 @@ const Portfolio = () => {
                           {roleIndex > 0 && (
                             <div className="border-t border-[#e0e0e0] my-6" />
                           )}
-                          {/* Role title and period on same line */}
-                          <div className="flex flex-col md:flex-row md:items-baseline md:justify-between">
-                            <h3 className="text-xl font-bold text-[#1A2234]">
-                              {role.title}
-                            </h3>
-                            <span className="text-lg text-[#888]">
-                              {role.period}
-                            </span>
-                          </div>
-                          <p className="text-lg text-[#1A2234] leading-relaxed mt-3">
+                          {/* Role title and period - stacked on mobile */}
+                          <h3 className="text-lg md:text-xl font-bold text-[#4A5568]">
+                            {role.title}
+                          </h3>
+                          <span className="text-base md:text-lg text-[#888] block mb-3">
+                            {role.period}
+                          </span>
+                          <p className="text-base md:text-lg text-[#1A2234] leading-relaxed">
                             {role.description}
                           </p>
                         </div>
@@ -370,12 +368,12 @@ const Portfolio = () => {
         </section>
 
         {/* Projects Section - Open source projects grid */}
-        <section id="projects" className="py-32 px-16 bg-[#f5f5f5]">
+        <section id="projects" className="py-16 md:py-32 px-4 md:px-16 bg-[#f5f5f5]">
           <div className="max-w-[1440px] mx-auto">
-            <h2 className="text-5xl md:text-6xl font-bold mb-4 border-b-8 border-[#1A2234] pb-4 inline-block">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 border-b-8 border-[#1A2234] pb-4 inline-block">
               OPEN SOURCE
             </h2>
-            <h3 className="text-3xl font-bold mb-8 border-l-4 border-[#1A2234] pl-4 text-[#1A2234]">
+            <h3 className="text-xl md:text-3xl font-bold mb-8 border-l-4 border-[#1A2234] pl-4 text-[#1A2234]">
               LIBRARIES I&apos;VE CONTRIBUTED TO
             </h3>
 
@@ -432,11 +430,11 @@ const Portfolio = () => {
             </div>
 
             {/* More Open Source Projects box */}
-            <div className="mt-16 p-8 border-4 border-[#1A2234]">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">
+            <div className="mt-8 md:mt-16 p-4 md:p-8 border-4 border-[#1A2234]">
+              <h3 className="text-xl md:text-3xl font-bold mb-4">
                 MORE OPEN SOURCE PROJECTS
               </h3>
-              <p className="text-lg text-[#1A2234] mb-6">
+              <p className="text-base md:text-lg text-[#1A2234] mb-6">
                 Check out my GitHub for more open source projects, tutorials, and resources.
               </p>
               <a
@@ -453,12 +451,12 @@ const Portfolio = () => {
         </section>
 
         {/* Connect Section - Contact links in single line */}
-        <section className="py-16 px-16 bg-white border-t-4 border-[#1A2234]">
+        <section className="py-12 md:py-16 px-4 md:px-16 bg-white border-t-4 border-[#1A2234]">
           <div className="max-w-[1440px] mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 md:mb-8">
               CONNECT
             </h2>
-            <div className="flex flex-wrap items-center gap-10">
+            <div className="flex flex-col md:flex-row md:flex-wrap md:items-center gap-4 md:gap-10">
               {/* GitHub link with icon */}
               <a
                 href="https://github.com/nathannewyen"
@@ -494,9 +492,9 @@ const Portfolio = () => {
         </section>
 
         {/* Footer - Copyright notice with dark background */}
-        <footer className="py-10 px-16 bg-[#1a1a2e]">
+        <footer className="py-8 md:py-10 px-4 md:px-16 bg-[#1a1a2e]">
           <div className="max-w-[1440px] mx-auto">
-            <p className="text-base text-white text-center tracking-wider">
+            <p className="text-sm md:text-base text-white text-center tracking-wider">
               © 2025 NHAN NGUYEN. ALL RIGHTS RESERVED.
             </p>
           </div>
