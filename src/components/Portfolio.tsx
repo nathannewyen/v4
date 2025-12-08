@@ -172,7 +172,7 @@ const Portfolio = () => {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 bg-[#1a1a2e] transition-all duration-500 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}
       >
-        <div className="px-4 md:px-16 py-5">
+        <div className="px-2 md:px-16 py-5">
           <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
             <a
               href="#"
@@ -203,7 +203,7 @@ const Portfolio = () => {
 
       <main id="main" className="relative">
         {/* Hero Section - Introduction with name, title, and social links */}
-        <section id="intro" className="min-h-screen flex items-center px-4 md:px-16">
+        <section id="intro" className="min-h-screen flex items-center px-2 md:px-16">
           <div className="max-w-[1440px] mx-auto w-full">
             <div className="flex items-center justify-between">
               {/* Left Content - Name, title, description, and social links */}
@@ -307,7 +307,7 @@ const Portfolio = () => {
         </section>
 
         {/* Experience Section - Work history with companies and roles */}
-        <section id="experience" className="py-16 md:py-32 px-4 md:px-16 bg-white">
+        <section id="experience" className="py-16 md:py-32 px-2 md:px-16 bg-white">
           <div className="max-w-[1440px] mx-auto">
             {/* Section heading with thick bottom border */}
             <h2 className="text-5xl md:text-6xl font-bold mb-12 border-b-8 border-[#1A2234] pb-4 inline-block">
@@ -368,7 +368,7 @@ const Portfolio = () => {
         </section>
 
         {/* Projects Section - Open source projects grid */}
-        <section id="projects" className="py-16 md:py-32 px-4 md:px-16 bg-[#f5f5f5]">
+        <section id="projects" className="py-16 md:py-32 px-2 md:px-16 bg-[#f5f5f5]">
           <div className="max-w-[1440px] mx-auto">
             <h2 className="text-4xl md:text-6xl font-bold mb-4 border-b-8 border-[#1A2234] pb-4 inline-block">
               OPEN SOURCE
@@ -451,7 +451,7 @@ const Portfolio = () => {
         </section>
 
         {/* Connect Section - Contact links in single line */}
-        <section className="py-12 md:py-16 px-4 md:px-16 bg-white border-t-4 border-[#1A2234]">
+        <section className="py-12 md:py-16 px-2 md:px-16 bg-white border-t-4 border-[#1A2234]">
           <div className="max-w-[1440px] mx-auto">
             <h2 className="text-3xl md:text-5xl font-bold mb-6 md:mb-8">
               CONNECT
@@ -492,7 +492,7 @@ const Portfolio = () => {
         </section>
 
         {/* Footer - Copyright notice with dark background */}
-        <footer className="py-8 md:py-10 px-4 md:px-16 bg-[#1a1a2e]">
+        <footer className="py-8 md:py-10 px-2 md:px-16 bg-[#1a1a2e]">
           <div className="max-w-[1440px] mx-auto">
             <p className="text-sm md:text-base text-white text-center tracking-wider">
               © 2025 NHAN NGUYEN. ALL RIGHTS RESERVED.
