@@ -3,21 +3,27 @@
 import { Project } from "@/types";
 import { SOCIAL_LINKS } from "@/constants";
 import { ExternalLinkIcon } from "@/components/icons";
+import { useScrollAnimation } from "@/hooks";
 
 interface ProjectsProps {
   projects: Project[];
-  isLoaded: boolean;
 }
 
 // Projects section - Open source projects grid
-const Projects = ({ projects, isLoaded }: ProjectsProps) => {
+const Projects = ({ projects }: ProjectsProps) => {
+  const [sectionRef, isVisible] = useScrollAnimation(0.1);
+
   return (
     <section id="projects" className="py-16 md:py-32 px-4 md:px-16 bg-[#f5f5f5] dark:bg-[#0a0a0f]">
-      <div className="max-w-[1440px] mx-auto">
-        <h2 className="text-4xl md:text-6xl font-bold mb-4 border-b-8 border-[#1A2234] dark:border-white pb-4 inline-block text-[#1A2234] dark:text-white">
+      <div ref={sectionRef} className="max-w-[1440px] mx-auto">
+        <h2
+          className={`text-4xl md:text-6xl font-bold mb-4 border-b-8 border-[#1A2234] dark:border-white pb-4 inline-block text-[#1A2234] dark:text-white transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+        >
           OPEN SOURCE
         </h2>
-        <h3 className="text-xl md:text-3xl font-bold mb-8 border-l-4 border-[#1A2234] dark:border-white pl-4 text-[#1A2234] dark:text-white">
+        <h3
+          className={`text-xl md:text-3xl font-bold mb-8 border-l-4 border-[#1A2234] dark:border-white pl-4 text-[#1A2234] dark:text-white transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+        >
           LIBRARIES I&apos;VE CONTRIBUTED TO
         </h3>
 
@@ -25,8 +31,8 @@ const Projects = ({ projects, isLoaded }: ProjectsProps) => {
           {projects.map((project, projectIndex) => (
             <div
               key={projectIndex}
-              className={`p-6 bg-white dark:bg-[#15151f] border-4 border-[#1A2234] dark:border-[#3a3a4e] transition-all duration-300 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: `${projectIndex * 100}ms` }}
+              className={`p-6 bg-white dark:bg-[#15151f] border-4 border-[#1A2234] dark:border-[#3a3a4e] transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: `${200 + projectIndex * 100}ms` }}
             >
               <div className="flex items-start justify-between mb-4">
                 <h3 className="font-display text-xl text-[#1A2234] dark:text-white">
@@ -62,7 +68,10 @@ const Projects = ({ projects, isLoaded }: ProjectsProps) => {
         </div>
 
         {/* More Open Source Projects box */}
-        <div className="mt-8 md:mt-16 p-4 md:p-8 border-4 border-[#1A2234] dark:border-[#3a3a4e]">
+        <div
+          className={`mt-8 md:mt-16 p-4 md:p-8 border-4 border-[#1A2234] dark:border-[#3a3a4e] transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          style={{ transitionDelay: "600ms" }}
+        >
           <h3 className="text-xl md:text-3xl font-bold mb-4 text-[#1A2234] dark:text-white">
             MORE OPEN SOURCE PROJECTS
           </h3>

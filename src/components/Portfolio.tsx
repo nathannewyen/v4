@@ -3,27 +3,26 @@
 import { useState, useEffect } from "react";
 import { NAVIGATION_SECTIONS } from "@/constants";
 import { initialProjects } from "@/data/projects";
-import { useGitHubStars } from "@/hooks";
+import { useGitHubStars, useActiveSection } from "@/hooks";
 import { Hero, Experience, Projects, Connect, Footer } from "@/components/sections";
 import ThemeToggle from "@/components/ThemeToggle";
 
 // Portfolio component - main landing page with hero, experience, projects, and contact sections
 const Portfolio = () => {
-  // Track which navigation section is currently active
-  const [activeSection, setActiveSection] = useState("intro");
   // Track if the page has finished loading for animation purposes
   const [isLoaded, setIsLoaded] = useState(false);
   // Fetch and update project star counts from GitHub API
   const projects = useGitHubStars(initialProjects);
+  // Track which navigation section is currently visible based on scroll position
+  const activeSection = useActiveSection(NAVIGATION_SECTIONS);
 
   // Set loaded state to true after component mounts to trigger entrance animations
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
-  // Scroll to a section and update the active navigation state
+  // Scroll to a section smoothly
   const scrollToSection = (sectionId: string) => {
-    setActiveSection(sectionId);
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -79,8 +78,8 @@ const Portfolio = () => {
 
       <main id="main" className="relative">
         <Hero isLoaded={isLoaded} />
-        <Experience isLoaded={isLoaded} />
-        <Projects projects={projects} isLoaded={isLoaded} />
+        <Experience />
+        <Projects projects={projects} />
         <Connect />
         <Footer />
       </main>

@@ -1,18 +1,19 @@
 "use client";
 
 import { experience } from "@/data/experience";
-
-interface ExperienceProps {
-  isLoaded: boolean;
-}
+import { useScrollAnimation } from "@/hooks";
 
 // Experience section - Work history with companies and roles
-const Experience = ({ isLoaded }: ExperienceProps) => {
+const Experience = () => {
+  const [sectionRef, isVisible] = useScrollAnimation(0.1);
+
   return (
     <section id="experience" className="py-16 md:py-32 px-4 md:px-16 bg-white dark:bg-[#12121a]">
-      <div className="max-w-[1440px] mx-auto">
+      <div ref={sectionRef} className="max-w-[1440px] mx-auto">
         {/* Section heading with thick bottom border */}
-        <h2 className="text-5xl md:text-6xl font-bold mb-12 border-b-8 border-[#1A2234] dark:border-white pb-4 inline-block text-[#1A2234] dark:text-white">
+        <h2
+          className={`text-5xl md:text-6xl font-bold mb-12 border-b-8 border-[#1A2234] dark:border-white pb-4 inline-block text-[#1A2234] dark:text-white transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+        >
           EXPERIENCE
         </h2>
 
@@ -20,8 +21,8 @@ const Experience = ({ isLoaded }: ExperienceProps) => {
           {experience.map((job, jobIndex) => (
             <div
               key={jobIndex}
-              className={`transition-all duration-500 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: `${jobIndex * 100}ms` }}
+              className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: `${jobIndex * 150}ms` }}
             >
               {/* Company with left border and square marker */}
               <div className="relative border-l-8 border-[#1A2234] dark:border-white pl-8">
