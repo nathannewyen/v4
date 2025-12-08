@@ -3,6 +3,11 @@
 /* Enable dark mode with class strategy */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Map font-mono to Space_Mono */
+.font-mono {
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+}
+
 /* Global styles for portfolio */
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;

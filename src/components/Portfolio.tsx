@@ -44,14 +44,13 @@ const Portfolio = () => {
           <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
             <a
               href="#"
-              className="text-sm md:text-base font-black tracking-tight text-white shrink-0"
-              style={{ fontFamily: "'Arial Black', 'Helvetica Neue', sans-serif" }}
+              className="text-white font-mono text-xl font-bold"
             >
-              NHAN NGUYEN
+              NHAN.NGUYEN
             </a>
             <div className="flex items-center gap-4 md:gap-10">
               <div
-                className="flex gap-4 md:gap-10"
+                className="hidden md:flex gap-10"
                 role="navigation"
                 aria-label="Main navigation"
               >
@@ -60,10 +59,8 @@ const Portfolio = () => {
                     key={section}
                     onClick={() => scrollToSection(section)}
                     aria-current={activeSection === section ? "page" : undefined}
-                    className={`text-xs md:text-base font-bold tracking-wide uppercase transition-all duration-200 cursor-pointer ${
-                      activeSection === section
-                        ? "text-white underline underline-offset-4 decoration-2"
-                        : "text-white hover:underline hover:underline-offset-4 hover:decoration-2"
+                    className={`text-white font-mono uppercase cursor-pointer ${
+                      activeSection === section ? "font-bold border-b-2" : ""
                     }`}
                   >
                     {section}

@@ -61,7 +61,7 @@ const Hero = ({ isLoaded }: HeroProps) => {
 
           {/* Right Side - Decorative overlapping boxes (hidden from screen readers) */}
           <div
-            className={`hidden lg:block relative w-[520px] h-[400px] transition-all duration-700 delay-300 ${isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}
+            className={`hidden xl:block relative w-[520px] h-[400px] transition-all duration-700 delay-300 ${isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}
             aria-hidden="true"
           >
             {/* OSS Box - Bottom left, in front */}
