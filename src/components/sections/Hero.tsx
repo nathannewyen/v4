@@ -1,7 +1,7 @@
 "use client";
 
 import { SOCIAL_LINKS } from "@/constants";
-import { GitHubIcon, XIcon, ChevronDownIcon } from "@/components/icons";
+import { GitHubIcon, XIcon } from "@/components/icons";
 
 interface HeroProps {
   isLoaded: boolean;
@@ -18,22 +18,22 @@ const Hero = ({ isLoaded }: HeroProps) => {
             className={`max-w-xl transition-all duration-700 delay-100 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
           >
             {/* Name */}
-            <h1 className="font-display text-6xl md:text-8xl leading-none mb-6 text-[#1A2234]">
+            <h1 className="font-display text-6xl md:text-8xl leading-none mb-6 text-[#1A2234] dark:text-white">
               NHAN
               <br />
               NGUYEN
             </h1>
 
             {/* Thick underline decoration */}
-            <div className="w-full max-w-lg h-2 bg-[#1A2234] mb-8" />
+            <div className="w-full max-w-lg h-2 bg-[#1A2234] dark:bg-white mb-8" />
 
             {/* Title */}
-            <p className="font-mono-custom text-sm mb-6 uppercase text-xl md:text-2xl text-[#1A2234] font-medium">
+            <p className="font-mono-custom text-sm mb-6 uppercase text-xl md:text-2xl text-[#1A2234] dark:text-white font-medium">
               Software Engineer @ JPMorgan Chase
             </p>
 
             {/* Description */}
-            <p className="text-lg md:text-xl text-[#1A2234] font-medium mb-8">
+            <p className="text-lg md:text-xl text-[#1A2234] dark:text-[#a0a0a0] font-medium mb-8">
               AI/ML/Engineer. Interested in AI agents, drones, rockets, and
               software development.
             </p>
@@ -42,7 +42,7 @@ const Hero = ({ isLoaded }: HeroProps) => {
             <div className="flex items-center gap-4">
               <a
                 href={SOCIAL_LINKS.twitter}
-                className="group flex items-center gap-2 px-4 py-2.5 border-2 border-[#1A2234] text-[#1A2234] hover:bg-[#1A2234] hover:text-white transition-all duration-200"
+                className="group flex items-center gap-2 px-4 py-2.5 border-2 border-[#1A2234] dark:border-white text-[#1A2234] dark:text-white hover:bg-[#1A2234] dark:hover:bg-white hover:text-white dark:hover:text-[#1A2234] transition-all duration-200"
               >
                 <XIcon />
                 <span className="text-xs font-bold tracking-wider">
@@ -51,7 +51,7 @@ const Hero = ({ isLoaded }: HeroProps) => {
               </a>
               <a
                 href={SOCIAL_LINKS.github}
-                className="group flex items-center gap-2 px-4 py-2.5 bg-[#1A2234] text-white hover:bg-[#2a2a4e] transition-all duration-200"
+                className="group flex items-center gap-2 px-4 py-2.5 bg-[#1A2234] dark:bg-white text-white dark:text-[#1A2234] hover:bg-[#2a2a4e] dark:hover:bg-[#e0e0e0] transition-all duration-200"
               >
                 <GitHubIcon />
                 <span className="text-xs font-bold tracking-wider">GITHUB</span>
@@ -65,22 +65,16 @@ const Hero = ({ isLoaded }: HeroProps) => {
             aria-hidden="true"
           >
             {/* OSS Box - Bottom left, in front */}
-            <div className="absolute bottom-0 -left-40 w-48 h-48 md:w-64 md:h-64 bg-[#CBD5E1] border-4 border-[#1A2234] flex items-center justify-center z-20">
-              <span className="font-display text-3xl text-[#1A2234]">OSS</span>
+            <div className="absolute bottom-0 -left-40 w-48 h-48 md:w-64 md:h-64 bg-[#CBD5E1] dark:bg-[#2a2a3e] border-4 border-[#1A2234] dark:border-[#4a4a5e] flex items-center justify-center z-20">
+              <span className="font-display text-3xl text-[#1A2234] dark:text-white">OSS</span>
             </div>
             {/* AI Box - Top right, behind OSS */}
-            <div className="absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-[#E2E8F0] border-4 border-[#1A2234] flex items-center justify-center z-10">
-              <span className="font-display text-3xl text-[#1A2234]">AI</span>
+            <div className="absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-[#E2E8F0] dark:bg-[#1a1a2e] border-4 border-[#1A2234] dark:border-[#3a3a4e] flex items-center justify-center z-10">
+              <span className="font-display text-3xl text-[#1A2234] dark:text-white">AI</span>
             </div>
           </div>
         </div>
 
-        {/* Scroll indicator - Animated bouncing arrow */}
-        <div
-          className={`absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-700 delay-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}
-        >
-          <ChevronDownIcon className="w-6 h-6 text-[#1A2234] animate-bounce" />
-        </div>
       </div>
     </section>
   );

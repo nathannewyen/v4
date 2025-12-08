@@ -5,6 +5,7 @@ import { NAVIGATION_SECTIONS } from "@/constants";
 import { initialProjects } from "@/data/projects";
 import { useGitHubStars } from "@/hooks";
 import { Hero, Experience, Projects, Connect, Footer } from "@/components/sections";
+import ThemeToggle from "@/components/ThemeToggle";
 
 // Portfolio component - main landing page with hero, experience, projects, and contact sections
 const Portfolio = () => {
@@ -27,7 +28,7 @@ const Portfolio = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] text-[#1A2234] selection:bg-[#1A2234] selection:text-white font-mono">
+    <div className="min-h-screen bg-[#f5f5f5] dark:bg-[#0a0a0f] text-[#1A2234] dark:text-[#e5e5e5] selection:bg-[#1A2234] selection:text-white dark:selection:bg-white dark:selection:text-[#1A2234] font-mono transition-colors duration-300">
       {/* Skip to main content link for accessibility */}
       <a
         href="#main"
@@ -38,7 +39,7 @@ const Portfolio = () => {
 
       {/* Navigation - Fixed header with section links */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 bg-[#1A2234] transition-all duration-500 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}
+        className={`fixed top-0 left-0 right-0 z-50 bg-[#1A2234] dark:bg-[#15151f] transition-all duration-500 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}
       >
         <div className="px-4 md:px-16 py-5">
           <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
@@ -47,27 +48,30 @@ const Portfolio = () => {
               className="text-sm md:text-base font-black tracking-tight text-white shrink-0"
               style={{ fontFamily: "'Arial Black', 'Helvetica Neue', sans-serif" }}
             >
-              NHAN.NGUYEN
+              NHAN NGUYEN
             </a>
-            <div
-              className="flex gap-4 md:gap-10"
-              role="navigation"
-              aria-label="Main navigation"
-            >
-              {NAVIGATION_SECTIONS.map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  aria-current={activeSection === section ? "page" : undefined}
-                  className={`text-xs md:text-base font-bold tracking-wide uppercase transition-all duration-200 ${
-                    activeSection === section
-                      ? "text-white underline underline-offset-4 decoration-2"
-                      : "text-white hover:underline hover:underline-offset-4 hover:decoration-2"
-                  }`}
-                >
-                  {section}
-                </button>
-              ))}
+            <div className="flex items-center gap-4 md:gap-10">
+              <div
+                className="flex gap-4 md:gap-10"
+                role="navigation"
+                aria-label="Main navigation"
+              >
+                {NAVIGATION_SECTIONS.map((section) => (
+                  <button
+                    key={section}
+                    onClick={() => scrollToSection(section)}
+                    aria-current={activeSection === section ? "page" : undefined}
+                    className={`text-xs md:text-base font-bold tracking-wide uppercase transition-all duration-200 cursor-pointer ${
+                      activeSection === section
+                        ? "text-white underline underline-offset-4 decoration-2"
+                        : "text-white hover:underline hover:underline-offset-4 hover:decoration-2"
+                    }`}
+                  >
+                    {section}
+                  </button>
+                ))}
+              </div>
+              <ThemeToggle />
             </div>
           </div>
         </div>
