@@ -1,7 +1,7 @@
 "use client";
 
+import Link from "next/link";
 import { Project } from "@/types";
-import { SOCIAL_LINKS } from "@/constants";
 import { ExternalLinkIcon } from "@/components/icons";
 import { useScrollAnimation } from "@/hooks";
 import Skeleton from "@/components/Skeleton";
@@ -73,24 +73,24 @@ const Projects = ({ projects, isLoading }: ProjectsProps) => {
           ))}
         </div>
 
-        {/* More Open Source Projects box */}
+        {/* More Open Source Projects link */}
         <div
           className={`mt-8 md:mt-16 p-4 md:p-8 border-4 border-[#1A2234] dark:border-[#3a3a4e] transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
           style={{ transitionDelay: "600ms" }}
         >
           <h3 className="text-xl md:text-3xl font-bold mb-4 text-[#1A2234] dark:text-white">
-            MORE OPEN SOURCE PROJECTS
+            MORE OPEN SOURCE CONTRIBUTIONS
           </h3>
           <p className="text-base md:text-lg text-[#1A2234] dark:text-[#a0a0a0] mb-6">
-            Check out my GitHub for more open source projects, tutorials, and resources.
+            View my pull requests, commits, and code changes to major open source projects.
           </p>
-          <a
-            href={SOCIAL_LINKS.github}
+          <Link
+            href="/contributions"
             className="inline-flex items-center gap-2 px-6 py-3 bg-[#1A2234] dark:bg-white text-white dark:text-[#1A2234] font-bold hover:bg-[#2a2a4e] dark:hover:bg-[#e0e0e0] transition-colors"
           >
-            VIEW GITHUB
+            VIEW CONTRIBUTIONS
             <ExternalLinkIcon />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

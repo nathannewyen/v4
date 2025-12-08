@@ -24,3 +24,20 @@ export interface Experience {
   location: string;
   roles: Role[];
 }
+
+// Contribution type definition for open source contributions showcase
+export interface Contribution {
+  id: string;
+  repo: string;
+  repoName: string;
+  type: "pr" | "commit" | "issue";
+  title: string;
+  description: string;
+  url: string;
+  date: string;
+  status: "merged" | "open" | "closed";
+  additions: number;
+  deletions: number;
+  files: string[];
+  source: "github" | "gerrit";
+}

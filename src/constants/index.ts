@@ -67,3 +67,92 @@ export const SPACING = {
   containerPadding: "px-4 md:px-16",
   maxWidth: "max-w-[1440px]",
 } as const;
+
+// Project metadata for contributions showcase
+export const PROJECT_COLORS = {
+  "React Native": {
+    primary: "#61DAFB",
+    background: "bg-[#61DAFB]/10",
+    text: "text-[#61DAFB]",
+    border: "border-[#61DAFB]/30",
+  },
+  Kubernetes: {
+    primary: "#326CE5",
+    background: "bg-[#326CE5]/10",
+    text: "text-[#326CE5]",
+    border: "border-[#326CE5]/30",
+  },
+  Go: {
+    primary: "#00ADD8",
+    background: "bg-[#00ADD8]/10",
+    text: "text-[#00ADD8]",
+    border: "border-[#00ADD8]/30",
+  },
+  LangChain: {
+    primary: "#1C3C3C",
+    background: "bg-[#1C3C3C]/10 dark:bg-[#2dd4bf]/10",
+    text: "text-[#1C3C3C] dark:text-[#2dd4bf]",
+    border: "border-[#1C3C3C]/30 dark:border-[#2dd4bf]/30",
+  },
+  LangChainJS: {
+    primary: "#1C3C3C",
+    background: "bg-[#1C3C3C]/10 dark:bg-[#2dd4bf]/10",
+    text: "text-[#1C3C3C] dark:text-[#2dd4bf]",
+    border: "border-[#1C3C3C]/30 dark:border-[#2dd4bf]/30",
+  },
+  LangGraph: {
+    primary: "#1C3C3C",
+    background: "bg-[#1C3C3C]/10 dark:bg-[#2dd4bf]/10",
+    text: "text-[#1C3C3C] dark:text-[#2dd4bf]",
+    border: "border-[#1C3C3C]/30 dark:border-[#2dd4bf]/30",
+  },
+  "LangGraph JS": {
+    primary: "#1C3C3C",
+    background: "bg-[#1C3C3C]/10 dark:bg-[#2dd4bf]/10",
+    text: "text-[#1C3C3C] dark:text-[#2dd4bf]",
+    border: "border-[#1C3C3C]/30 dark:border-[#2dd4bf]/30",
+  },
+  "LangChain Docs": {
+    primary: "#1C3C3C",
+    background: "bg-[#1C3C3C]/10 dark:bg-[#2dd4bf]/10",
+    text: "text-[#1C3C3C] dark:text-[#2dd4bf]",
+    border: "border-[#1C3C3C]/30 dark:border-[#2dd4bf]/30",
+  },
+  LangServe: {
+    primary: "#1C3C3C",
+    background: "bg-[#1C3C3C]/10 dark:bg-[#2dd4bf]/10",
+    text: "text-[#1C3C3C] dark:text-[#2dd4bf]",
+    border: "border-[#1C3C3C]/30 dark:border-[#2dd4bf]/30",
+  },
+  Stylelint: {
+    primary: "#263238",
+    background: "bg-[#263238]/10 dark:bg-[#78909C]/10",
+    text: "text-[#263238] dark:text-[#78909C]",
+    border: "border-[#263238]/30 dark:border-[#78909C]/30",
+  },
+  Flutter: {
+    primary: "#02569B",
+    background: "bg-[#02569B]/10",
+    text: "text-[#02569B]",
+    border: "border-[#02569B]/30",
+  },
+} as const;
+
+// Contribution status colors
+export const STATUS_COLORS = {
+  merged: {
+    background: "bg-green-500/10",
+    text: "text-green-600 dark:text-green-400",
+    border: "border-green-500/30",
+  },
+  open: {
+    background: "bg-yellow-500/10",
+    text: "text-yellow-600 dark:text-yellow-400",
+    border: "border-yellow-500/30",
+  },
+  closed: {
+    background: "bg-gray-500/10",
+    text: "text-gray-600 dark:text-gray-400",
+    border: "border-gray-500/30",
+  },
+} as const;
