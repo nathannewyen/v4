@@ -76,6 +76,25 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://nathan-v4.vercel.app"),
 };
 
+// JSON-LD structured data for SEO - helps Google understand this is a professional portfolio
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Nhan Nguyen",
+  jobTitle: "Software Engineer",
+  worksFor: {
+    "@type": "Organization",
+    name: "JPMorgan Chase",
+  },
+  url: "https://nathan-v4.vercel.app",
+  sameAs: [
+    "https://github.com/nathannewyen",
+    "https://x.com/nathannewyenn",
+    "https://linkedin.com/in/nathannewyen",
+  ],
+  knowsAbout: ["React", "TypeScript", "Go", "Kubernetes", "AI", "LangChain", "React Native"],
+};
+
 // Root layout component - wraps all pages with fonts and global styles
 export default function RootLayout({
   children,
@@ -84,6 +103,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={`${inter.variable} ${spaceMono.variable} antialiased`}>
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
