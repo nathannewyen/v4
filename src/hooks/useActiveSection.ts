@@ -5,37 +5,54 @@ const useActiveSection = (sectionIds: readonly string[]): string => {
   const [activeSection, setActiveSection] = useState(sectionIds[0]);
 
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+    // Track visible sections and their intersection ratios
+    const visibleSections = new Map<string, number>();
 
-    // Create an observer for each section
-    sectionIds.forEach((sectionId) => {
-      const element = document.getElementById(sectionId);
-      if (!element) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const sectionId = entry.target.id;
+          if (entry.isIntersecting) {
+            visibleSections.set(sectionId, entry.intersectionRatio);
+          } else {
+            visibleSections.delete(sectionId);
+          }
+        });
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            // When section is at least 30% visible, mark it as active
-            if (entry.isIntersecting) {
-              setActiveSection(sectionId);
+        // Find the section with the highest visibility
+        if (visibleSections.size > 0) {
+          let maxRatio = 0;
+          let mostVisibleSection = sectionIds[0];
+
+          visibleSections.forEach((ratio, sectionId) => {
+            if (ratio > maxRatio) {
+              maxRatio = ratio;
+              mostVisibleSection = sectionId;
             }
           });
-        },
-        {
-          // Trigger when 30% of the section is visible
-          threshold: 0.3,
-          // Adjust for fixed navbar height
-          rootMargin: "-80px 0px -50% 0px",
-        }
-      );
 
-      observer.observe(element);
-      observers.push(observer);
+          setActiveSection(mostVisibleSection);
+        }
+      },
+      {
+        // Multiple thresholds for better tracking
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5],
+        // Adjust for fixed navbar height (80px top offset)
+        rootMargin: "-80px 0px 0px 0px",
+      }
+    );
+
+    // Observe all sections
+    sectionIds.forEach((sectionId) => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        observer.observe(element);
+      }
     });
 
-    // Cleanup observers on unmount
+    // Cleanup observer on unmount
     return () => {
-      observers.forEach((observer) => observer.disconnect());
+      observer.disconnect();
     };
   }, [sectionIds]);
 
