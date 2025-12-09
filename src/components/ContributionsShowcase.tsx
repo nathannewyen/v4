@@ -14,23 +14,30 @@ const ContributionsShowcase = () => {
   // Fetch contributions from GitHub API
   const { contributions, isLoading, isError } = useGitHubContributions();
 
-  // Filter state
+  // Filter and sort state
   const [selectedProject, setSelectedProject] = useState("all");
-  const [selectedType, setSelectedType] = useState("all");
   const [selectedSource, setSelectedSource] = useState("all");
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
   // Get unique projects for filter options
   const projects = useMemo(() => getUniqueProjects(contributions), [contributions]);
 
-  // Filter contributions based on selected filters
+  // Filter and sort contributions based on selected options
   const filteredContributions = useMemo(() => {
-    return contributions.filter((contribution) => {
+    // Apply filters
+    const filtered = contributions.filter((contribution) => {
       const matchesProject = selectedProject === "all" || contribution.repoName === selectedProject;
-      const matchesType = selectedType === "all" || contribution.type === selectedType;
       const matchesSource = selectedSource === "all" || contribution.source === selectedSource;
-      return matchesProject && matchesType && matchesSource;
+      return matchesProject && matchesSource;
     });
-  }, [contributions, selectedProject, selectedType, selectedSource]);
+
+    // Apply sorting
+    return filtered.sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
+    });
+  }, [contributions, selectedProject, selectedSource, sortOrder]);
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] dark:bg-[#0a0a0f] text-[#1A2234] dark:text-[#e5e5e5] selection:bg-[#1A2234] selection:text-white dark:selection:bg-white dark:selection:text-[#1A2234] font-mono transition-colors duration-300">
@@ -77,47 +84,47 @@ const ContributionsShowcase = () => {
             <ContributionFilters
               projects={projects}
               selectedProject={selectedProject}
-              selectedType={selectedType}
               selectedSource={selectedSource}
+              sortOrder={sortOrder}
               onProjectChange={setSelectedProject}
-              onTypeChange={setSelectedType}
               onSourceChange={setSelectedSource}
+              onSortChange={setSortOrder}
             />
           </section>
 
-          {/* Results count */}
-          <div className="mb-6 text-sm text-[#888] dark:text-[#777]">
-            {isLoading ? (
-              "Loading contributions..."
-            ) : (
-              <>
-                Showing {filteredContributions.length} contribution
-                {filteredContributions.length !== 1 ? "s" : ""}
-                {selectedProject !== "all" && ` in ${selectedProject}`}
-                {selectedType !== "all" && ` of type ${selectedType.toUpperCase()}`}
-                {selectedSource !== "all" && ` from ${selectedSource}`}
-              </>
-            )}
-          </div>
+          {/* Results count - only show when not loading */}
+          {!isLoading && (
+            <div className="mb-6 text-sm text-[#888] dark:text-[#777]">
+              Showing {filteredContributions.length} contribution
+              {filteredContributions.length !== 1 ? "s" : ""}
+              {selectedProject !== "all" && ` in ${selectedProject}`}
+              {selectedSource !== "all" && ` from ${selectedSource}`}
+            </div>
+          )}
 
-          {/* Loading state */}
+          {/* Loading state - List view skeleton */}
           {isLoading && (
-            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(6)].map((_, index) => (
+            <section className="flex flex-col gap-3">
+              {[...Array(8)].map((_, index) => (
                 <div
                   key={index}
-                  className="bg-white dark:bg-[#15151f] border border-[#e0e0e0] dark:border-[#3a3a4e] p-5"
+                  className="bg-white dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-md p-4"
                 >
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <Skeleton className="w-24 h-6" />
-                    <Skeleton className="w-16 h-6" />
-                  </div>
-                  <Skeleton className="w-full h-6 mb-2" />
-                  <Skeleton className="w-3/4 h-6 mb-4" />
-                  <Skeleton className="w-full h-12 mb-4" />
-                  <div className="flex justify-between">
-                    <Skeleton className="w-24 h-4" />
-                    <Skeleton className="w-16 h-4" />
+                  <div className="flex items-start gap-3">
+                    <Skeleton className="w-5 h-5 rounded-full flex-shrink-0" />
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Skeleton className="w-24 h-4" />
+                        <Skeleton className="w-16 h-4" />
+                      </div>
+                      <Skeleton className="w-3/4 h-5 mb-3" />
+                      <div className="flex gap-4">
+                        <Skeleton className="w-14 h-3" />
+                        <Skeleton className="w-24 h-3" />
+                        <Skeleton className="w-20 h-3" />
+                        <Skeleton className="w-16 h-3" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -134,9 +141,9 @@ const ContributionsShowcase = () => {
             </div>
           )}
 
-          {/* Contributions grid */}
+          {/* Contributions list */}
           {!isLoading && !isError && (
-            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <section className="flex flex-col gap-3">
               {filteredContributions.map((contribution, index) => (
                 <ContributionCard key={contribution.id} contribution={contribution} index={index} />
               ))}
