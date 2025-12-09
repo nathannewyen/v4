@@ -73,6 +73,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    google: "9IWr-bceEU9CEWHYL_ttTxwSK4rxv7SBdT5C-Qr1XCA",
+  },
   metadataBase: new URL("https://nathan-v4.vercel.app"),
 };
 
