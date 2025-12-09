@@ -51,16 +51,13 @@ const ContributionsShowcase = () => {
             >
               NHAN.NGUYEN
             </Link>
-            <div className="flex items-center gap-2 md:gap-10">
+            <div className="flex items-center gap-3 md:gap-6">
               <Link
                 href="/"
                 className="text-white font-mono text-xs md:text-base uppercase hover:opacity-80 transition-opacity"
               >
                 Portfolio
               </Link>
-              <span className="text-white font-mono text-xs md:text-base uppercase font-bold border-b-2">
-                Contributions
-              </span>
               <ThemeToggle />
             </div>
           </div>
