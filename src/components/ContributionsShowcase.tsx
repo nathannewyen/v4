@@ -1,13 +1,17 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import useGitHubContributions, { getUniqueProjects } from "@/hooks/useGitHubContributions";
 import ContributionCard from "@/components/ContributionCard";
 import ContributionFilters from "@/components/ContributionFilters";
+import Pagination from "@/components/Pagination";
 import { Footer } from "@/components/sections";
 import ThemeToggle from "@/components/ThemeToggle";
 import Skeleton from "@/components/Skeleton";
+
+// Number of contributions to display per page
+const ITEMS_PER_PAGE = 20;
 
 // Main contributions showcase component
 const ContributionsShowcase = () => {
@@ -18,6 +22,14 @@ const ContributionsShowcase = () => {
   const [selectedProject, setSelectedProject] = useState("all");
   const [selectedSource, setSelectedSource] = useState("all");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Reset to first page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedProject, selectedSource, sortOrder]);
 
   // Get unique projects for filter options
   const projects = useMemo(() => getUniqueProjects(contributions), [contributions]);
@@ -38,6 +50,12 @@ const ContributionsShowcase = () => {
       return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
     });
   }, [contributions, selectedProject, selectedSource, sortOrder]);
+
+  // Calculate pagination values
+  const totalPages = Math.ceil(filteredContributions.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedContributions = filteredContributions.slice(startIndex, endIndex);
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] dark:bg-[#0a0a0f] text-[#1A2234] dark:text-[#e5e5e5] selection:bg-[#1A2234] selection:text-white dark:selection:bg-white dark:selection:text-[#1A2234] font-mono transition-colors duration-300">
@@ -94,8 +112,10 @@ const ContributionsShowcase = () => {
           {/* Results count - only show when not loading */}
           {!isLoading && (
             <div className="mb-6 text-sm text-[#888] dark:text-[#777]">
-              Showing {filteredContributions.length} contribution
-              {filteredContributions.length !== 1 ? "s" : ""}
+              {/* Show range when paginated, otherwise show total count */}
+              {totalPages > 1
+                ? `Showing ${startIndex + 1}-${Math.min(endIndex, filteredContributions.length)} of ${filteredContributions.length} contributions`
+                : `Showing ${filteredContributions.length} contribution${filteredContributions.length !== 1 ? "s" : ""}`}
               {selectedProject !== "all" && ` in ${selectedProject}`}
               {selectedSource !== "all" && ` from ${selectedSource}`}
             </div>
@@ -140,13 +160,28 @@ const ContributionsShowcase = () => {
             </div>
           )}
 
-          {/* Contributions list */}
+          {/* Contributions list - show paginated results */}
           {!isLoading && !isError && (
-            <section className="flex flex-col gap-3">
-              {filteredContributions.map((contribution, index) => (
-                <ContributionCard key={contribution.id} contribution={contribution} index={index} />
-              ))}
-            </section>
+            <>
+              <section className="flex flex-col gap-3">
+                {paginatedContributions.map((contribution, index) => (
+                  <ContributionCard
+                    key={contribution.id}
+                    contribution={contribution}
+                    index={index}
+                  />
+                ))}
+              </section>
+
+              {/* Pagination controls - only show when more than one page */}
+              {totalPages > 1 && (
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              )}
+            </>
           )}
 
           {/* Empty state */}
