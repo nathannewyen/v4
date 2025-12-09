@@ -88,10 +88,10 @@ const ContributionCard = ({ contribution, index }: ContributionCardProps) => {
 
           {/* Content */}
           <div className="flex-1 min-w-0">
-            {/* Repository name */}
+            {/* Repository full path (owner/repo) */}
             <div className="flex items-center gap-2 mb-1">
               <span className={`text-xs font-semibold ${projectColors.text}`}>
-                {contribution.repoName}
+                {contribution.repo}
               </span>
               <span className="text-xs text-[#57606a] dark:text-[#8b949e]">•</span>
               <span className={`text-xs font-medium ${getStatusColor(contribution.status)}`}>
@@ -112,13 +112,15 @@ const ContributionCard = ({ contribution, index }: ContributionCardProps) => {
               {/* Date */}
               <span>{formattedDate}</span>
 
-              {/* Line changes */}
-              {(contribution.additions > 0 || contribution.deletions > 0) && (
-                <span className="font-mono">
-                  <span className="text-green-600 dark:text-green-400">
-                    +{contribution.additions}
-                  </span>{" "}
-                  <span className="text-red-600 dark:text-red-400">-{contribution.deletions}</span>
+              {/* Line changes - display additions and deletions with descriptive labels */}
+              {contribution.additions > 0 && (
+                <span className="text-green-600 dark:text-green-400">
+                  +{contribution.additions} lines added
+                </span>
+              )}
+              {contribution.deletions > 0 && (
+                <span className="text-red-600 dark:text-red-400">
+                  -{contribution.deletions} lines removed
                 </span>
               )}
 

@@ -24,9 +24,9 @@ const ContributionFilters = ({
 }: ContributionFiltersProps) => {
   const sources = ["all", "github", "gerrit"];
 
-  // Select dropdown style - full width on mobile
+  // Select dropdown style - full width on mobile, extra right padding for dropdown arrow spacing
   const selectStyle =
-    "w-full sm:w-auto px-3 py-2 text-sm font-mono bg-white dark:bg-[#2a2a3e] text-[#1A2234] dark:text-white border border-[#e0e0e0] dark:border-[#3a3a4e] cursor-pointer focus:outline-none focus:border-[#1A2234] dark:focus:border-white";
+    "w-full sm:w-auto pl-3 pr-8 py-2 text-sm font-mono bg-white dark:bg-[#2a2a3e] text-[#1A2234] dark:text-white border border-[#e0e0e0] dark:border-[#3a3a4e] cursor-pointer focus:outline-none focus:border-[#1A2234] dark:focus:border-white";
 
   // Filter button style helper
   const getButtonStyle = (isActive: boolean) =>
