@@ -5,6 +5,7 @@ import Link from "next/link";
 import useGitHubContributions, { getUniqueProjects } from "@/hooks/useGitHubContributions";
 import ContributionCard from "@/components/ContributionCard";
 import ContributionFilters from "@/components/ContributionFilters";
+import { Footer } from "@/components/sections";
 import ThemeToggle from "@/components/ThemeToggle";
 import Skeleton from "@/components/Skeleton";
 
@@ -154,13 +155,7 @@ const ContributionsShowcase = () => {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="py-8 px-4 md:px-16 bg-white dark:bg-[#12121a] border-t border-[#e0e0e0] dark:border-[#3a3a4e]">
-        <div className="max-w-[1440px] mx-auto flex items-center justify-center gap-1 text-sm text-[#888] dark:text-[#777]">
-          <span>&copy;</span>
-          <span>{new Date().getFullYear()} Nhan Nguyen. All rights reserved.</span>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
