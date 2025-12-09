@@ -43,22 +43,22 @@ const ContributionsShowcase = () => {
     <div className="min-h-screen bg-[#f5f5f5] dark:bg-[#0a0a0f] text-[#1A2234] dark:text-[#e5e5e5] selection:bg-[#1A2234] selection:text-white dark:selection:bg-white dark:selection:text-[#1A2234] font-mono transition-colors duration-300">
       {/* Navigation header */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1A2234] dark:bg-[#15151f]">
-        <div className="px-4 md:px-16 py-5">
-          <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
+        <div className="px-4 md:px-16 py-4 md:py-5">
+          <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-2 md:gap-4">
             <Link
               href="/"
-              className="text-white font-mono text-xl font-bold hover:opacity-80 transition-opacity"
+              className="text-white font-mono text-base md:text-xl font-bold hover:opacity-80 transition-opacity"
             >
               NHAN.NGUYEN
             </Link>
-            <div className="flex items-center gap-4 md:gap-10">
+            <div className="flex items-center gap-2 md:gap-10">
               <Link
                 href="/"
-                className="text-white font-mono uppercase hover:opacity-80 transition-opacity"
+                className="text-white font-mono text-xs md:text-base uppercase hover:opacity-80 transition-opacity"
               >
                 Portfolio
               </Link>
-              <span className="text-white font-mono uppercase font-bold border-b-2">
+              <span className="text-white font-mono text-xs md:text-base uppercase font-bold border-b-2">
                 Contributions
               </span>
               <ThemeToggle />
@@ -71,9 +71,11 @@ const ContributionsShowcase = () => {
       <main className="pt-24 md:pt-28 pb-16 px-4 md:px-16">
         <div className="max-w-[1440px] mx-auto">
           {/* Page header */}
-          <header className="mb-12">
-            <h1 className="text-3xl md:text-5xl font-bold mb-4">Open Source Contributions</h1>
-            <p className="text-[#666] dark:text-[#a0a0a0] text-lg max-w-2xl">
+          <header className="mb-8 md:mb-12">
+            <h1 className="text-2xl md:text-5xl font-bold mb-3 md:mb-4">
+              Open Source Contributions
+            </h1>
+            <p className="text-[#666] dark:text-[#a0a0a0] text-sm md:text-lg max-w-2xl">
               A showcase of my contributions to open source projects including React Native,
               Kubernetes, Go, and LangChain. Click on any contribution to view the code changes.
             </p>
