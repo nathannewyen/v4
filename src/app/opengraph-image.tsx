@@ -22,6 +22,7 @@ export default async function Image() {
         justifyContent: "center",
         backgroundColor: "#f5f5f5",
         padding: "80px",
+        fontFamily: "monospace",
       }}
     >
       {/* Name */}
@@ -38,6 +39,7 @@ export default async function Image() {
             fontWeight: 900,
             color: "#1A2234",
             lineHeight: 1,
+            fontFamily: "monospace",
           }}
         >
           NHAN
@@ -48,6 +50,7 @@ export default async function Image() {
             fontWeight: 900,
             color: "#1A2234",
             lineHeight: 1,
+            fontFamily: "monospace",
           }}
         >
           NGUYEN
@@ -72,6 +75,7 @@ export default async function Image() {
           color: "#1A2234",
           textTransform: "uppercase",
           marginBottom: "16px",
+          fontFamily: "monospace",
         }}
       >
         Software Engineer @ JPMorgan Chase
@@ -81,45 +85,12 @@ export default async function Image() {
       <span
         style={{
           fontSize: "24px",
-          color: "#1A2234",
+          color: "#666",
+          fontFamily: "monospace",
         }}
       >
-        AI/ML/Engineer. Interested in AI agents, drones, rockets, and software development.
+        Open source contributor to React Native, Kubernetes, Go, and LangChain.
       </span>
-
-      {/* Decorative boxes */}
-      <div
-        style={{
-          position: "absolute",
-          right: "80px",
-          top: "120px",
-          width: "300px",
-          height: "300px",
-          backgroundColor: "#E2E8F0",
-          border: "4px solid #1A2234",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <span style={{ fontSize: "48px", fontWeight: 700, color: "#1A2234" }}>AI</span>
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          right: "200px",
-          bottom: "80px",
-          width: "200px",
-          height: "200px",
-          backgroundColor: "#CBD5E1",
-          border: "4px solid #1A2234",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <span style={{ fontSize: "36px", fontWeight: 700, color: "#1A2234" }}>OSS</span>
-      </div>
     </div>,
     {
       ...size,
