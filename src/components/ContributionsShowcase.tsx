@@ -11,7 +11,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import Skeleton from "@/components/Skeleton";
 
 // Number of contributions to display per page
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 10;
 
 // Main contributions showcase component
 const ContributionsShowcase = () => {
