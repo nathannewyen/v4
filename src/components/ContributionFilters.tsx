@@ -1,6 +1,6 @@
 "use client";
 
-import { SOCIAL_LINKS } from "@/constants";
+import { SOCIAL_LINKS, CONTRIBUTION_SOURCES } from "@/constants";
 
 interface ContributionFiltersProps {
   projects: string[];
@@ -22,8 +22,6 @@ const ContributionFilters = ({
   onSourceChange,
   onSortChange,
 }: ContributionFiltersProps) => {
-  const sources = ["all", "github", "gerrit"];
-
   // Select dropdown style - custom arrow with proper spacing
   const selectStyle =
     "w-full sm:w-auto pl-3 pr-10 py-2 text-sm font-mono bg-white dark:bg-[#2a2a3e] text-[#1A2234] dark:text-white border border-[#e0e0e0] dark:border-[#3a3a4e] cursor-pointer focus:outline-none focus:border-[#1A2234] dark:focus:border-white appearance-none bg-no-repeat bg-[length:16px_16px] bg-[position:right_0.75rem_center] bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%23666%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.168l3.71-3.938a.75.75%200%20111.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] dark:bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%23999%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.168l3.71-3.938a.75.75%200%20111.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')]";
@@ -42,8 +40,14 @@ const ContributionFilters = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:items-center lg:justify-between gap-4">
         {/* Project filter */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-          <span className="text-xs text-[#888] dark:text-[#777] uppercase">Project:</span>
+          <label
+            htmlFor="project-filter"
+            className="text-xs text-[#888] dark:text-[#777] uppercase"
+          >
+            Project:
+          </label>
           <select
+            id="project-filter"
             value={selectedProject}
             onChange={(e) => onProjectChange(e.target.value)}
             className={selectStyle}
@@ -59,8 +63,11 @@ const ContributionFilters = ({
 
         {/* Sort filter */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-          <span className="text-xs text-[#888] dark:text-[#777] uppercase">Sort:</span>
+          <label htmlFor="sort-filter" className="text-xs text-[#888] dark:text-[#777] uppercase">
+            Sort:
+          </label>
           <select
+            id="sort-filter"
             value={sortOrder}
             onChange={(e) => onSortChange(e.target.value as "newest" | "oldest")}
             className={selectStyle}
@@ -72,13 +79,16 @@ const ContributionFilters = ({
 
         {/* Source filter - full width row on mobile */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:col-span-2 lg:col-span-1">
-          <span className="text-xs text-[#888] dark:text-[#777] uppercase">Source:</span>
-          <div className="flex gap-1">
-            {sources.map((source) => (
+          <span id="source-filter-label" className="text-xs text-[#888] dark:text-[#777] uppercase">
+            Source:
+          </span>
+          <div className="flex gap-1" role="group" aria-labelledby="source-filter-label">
+            {CONTRIBUTION_SOURCES.map((source) => (
               <button
                 key={source}
                 className={getButtonStyle(selectedSource === source)}
                 onClick={() => onSourceChange(source)}
+                aria-pressed={selectedSource === source}
               >
                 {source === "all" ? "All" : source.charAt(0).toUpperCase() + source.slice(1)}
               </button>
@@ -96,6 +106,7 @@ const ContributionFilters = ({
           href={SOCIAL_LINKS.github}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="View GitHub Profile (opens in new tab)"
           className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-mono font-bold text-white bg-[#24292f] hover:bg-[#32383f] dark:bg-[#f0f6fc] dark:text-[#24292f] dark:hover:bg-[#d0d7de] transition-colors"
         >
           {/* GitHub logo icon */}

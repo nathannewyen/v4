@@ -1,64 +1,54 @@
 "use client";
 
+import { memo } from "react";
 import { Contribution } from "@/types";
-import { PROJECT_COLORS } from "@/constants";
+import { PROJECT_COLORS, STATUS_CONFIG, ANIMATION_DELAY_MS } from "@/constants";
 
 interface ContributionCardProps {
   contribution: Contribution;
   index: number;
 }
 
-// GitHub-style PR status icon component
-const PRStatusIcon = ({ status }: { status: "merged" | "open" | "closed" }) => {
-  if (status === "merged") {
-    // Purple merge icon - like GitHub merged PRs
-    return (
-      <svg className="w-5 h-5 text-purple-600" viewBox="0 0 16 16" fill="currentColor">
-        <path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.734 5.734 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218ZM4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM5 3.25a.75.75 0 1 0 0 .005V3.25Z" />
-      </svg>
-    );
-  }
+// SVG path data for each status icon
+const STATUS_ICON_PATHS = {
+  merged:
+    "M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.734 5.734 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218ZM4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM5 3.25a.75.75 0 1 0 0 .005V3.25Z",
+  closed:
+    "M3.25 1A2.25 2.25 0 0 1 4 5.372v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.251 2.251 0 0 1 3.25 1Zm9.5 5.5a.75.75 0 0 1 .75.75v3.378a2.251 2.251 0 1 1-1.5 0V7.25a.75.75 0 0 1 .75-.75Zm-2.03-5.273a.75.75 0 0 1 1.06 0l.97.97.97-.97a.749.749 0 1 1 1.06 1.06l-.97.97.97.97a.749.749 0 1 1-1.06 1.06l-.97-.97-.97.97a.749.749 0 1 1-1.06-1.06l.97-.97-.97-.97a.75.75 0 0 1 0-1.06ZM3.25 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm9.5 0a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z",
+  open: "M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z",
+} as const;
 
-  if (status === "closed") {
-    // Red closed PR icon
-    return (
-      <svg className="w-5 h-5 text-red-600" viewBox="0 0 16 16" fill="currentColor">
-        <path d="M3.25 1A2.25 2.25 0 0 1 4 5.372v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.251 2.251 0 0 1 3.25 1Zm9.5 5.5a.75.75 0 0 1 .75.75v3.378a2.251 2.251 0 1 1-1.5 0V7.25a.75.75 0 0 1 .75-.75Zm-2.03-5.273a.75.75 0 0 1 1.06 0l.97.97.97-.97a.749.749 0 1 1 1.06 1.06l-.97.97.97.97a.749.749 0 1 1-1.06 1.06l-.97-.97-.97.97a.749.749 0 1 1-1.06-1.06l.97-.97-.97-.97a.75.75 0 0 1 0-1.06ZM3.25 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm9.5 0a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z" />
-      </svg>
-    );
-  }
-
-  // Green open PR icon - "In Review"
+// GitHub-style PR status icon component using consolidated config
+const PRStatusIcon = ({ status }: { status: Contribution["status"] }) => {
+  const statusConfig = STATUS_CONFIG[status];
   return (
-    <svg className="w-5 h-5 text-green-600" viewBox="0 0 16 16" fill="currentColor">
-      <path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z" />
+    <svg className={`w-5 h-5 ${statusConfig.iconColor}`} viewBox="0 0 16 16" fill="currentColor">
+      <path d={STATUS_ICON_PATHS[status]} />
     </svg>
   );
 };
 
-// Status label text based on status
-const getStatusLabel = (status: "merged" | "open" | "closed"): string => {
-  if (status === "merged") return "Merged";
-  if (status === "closed") return "Closed";
-  return "In Review";
+// Default colors for projects not in PROJECT_COLORS
+const DEFAULT_PROJECT_COLORS = {
+  primary: "#6B7280",
+  background: "bg-gray-500/10",
+  text: "text-gray-600 dark:text-gray-400",
+  border: "border-gray-500/30",
 };
 
-// Status color classes
-const getStatusColor = (status: "merged" | "open" | "closed"): string => {
-  if (status === "merged") return "text-purple-600 dark:text-purple-400";
-  if (status === "closed") return "text-red-600 dark:text-red-400";
-  return "text-green-600 dark:text-green-400";
-};
+// GitHub-style contribution card component - memoized to prevent unnecessary re-renders
+const ContributionCard = memo(function ContributionCard({
+  contribution,
+  index,
+}: ContributionCardProps) {
+  // Get project-specific colors, use default for unknown projects
+  const projectKey = contribution.repoName as keyof typeof PROJECT_COLORS;
+  const projectColors = PROJECT_COLORS[projectKey]
+    ? PROJECT_COLORS[projectKey]
+    : DEFAULT_PROJECT_COLORS;
 
-// GitHub-style contribution card component
-const ContributionCard = ({ contribution, index }: ContributionCardProps) => {
-  // Get project-specific colors with fallback for unknown projects
-  const projectColors = PROJECT_COLORS[contribution.repoName as keyof typeof PROJECT_COLORS] ?? {
-    primary: "#6B7280",
-    background: "bg-gray-500/10",
-    text: "text-gray-600 dark:text-gray-400",
-    border: "border-gray-500/30",
-  };
+  // Get status configuration from centralized config
+  const statusConfig = STATUS_CONFIG[contribution.status];
 
   // Format the date for display
   const formattedDate = new Date(contribution.date).toLocaleDateString("en-US", {
@@ -68,13 +58,14 @@ const ContributionCard = ({ contribution, index }: ContributionCardProps) => {
   });
 
   // Calculate animation delay based on card index for staggered entrance
-  const animationDelay = `${index * 50}ms`;
+  const animationDelay = `${index * ANIMATION_DELAY_MS}ms`;
 
   return (
     <a
       href={contribution.url}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label={`View pull request: ${contribution.title} (opens in new tab)`}
       className="group block bg-white dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-md hover:border-[#0969da] dark:hover:border-[#58a6ff] transition-all duration-200 animate-fadeIn"
       style={{ animationDelay }}
     >
@@ -94,8 +85,8 @@ const ContributionCard = ({ contribution, index }: ContributionCardProps) => {
                 {contribution.repo}
               </span>
               <span className="text-xs text-[#57606a] dark:text-[#8b949e]">•</span>
-              <span className={`text-xs font-medium ${getStatusColor(contribution.status)}`}>
-                {getStatusLabel(contribution.status)}
+              <span className={`text-xs font-medium ${statusConfig.color}`}>
+                {statusConfig.label}
               </span>
             </div>
 
@@ -138,6 +129,6 @@ const ContributionCard = ({ contribution, index }: ContributionCardProps) => {
       </div>
     </a>
   );
-};
+});
 
 export default ContributionCard;

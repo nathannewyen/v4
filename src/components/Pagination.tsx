@@ -42,6 +42,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
       <button
         onClick={handlePreviousClick}
         disabled={isFirstPage}
+        aria-label="Go to previous page"
         className={isFirstPage ? buttonDisabledStyle : buttonActiveStyle}
       >
         ← Previous
@@ -56,6 +57,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
       <button
         onClick={handleNextClick}
         disabled={isLastPage}
+        aria-label="Go to next page"
         className={isLastPage ? buttonDisabledStyle : buttonActiveStyle}
       >
         Next →

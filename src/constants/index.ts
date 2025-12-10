@@ -138,21 +138,27 @@ export const PROJECT_COLORS = {
   },
 } as const;
 
-// Contribution status colors
-export const STATUS_COLORS = {
+// Contribution status configuration - unified config for labels, colors, and icon styles
+export const STATUS_CONFIG = {
   merged: {
-    background: "bg-green-500/10",
-    text: "text-green-600 dark:text-green-400",
-    border: "border-green-500/30",
+    label: "Merged",
+    color: "text-purple-600 dark:text-purple-400",
+    iconColor: "text-purple-600",
   },
   open: {
-    background: "bg-yellow-500/10",
-    text: "text-yellow-600 dark:text-yellow-400",
-    border: "border-yellow-500/30",
+    label: "In Review",
+    color: "text-green-600 dark:text-green-400",
+    iconColor: "text-green-600",
   },
   closed: {
-    background: "bg-gray-500/10",
-    text: "text-gray-600 dark:text-gray-400",
-    border: "border-gray-500/30",
+    label: "Closed",
+    color: "text-red-600 dark:text-red-400",
+    iconColor: "text-red-600",
   },
 } as const;
+
+// Contribution sources for filter dropdown
+export const CONTRIBUTION_SOURCES = ["all", "github", "gerrit"] as const;
+
+// Animation timing
+export const ANIMATION_DELAY_MS = 50;
