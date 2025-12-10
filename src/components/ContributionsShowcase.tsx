@@ -36,9 +36,9 @@ const ContributionsShowcase = () => {
 
   // Filter and sort contributions based on selected options
   const filteredContributions = useMemo(() => {
-    // Apply filters
+    // Apply filters - match against full repo path (e.g., "langchain-ai/langchain")
     const filtered = contributions.filter((contribution) => {
-      const matchesProject = selectedProject === "all" || contribution.repoName === selectedProject;
+      const matchesProject = selectedProject === "all" || contribution.repo === selectedProject;
       const matchesSource = selectedSource === "all" || contribution.source === selectedSource;
       return matchesProject && matchesSource;
     });

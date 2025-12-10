@@ -253,6 +253,7 @@ const useGitHubContributions = (): UseGitHubContributionsResult => {
 export default useGitHubContributions;
 
 // Export helper to get unique projects from contributions
+// Get unique projects for filter dropdown - returns full repo paths (e.g., "langchain-ai/langchain")
 export const getUniqueProjects = (contributionsList: Contribution[]): string[] => {
-  return [...new Set(contributionsList.map((c) => c.repoName))];
+  return [...new Set(contributionsList.map((c) => c.repo))];
 };
