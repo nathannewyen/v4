@@ -23,6 +23,7 @@ const ContributionsShowcase = () => {
   const [selectedProject, setSelectedProject] = useState("all");
   const [selectedSource, setSelectedSource] = useState("all");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,7 +31,7 @@ const ContributionsShowcase = () => {
   // Reset to first page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedProject, selectedSource, sortOrder]);
+  }, [selectedProject, selectedSource, sortOrder, selectedDate]);
 
   // Get unique projects for filter options
   const projects = useMemo(() => getUniqueProjects(contributions), [contributions]);
@@ -41,7 +42,8 @@ const ContributionsShowcase = () => {
     const filtered = contributions.filter((contribution) => {
       const matchesProject = selectedProject === "all" || contribution.repo === selectedProject;
       const matchesSource = selectedSource === "all" || contribution.source === selectedSource;
-      return matchesProject && matchesSource;
+      const matchesDate = selectedDate === null || contribution.date === selectedDate;
+      return matchesProject && matchesSource && matchesDate;
     });
 
     // Apply sorting
@@ -50,7 +52,7 @@ const ContributionsShowcase = () => {
       const dateB = new Date(b.date).getTime();
       return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
     });
-  }, [contributions, selectedProject, selectedSource, sortOrder]);
+  }, [contributions, selectedProject, selectedSource, sortOrder, selectedDate]);
 
   // Calculate pagination values
   const totalPages = Math.ceil(filteredContributions.length / ITEMS_PER_PAGE);
@@ -103,7 +105,11 @@ const ContributionsShowcase = () => {
               {/* Heatmap aligned with description (hidden on mobile/tablet) */}
               {!isLoading && contributions.length > 0 && (
                 <div className="hidden lg:block flex-shrink-0">
-                  <ContributionHeatmap contributions={contributions} />
+                  <ContributionHeatmap
+                    contributions={contributions}
+                    selectedDate={selectedDate}
+                    onDateSelect={setSelectedDate}
+                  />
                 </div>
               )}
             </div>

@@ -5,6 +5,8 @@ import { Contribution } from "@/types";
 
 interface ContributionHeatmapProps {
   contributions: Contribution[];
+  selectedDate: string | null;
+  onDateSelect: (date: string | null) => void;
 }
 
 // Tooltip state interface
@@ -59,7 +61,11 @@ const formatDateForTooltip = (dateString: string): string => {
 };
 
 // GitHub-style contribution heatmap component
-const ContributionHeatmap = ({ contributions }: ContributionHeatmapProps) => {
+const ContributionHeatmap = ({
+  contributions,
+  selectedDate,
+  onDateSelect,
+}: ContributionHeatmapProps) => {
   // State for custom tooltip (instant display on hover)
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
 
@@ -143,6 +149,17 @@ const ContributionHeatmap = ({ contributions }: ContributionHeatmapProps) => {
     setTooltip(null);
   };
 
+  // Handle click on cell - toggle date filter
+  const handleCellClick = (date: string) => {
+    if (selectedDate === date) {
+      // Click same date again to clear filter
+      onDateSelect(null);
+    } else {
+      // Click new date to filter
+      onDateSelect(date);
+    }
+  };
+
   return (
     <div className="relative flex flex-col gap-2">
       {/* Custom tooltip - instant display */}
@@ -173,14 +190,18 @@ const ContributionHeatmap = ({ contributions }: ContributionHeatmapProps) => {
       <div className="flex gap-[3px]">
         {grid.map((column, colIndex) => (
           <div key={colIndex} className="flex flex-col gap-[3px]">
-            {column.map((day) => (
-              <div
-                key={day.date}
-                className={`w-[10px] h-[10px] rounded-[2px] ${getColorClass(day.count)} cursor-pointer`}
-                onMouseEnter={(e) => handleMouseEnter(e, day.date, day.count)}
-                onMouseLeave={handleMouseLeave}
-              />
-            ))}
+            {column.map((day) => {
+              const isSelected = selectedDate === day.date;
+              return (
+                <div
+                  key={day.date}
+                  className={`w-[10px] h-[10px] rounded-[2px] ${getColorClass(day.count)} cursor-pointer ${isSelected ? "ring-2 ring-blue-500 ring-offset-1" : ""}`}
+                  onMouseEnter={(e) => handleMouseEnter(e, day.date, day.count)}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={() => handleCellClick(day.date)}
+                />
+              );
+            })}
           </div>
         ))}
       </div>
