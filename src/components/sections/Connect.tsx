@@ -1,7 +1,7 @@
 "use client";
 
 import { SOCIAL_LINKS } from "@/constants";
-import { GitHubIcon, XIcon, EmailIcon } from "@/components/icons";
+import { GitHubIcon, XIcon, LinkedInIcon, EmailIcon } from "@/components/icons";
 import { useScrollAnimation } from "@/hooks";
 
 // Connect section - Contact links in single line
@@ -34,6 +34,14 @@ const Connect = () => {
           >
             <XIcon className="w-7 h-7" />
             <span>x.com/nathannewyenn</span>
+          </a>
+          {/* LinkedIn link with icon */}
+          <a
+            href={SOCIAL_LINKS.linkedin}
+            className="flex items-center gap-3 text-lg text-[#1A2234] dark:text-white hover:underline transition-colors"
+          >
+            <LinkedInIcon className="w-7 h-7" />
+            <span>linkedin.com/nhannguyen3112</span>
           </a>
           {/* Email link with icon */}
           <a
