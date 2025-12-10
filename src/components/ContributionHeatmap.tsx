@@ -1,10 +1,18 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Contribution } from "@/types";
 
 interface ContributionHeatmapProps {
   contributions: Contribution[];
+}
+
+// Tooltip state interface
+interface TooltipState {
+  date: string;
+  count: number;
+  x: number;
+  y: number;
 }
 
 // Number of weeks to display in the heatmap
@@ -52,6 +60,9 @@ const formatDateForTooltip = (dateString: string): string => {
 
 // GitHub-style contribution heatmap component
 const ContributionHeatmap = ({ contributions }: ContributionHeatmapProps) => {
+  // State for custom tooltip (instant display on hover)
+  const [tooltip, setTooltip] = useState<TooltipState | null>(null);
+
   // Build grid with 4 rows and multiple columns
   const { grid, totalContributions } = useMemo(() => {
     // Create a map of date string -> contribution count
@@ -112,8 +123,52 @@ const ContributionHeatmap = ({ contributions }: ContributionHeatmapProps) => {
     return { grid: columns, totalContributions: totalCount };
   }, [contributions]);
 
+  // Handle mouse enter on cell - show tooltip instantly
+  const handleMouseEnter = (
+    event: React.MouseEvent<HTMLDivElement>,
+    date: string,
+    count: number
+  ) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setTooltip({
+      date,
+      count,
+      x: rect.left + rect.width / 2,
+      y: rect.top,
+    });
+  };
+
+  // Handle mouse leave - hide tooltip
+  const handleMouseLeave = () => {
+    setTooltip(null);
+  };
+
   return (
-    <div className="flex flex-col gap-2">
+    <div className="relative flex flex-col gap-2">
+      {/* Custom tooltip - instant display */}
+      {tooltip && (
+        <div
+          className="fixed z-50 px-2 py-1 text-xs text-white bg-[#24292f] rounded shadow-lg whitespace-nowrap pointer-events-none"
+          style={{
+            left: tooltip.x,
+            top: tooltip.y - 8,
+            transform: "translate(-50%, -100%)",
+          }}
+        >
+          {tooltip.count} contribution{tooltip.count !== 1 ? "s" : ""} on{" "}
+          {formatDateForTooltip(tooltip.date)}
+          {/* Tooltip arrow */}
+          <div
+            className="absolute left-1/2 bottom-0 w-0 h-0 -translate-x-1/2 translate-y-full"
+            style={{
+              borderLeft: "4px solid transparent",
+              borderRight: "4px solid transparent",
+              borderTop: "4px solid #24292f",
+            }}
+          />
+        </div>
+      )}
+
       {/* Heatmap grid - columns left to right, 4 rows each */}
       <div className="flex gap-[3px]">
         {grid.map((column, colIndex) => (
@@ -121,8 +176,9 @@ const ContributionHeatmap = ({ contributions }: ContributionHeatmapProps) => {
             {column.map((day) => (
               <div
                 key={day.date}
-                className={`w-[10px] h-[10px] rounded-sm ${getColorClass(day.count)}`}
-                title={`${day.count} contribution${day.count !== 1 ? "s" : ""} on ${formatDateForTooltip(day.date)}`}
+                className={`w-[10px] h-[10px] rounded-[1px] ${getColorClass(day.count)} cursor-pointer`}
+                onMouseEnter={(e) => handleMouseEnter(e, day.date, day.count)}
+                onMouseLeave={handleMouseLeave}
               />
             ))}
           </div>
@@ -135,19 +191,19 @@ const ContributionHeatmap = ({ contributions }: ContributionHeatmapProps) => {
         <div className="flex items-center gap-1">
           <span>Less</span>
           <div
-            className={`w-[10px] h-[10px] rounded-sm ${HEATMAP_COLORS.light.empty} dark:${HEATMAP_COLORS.dark.empty}`}
+            className={`w-[10px] h-[10px] rounded-[1px] ${HEATMAP_COLORS.light.empty} dark:${HEATMAP_COLORS.dark.empty}`}
           />
           <div
-            className={`w-[10px] h-[10px] rounded-sm ${HEATMAP_COLORS.light.level1} dark:${HEATMAP_COLORS.dark.level1}`}
+            className={`w-[10px] h-[10px] rounded-[1px] ${HEATMAP_COLORS.light.level1} dark:${HEATMAP_COLORS.dark.level1}`}
           />
           <div
-            className={`w-[10px] h-[10px] rounded-sm ${HEATMAP_COLORS.light.level2} dark:${HEATMAP_COLORS.dark.level2}`}
+            className={`w-[10px] h-[10px] rounded-[1px] ${HEATMAP_COLORS.light.level2} dark:${HEATMAP_COLORS.dark.level2}`}
           />
           <div
-            className={`w-[10px] h-[10px] rounded-sm ${HEATMAP_COLORS.light.level3} dark:${HEATMAP_COLORS.dark.level3}`}
+            className={`w-[10px] h-[10px] rounded-[1px] ${HEATMAP_COLORS.light.level3} dark:${HEATMAP_COLORS.dark.level3}`}
           />
           <div
-            className={`w-[10px] h-[10px] rounded-sm ${HEATMAP_COLORS.light.level4} dark:${HEATMAP_COLORS.dark.level4}`}
+            className={`w-[10px] h-[10px] rounded-[1px] ${HEATMAP_COLORS.light.level4} dark:${HEATMAP_COLORS.dark.level4}`}
           />
           <span>More</span>
         </div>
