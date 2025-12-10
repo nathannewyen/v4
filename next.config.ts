@@ -11,6 +11,8 @@ const withPWA = withPWAInit({
 });
 
 const nextConfig: NextConfig = {
+  // Disable source maps in production to protect code from being copied
+  productionBrowserSourceMaps: false,
   // Empty turbopack config to allow both turbopack and webpack plugins
   turbopack: {},
   // Security headers for production
