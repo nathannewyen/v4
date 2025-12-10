@@ -8,7 +8,7 @@ interface ContributionHeatmapProps {
 }
 
 // Number of weeks to display in the heatmap
-const WEEKS_TO_DISPLAY = 16;
+const WEEKS_TO_DISPLAY = 17;
 
 // GitHub-style color levels for contribution intensity
 const HEATMAP_COLORS = {
@@ -37,16 +37,35 @@ const getColorClass = (count: number): string => {
   return `${HEATMAP_COLORS.light.level4} dark:${HEATMAP_COLORS.dark.level4}`;
 };
 
-// Format date as YYYY-MM-DD for consistent comparison
-const formatDateKey = (date: Date): string => {
-  return date.toISOString().split("T")[0];
+// Format date for tooltip display (e.g., "November 20th")
+const formatDateForTooltip = (dateString: string): string => {
+  const date = new Date(dateString + "T00:00:00");
+  const month = date.toLocaleDateString("en-US", { month: "long" });
+  const day = date.getDate();
+
+  // Add ordinal suffix (st, nd, rd, th)
+  const ordinalSuffix = (n: number): string => {
+    if (n > 3 && n < 21) return "th";
+    switch (n % 10) {
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
+    }
+  };
+
+  return `${month} ${day}${ordinalSuffix(day)}`;
 };
 
 // GitHub-style contribution heatmap component
 const ContributionHeatmap = ({ contributions }: ContributionHeatmapProps) => {
-  // Group contributions by date and generate heatmap data
-  const heatmapData = useMemo(() => {
-    // Create a map of date -> contribution count
+  // Build weeks array with proper structure (each week has 7 days, Sun-Sat)
+  const { weeks, totalContributions } = useMemo(() => {
+    // Create a map of date string -> contribution count
     const contributionsByDate = new Map<string, number>();
     contributions.forEach((contribution) => {
       const dateKey = contribution.date;
@@ -58,56 +77,59 @@ const ContributionHeatmap = ({ contributions }: ContributionHeatmapProps) => {
       }
     });
 
-    // Generate grid data for the last N weeks
+    // Calculate the end date (today) and start date (beginning of week, N weeks ago)
     const today = new Date();
-    const gridData: { date: string; count: number; dayOfWeek: number }[] = [];
+    today.setHours(0, 0, 0, 0);
 
-    // Calculate the start date (beginning of the week, N weeks ago)
+    // Start from the beginning of the week containing (today - WEEKS_TO_DISPLAY weeks)
     const startDate = new Date(today);
-    startDate.setDate(startDate.getDate() - WEEKS_TO_DISPLAY * 7 - today.getDay());
+    startDate.setDate(today.getDate() - WEEKS_TO_DISPLAY * 7 + (7 - today.getDay()));
 
-    // Generate data for each day in the range
+    // Adjust to start on Sunday
+    const dayOfWeek = startDate.getDay();
+    startDate.setDate(startDate.getDate() - dayOfWeek);
+
+    // Generate weeks array - each week is a column with 7 days (Sun=0 to Sat=6)
+    const weeksArray: { date: string; count: number; dayOfWeek: number }[][] = [];
     const currentDate = new Date(startDate);
+    let totalCount = 0;
+
     while (currentDate <= today) {
-      const dateKey = formatDateKey(currentDate);
-      const contributionCount = contributionsByDate.get(dateKey);
-      gridData.push({
-        date: dateKey,
-        count: contributionCount !== undefined ? contributionCount : 0,
-        dayOfWeek: currentDate.getDay(),
-      });
-      currentDate.setDate(currentDate.getDate() + 1);
+      const week: { date: string; count: number; dayOfWeek: number }[] = [];
+
+      // Fill 7 days for this week
+      for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
+        // Only add days that are not in the future
+        if (currentDate <= today) {
+          const year = currentDate.getFullYear();
+          const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+          const day = String(currentDate.getDate()).padStart(2, "0");
+          const dateKey = `${year}-${month}-${day}`;
+
+          const contributionCount = contributionsByDate.get(dateKey);
+          const count = contributionCount !== undefined ? contributionCount : 0;
+          totalCount += count;
+
+          week.push({
+            date: dateKey,
+            count: count,
+            dayOfWeek: currentDate.getDay(),
+          });
+        }
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+
+      if (week.length > 0) {
+        weeksArray.push(week);
+      }
     }
 
-    return gridData;
+    return { weeks: weeksArray, totalContributions: totalCount };
   }, [contributions]);
-
-  // Organize data into weeks (columns) for CSS grid display
-  const weeks = useMemo(() => {
-    const weekColumns: { date: string; count: number }[][] = [];
-    let currentWeek: { date: string; count: number }[] = [];
-
-    heatmapData.forEach((day, index) => {
-      currentWeek.push({ date: day.date, count: day.count });
-
-      // Start a new week after Sunday (day 6) or at the end
-      if (day.dayOfWeek === 6 || index === heatmapData.length - 1) {
-        weekColumns.push(currentWeek);
-        currentWeek = [];
-      }
-    });
-
-    return weekColumns;
-  }, [heatmapData]);
-
-  // Calculate total contributions for display
-  const totalContributions = useMemo(() => {
-    return heatmapData.reduce((sum, day) => sum + day.count, 0);
-  }, [heatmapData]);
 
   return (
     <div className="flex flex-col gap-2">
-      {/* Heatmap grid container */}
+      {/* Heatmap grid - weeks as columns, days as rows */}
       <div className="flex gap-[3px]">
         {weeks.map((week, weekIndex) => (
           <div key={weekIndex} className="flex flex-col gap-[3px]">
@@ -115,17 +137,36 @@ const ContributionHeatmap = ({ contributions }: ContributionHeatmapProps) => {
               <div
                 key={day.date}
                 className={`w-[10px] h-[10px] rounded-sm ${getColorClass(day.count)}`}
-                title={`${day.date}: ${day.count} contribution${day.count !== 1 ? "s" : ""}`}
+                title={`${day.count} contribution${day.count !== 1 ? "s" : ""} on ${formatDateForTooltip(day.date)}`}
               />
             ))}
           </div>
         ))}
       </div>
 
-      {/* Total contributions label */}
-      <p className="text-xs text-[#57606a] dark:text-[#8b949e] text-right">
-        {totalContributions} contributions in the last {WEEKS_TO_DISPLAY} weeks
-      </p>
+      {/* Legend row */}
+      <div className="flex items-center justify-between text-xs text-[#57606a] dark:text-[#8b949e]">
+        <span>{totalContributions} contributions</span>
+        <div className="flex items-center gap-1">
+          <span>Less</span>
+          <div
+            className={`w-[10px] h-[10px] rounded-sm ${HEATMAP_COLORS.light.empty} dark:${HEATMAP_COLORS.dark.empty}`}
+          />
+          <div
+            className={`w-[10px] h-[10px] rounded-sm ${HEATMAP_COLORS.light.level1} dark:${HEATMAP_COLORS.dark.level1}`}
+          />
+          <div
+            className={`w-[10px] h-[10px] rounded-sm ${HEATMAP_COLORS.light.level2} dark:${HEATMAP_COLORS.dark.level2}`}
+          />
+          <div
+            className={`w-[10px] h-[10px] rounded-sm ${HEATMAP_COLORS.light.level3} dark:${HEATMAP_COLORS.dark.level3}`}
+          />
+          <div
+            className={`w-[10px] h-[10px] rounded-sm ${HEATMAP_COLORS.light.level4} dark:${HEATMAP_COLORS.dark.level4}`}
+          />
+          <span>More</span>
+        </div>
+      </div>
     </div>
   );
 };
