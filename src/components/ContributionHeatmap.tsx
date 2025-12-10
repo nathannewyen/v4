@@ -8,7 +8,10 @@ interface ContributionHeatmapProps {
 }
 
 // Number of weeks to display in the heatmap
-const WEEKS_TO_DISPLAY = 17;
+const WEEKS_TO_DISPLAY = 26;
+
+// Number of rows to display (4 rows instead of 7 days)
+const ROWS_TO_DISPLAY = 4;
 
 // GitHub-style color levels for contribution intensity
 const HEATMAP_COLORS = {
@@ -37,34 +40,20 @@ const getColorClass = (count: number): string => {
   return `${HEATMAP_COLORS.light.level4} dark:${HEATMAP_COLORS.dark.level4}`;
 };
 
-// Format date for tooltip display (e.g., "November 20th")
+// Format date for tooltip display like GitHub (e.g., "Nov 20, 2024")
 const formatDateForTooltip = (dateString: string): string => {
   const date = new Date(dateString + "T00:00:00");
-  const month = date.toLocaleDateString("en-US", { month: "long" });
-  const day = date.getDate();
-
-  // Add ordinal suffix (st, nd, rd, th)
-  const ordinalSuffix = (n: number): string => {
-    if (n > 3 && n < 21) return "th";
-    switch (n % 10) {
-      case 1:
-        return "st";
-      case 2:
-        return "nd";
-      case 3:
-        return "rd";
-      default:
-        return "th";
-    }
-  };
-
-  return `${month} ${day}${ordinalSuffix(day)}`;
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 };
 
 // GitHub-style contribution heatmap component
 const ContributionHeatmap = ({ contributions }: ContributionHeatmapProps) => {
-  // Build weeks array with proper structure (each week has 7 days, Sun-Sat)
-  const { weeks, totalContributions } = useMemo(() => {
+  // Build grid with 4 rows and multiple columns
+  const { grid, totalContributions } = useMemo(() => {
     // Create a map of date string -> contribution count
     const contributionsByDate = new Map<string, number>();
     contributions.forEach((contribution) => {
@@ -77,63 +66,59 @@ const ContributionHeatmap = ({ contributions }: ContributionHeatmapProps) => {
       }
     });
 
-    // Calculate the end date (today) and start date (beginning of week, N weeks ago)
+    // Calculate total days to display (WEEKS_TO_DISPLAY * ROWS_TO_DISPLAY gives us total cells)
+    const totalDays = WEEKS_TO_DISPLAY * ROWS_TO_DISPLAY;
+
+    // Start from today and go backwards
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    // Start from the beginning of the week containing (today - WEEKS_TO_DISPLAY weeks)
-    const startDate = new Date(today);
-    startDate.setDate(today.getDate() - WEEKS_TO_DISPLAY * 7 + (7 - today.getDay()));
-
-    // Adjust to start on Sunday
-    const dayOfWeek = startDate.getDay();
-    startDate.setDate(startDate.getDate() - dayOfWeek);
-
-    // Generate weeks array - each week is a column with 7 days (Sun=0 to Sat=6)
-    const weeksArray: { date: string; count: number; dayOfWeek: number }[][] = [];
-    const currentDate = new Date(startDate);
+    // Generate flat array of days going backwards from today
+    const days: { date: string; count: number }[] = [];
     let totalCount = 0;
 
-    while (currentDate <= today) {
-      const week: { date: string; count: number; dayOfWeek: number }[] = [];
+    for (let i = totalDays - 1; i >= 0; i--) {
+      const currentDate = new Date(today);
+      currentDate.setDate(today.getDate() - i);
 
-      // Fill 7 days for this week
-      for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
-        // Only add days that are not in the future
-        if (currentDate <= today) {
-          const year = currentDate.getFullYear();
-          const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-          const day = String(currentDate.getDate()).padStart(2, "0");
-          const dateKey = `${year}-${month}-${day}`;
+      const year = currentDate.getFullYear();
+      const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+      const day = String(currentDate.getDate()).padStart(2, "0");
+      const dateKey = `${year}-${month}-${day}`;
 
-          const contributionCount = contributionsByDate.get(dateKey);
-          const count = contributionCount !== undefined ? contributionCount : 0;
-          totalCount += count;
+      const contributionCount = contributionsByDate.get(dateKey);
+      const count = contributionCount !== undefined ? contributionCount : 0;
+      totalCount += count;
 
-          week.push({
-            date: dateKey,
-            count: count,
-            dayOfWeek: currentDate.getDay(),
-          });
-        }
-        currentDate.setDate(currentDate.getDate() + 1);
-      }
-
-      if (week.length > 0) {
-        weeksArray.push(week);
-      }
+      days.push({
+        date: dateKey,
+        count: count,
+      });
     }
 
-    return { weeks: weeksArray, totalContributions: totalCount };
+    // Organize into columns (each column has ROWS_TO_DISPLAY cells)
+    const columns: { date: string; count: number }[][] = [];
+    for (let col = 0; col < WEEKS_TO_DISPLAY; col++) {
+      const column: { date: string; count: number }[] = [];
+      for (let row = 0; row < ROWS_TO_DISPLAY; row++) {
+        const index = col * ROWS_TO_DISPLAY + row;
+        if (index < days.length) {
+          column.push(days[index]);
+        }
+      }
+      columns.push(column);
+    }
+
+    return { grid: columns, totalContributions: totalCount };
   }, [contributions]);
 
   return (
     <div className="flex flex-col gap-2">
-      {/* Heatmap grid - weeks as columns, days as rows */}
+      {/* Heatmap grid - columns left to right, 4 rows each */}
       <div className="flex gap-[3px]">
-        {weeks.map((week, weekIndex) => (
-          <div key={weekIndex} className="flex flex-col gap-[3px]">
-            {week.map((day) => (
+        {grid.map((column, colIndex) => (
+          <div key={colIndex} className="flex flex-col gap-[3px]">
+            {column.map((day) => (
               <div
                 key={day.date}
                 className={`w-[10px] h-[10px] rounded-sm ${getColorClass(day.count)}`}
