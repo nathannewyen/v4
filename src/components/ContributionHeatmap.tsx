@@ -176,7 +176,7 @@ const ContributionHeatmap = ({ contributions }: ContributionHeatmapProps) => {
             {column.map((day) => (
               <div
                 key={day.date}
-                className={`w-[10px] h-[10px] rounded-[1px] ${getColorClass(day.count)} cursor-pointer`}
+                className={`w-[10px] h-[10px] rounded-[2px] ${getColorClass(day.count)} cursor-pointer`}
                 onMouseEnter={(e) => handleMouseEnter(e, day.date, day.count)}
                 onMouseLeave={handleMouseLeave}
               />
@@ -191,19 +191,19 @@ const ContributionHeatmap = ({ contributions }: ContributionHeatmapProps) => {
         <div className="flex items-center gap-1">
           <span>Less</span>
           <div
-            className={`w-[10px] h-[10px] rounded-[1px] ${HEATMAP_COLORS.light.empty} dark:${HEATMAP_COLORS.dark.empty}`}
+            className={`w-[10px] h-[10px] rounded-[2px] ${HEATMAP_COLORS.light.empty} dark:${HEATMAP_COLORS.dark.empty}`}
           />
           <div
-            className={`w-[10px] h-[10px] rounded-[1px] ${HEATMAP_COLORS.light.level1} dark:${HEATMAP_COLORS.dark.level1}`}
+            className={`w-[10px] h-[10px] rounded-[2px] ${HEATMAP_COLORS.light.level1} dark:${HEATMAP_COLORS.dark.level1}`}
           />
           <div
-            className={`w-[10px] h-[10px] rounded-[1px] ${HEATMAP_COLORS.light.level2} dark:${HEATMAP_COLORS.dark.level2}`}
+            className={`w-[10px] h-[10px] rounded-[2px] ${HEATMAP_COLORS.light.level2} dark:${HEATMAP_COLORS.dark.level2}`}
           />
           <div
-            className={`w-[10px] h-[10px] rounded-[1px] ${HEATMAP_COLORS.light.level3} dark:${HEATMAP_COLORS.dark.level3}`}
+            className={`w-[10px] h-[10px] rounded-[2px] ${HEATMAP_COLORS.light.level3} dark:${HEATMAP_COLORS.dark.level3}`}
           />
           <div
-            className={`w-[10px] h-[10px] rounded-[1px] ${HEATMAP_COLORS.light.level4} dark:${HEATMAP_COLORS.dark.level4}`}
+            className={`w-[10px] h-[10px] rounded-[2px] ${HEATMAP_COLORS.light.level4} dark:${HEATMAP_COLORS.dark.level4}`}
           />
           <span>More</span>
         </div>

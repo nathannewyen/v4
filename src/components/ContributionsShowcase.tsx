@@ -88,19 +88,19 @@ const ContributionsShowcase = () => {
         <div className="max-w-[1440px] mx-auto">
           {/* Page header with contribution heatmap */}
           <header className="mb-8 md:mb-12">
-            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-              {/* Left side - Title and description */}
-              <div>
-                <h1 className="text-2xl md:text-5xl font-bold mb-3 md:mb-4">
-                  Open Source Contributions
-                </h1>
-                <p className="text-[#666] dark:text-[#a0a0a0] text-sm md:text-lg max-w-2xl">
-                  A showcase of my contributions to open source projects including React Native,
-                  Kubernetes, Go, and LangChain. Click on any contribution to view the code changes.
-                </p>
-              </div>
+            {/* Title on its own row */}
+            <h1 className="text-2xl md:text-5xl font-bold mb-3 md:mb-4">
+              Open Source Contributions
+            </h1>
 
-              {/* Right side - Contribution heatmap (hidden on mobile/tablet) */}
+            {/* Description and heatmap on same row */}
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+              <p className="text-[#666] dark:text-[#a0a0a0] text-sm md:text-lg max-w-2xl">
+                A showcase of my contributions to open source projects including React Native,
+                Kubernetes, Go, and LangChain. Click on any contribution to view the code changes.
+              </p>
+
+              {/* Heatmap aligned with description (hidden on mobile/tablet) */}
               {!isLoading && contributions.length > 0 && (
                 <div className="hidden lg:block flex-shrink-0">
                   <ContributionHeatmap contributions={contributions} />
