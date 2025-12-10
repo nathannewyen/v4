@@ -6,6 +6,7 @@ import useGitHubContributions, { getUniqueProjects } from "@/hooks/useGitHubCont
 import ContributionCard from "@/components/ContributionCard";
 import ContributionFilters from "@/components/ContributionFilters";
 import Pagination from "@/components/Pagination";
+import ContributionHeatmap from "@/components/ContributionHeatmap";
 import { Footer } from "@/components/sections";
 import ThemeToggle from "@/components/ThemeToggle";
 import Skeleton from "@/components/Skeleton";
@@ -85,15 +86,27 @@ const ContributionsShowcase = () => {
       {/* Main content */}
       <main className="pt-24 md:pt-28 pb-16 px-4 md:px-16">
         <div className="max-w-[1440px] mx-auto">
-          {/* Page header */}
+          {/* Page header with contribution heatmap */}
           <header className="mb-8 md:mb-12">
-            <h1 className="text-2xl md:text-5xl font-bold mb-3 md:mb-4">
-              Open Source Contributions
-            </h1>
-            <p className="text-[#666] dark:text-[#a0a0a0] text-sm md:text-lg max-w-2xl">
-              A showcase of my contributions to open source projects including React Native,
-              Kubernetes, Go, and LangChain. Click on any contribution to view the code changes.
-            </p>
+            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+              {/* Left side - Title and description */}
+              <div>
+                <h1 className="text-2xl md:text-5xl font-bold mb-3 md:mb-4">
+                  Open Source Contributions
+                </h1>
+                <p className="text-[#666] dark:text-[#a0a0a0] text-sm md:text-lg max-w-2xl">
+                  A showcase of my contributions to open source projects including React Native,
+                  Kubernetes, Go, and LangChain. Click on any contribution to view the code changes.
+                </p>
+              </div>
+
+              {/* Right side - Contribution heatmap (hidden on mobile/tablet) */}
+              {!isLoading && contributions.length > 0 && (
+                <div className="hidden lg:block flex-shrink-0">
+                  <ContributionHeatmap contributions={contributions} />
+                </div>
+              )}
+            </div>
           </header>
 
           {/* Filters section */}
