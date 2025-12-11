@@ -1,7 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { Contribution } from "@/types";
+import { cn } from "@/lib/utils";
+import Skeleton from "@/components/Skeleton";
 
 interface ContributionHeatmapProps {
   contributions: Contribution[];
@@ -73,9 +75,9 @@ const HeatmapSkeleton = () => {
         {Array.from({ length: WEEKS_TO_DISPLAY }).map((_, colIndex) => (
           <div key={colIndex} className="flex flex-col gap-[3px]">
             {Array.from({ length: ROWS_TO_DISPLAY }).map((_, rowIndex) => (
-              <div
+              <Skeleton
                 key={rowIndex}
-                className="w-[10px] h-[10px] rounded-[2px] bg-[#e0e0e0] dark:bg-[#2a2a3e] animate-pulse"
+                className="w-[10px] h-[10px] rounded-[2px]"
                 style={{
                   animationDelay: `${(colIndex * ROWS_TO_DISPLAY + rowIndex) * 10}ms`,
                 }}
@@ -87,16 +89,13 @@ const HeatmapSkeleton = () => {
 
       {/* Skeleton legend */}
       <div className="flex items-center justify-between">
-        <div className="w-24 h-3 bg-[#e0e0e0] dark:bg-[#2a2a3e] rounded animate-pulse" />
+        <Skeleton className="w-24 h-3 rounded" />
         <div className="flex items-center gap-1">
-          <div className="w-8 h-3 bg-[#e0e0e0] dark:bg-[#2a2a3e] rounded animate-pulse" />
+          <Skeleton className="w-8 h-3 rounded" />
           {Array.from({ length: 5 }).map((_, i) => (
-            <div
-              key={i}
-              className="w-[10px] h-[10px] rounded-[2px] bg-[#e0e0e0] dark:bg-[#2a2a3e] animate-pulse"
-            />
+            <Skeleton key={i} className="w-[10px] h-[10px] rounded-[2px]" />
           ))}
-          <div className="w-8 h-3 bg-[#e0e0e0] dark:bg-[#2a2a3e] rounded animate-pulse" />
+          <Skeleton className="w-8 h-3 rounded" />
         </div>
       </div>
     </div>
@@ -173,36 +172,38 @@ const ContributionHeatmap = ({
     return { grid: columns, totalContributions: totalCount };
   }, [contributions]);
 
-  // Handle mouse enter on cell - show tooltip instantly
-  const handleMouseEnter = (
-    event: React.MouseEvent<HTMLDivElement>,
-    date: string,
-    count: number
-  ) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setTooltip({
-      date,
-      count,
-      x: rect.left + rect.width / 2,
-      y: rect.top,
-    });
-  };
+  // Handle mouse enter on cell - show tooltip instantly (memoized to prevent re-renders)
+  const handleMouseEnter = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>, date: string, count: number) => {
+      const rect = event.currentTarget.getBoundingClientRect();
+      setTooltip({
+        date,
+        count,
+        x: rect.left + rect.width / 2,
+        y: rect.top,
+      });
+    },
+    []
+  );
 
-  // Handle mouse leave - hide tooltip
-  const handleMouseLeave = () => {
+  // Handle mouse leave - hide tooltip (memoized to prevent re-renders)
+  const handleMouseLeave = useCallback(() => {
     setTooltip(null);
-  };
+  }, []);
 
-  // Handle click on cell - toggle date filter
-  const handleCellClick = (date: string) => {
-    if (selectedDate === date) {
-      // Click same date again to clear filter
-      onDateSelect(null);
-    } else {
-      // Click new date to filter
-      onDateSelect(date);
-    }
-  };
+  // Handle click on cell - toggle date filter (memoized to prevent re-renders)
+  const handleCellClick = useCallback(
+    (date: string) => {
+      if (selectedDate === date) {
+        // Click same date again to clear filter
+        onDateSelect(null);
+      } else {
+        // Click new date to filter
+        onDateSelect(date);
+      }
+    },
+    [selectedDate, onDateSelect]
+  );
 
   // Show skeleton while loading
   if (isLoading) {
@@ -213,9 +214,10 @@ const ContributionHeatmap = ({
     <div className="relative flex flex-col gap-2" data-testid="contribution-heatmap">
       {/* Custom tooltip with smooth fade-in */}
       <div
-        className={`fixed z-50 px-2 py-1 text-xs text-white bg-[#24292f] rounded shadow-lg whitespace-nowrap pointer-events-none transition-opacity duration-150 ${
+        className={cn(
+          "fixed z-50 px-2 py-1 text-xs text-white bg-[#24292f] rounded shadow-lg whitespace-nowrap pointer-events-none transition-opacity duration-150",
           tooltip ? "opacity-100" : "opacity-0"
-        }`}
+        )}
         style={{
           left: tooltip ? tooltip.x : 0,
           top: tooltip ? tooltip.y - 8 : 0,
@@ -252,9 +254,12 @@ const ContributionHeatmap = ({
                   key={day.date}
                   data-testid="heatmap-cell"
                   data-date={day.date}
-                  className={`w-[10px] h-[10px] rounded-[2px] cursor-pointer transition-all duration-200 animate-fadeIn ${getColorClass(day.count)} ${
-                    isSelected ? "ring-2 ring-blue-500 ring-offset-1 scale-125" : "hover:scale-110"
-                  }`}
+                  className={cn(
+                    "w-[10px] h-[10px] rounded-[2px] cursor-pointer transition-all duration-200 animate-fadeIn",
+                    getColorClass(day.count),
+                    isSelected && "ring-2 ring-blue-500 ring-offset-1 scale-125",
+                    !isSelected && "hover:scale-110"
+                  )}
                   style={{
                     animationDelay: `${cellIndex * CELL_ANIMATION_DELAY}ms`,
                   }}
@@ -274,19 +279,39 @@ const ContributionHeatmap = ({
         <div className="flex items-center gap-1">
           <span>Less</span>
           <div
-            className={`w-[10px] h-[10px] rounded-[2px] transition-colors duration-200 ${HEATMAP_COLORS.light.empty} dark:${HEATMAP_COLORS.dark.empty}`}
+            className={cn(
+              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
+              HEATMAP_COLORS.light.empty,
+              `dark:${HEATMAP_COLORS.dark.empty}`
+            )}
           />
           <div
-            className={`w-[10px] h-[10px] rounded-[2px] transition-colors duration-200 ${HEATMAP_COLORS.light.level1} dark:${HEATMAP_COLORS.dark.level1}`}
+            className={cn(
+              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
+              HEATMAP_COLORS.light.level1,
+              `dark:${HEATMAP_COLORS.dark.level1}`
+            )}
           />
           <div
-            className={`w-[10px] h-[10px] rounded-[2px] transition-colors duration-200 ${HEATMAP_COLORS.light.level2} dark:${HEATMAP_COLORS.dark.level2}`}
+            className={cn(
+              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
+              HEATMAP_COLORS.light.level2,
+              `dark:${HEATMAP_COLORS.dark.level2}`
+            )}
           />
           <div
-            className={`w-[10px] h-[10px] rounded-[2px] transition-colors duration-200 ${HEATMAP_COLORS.light.level3} dark:${HEATMAP_COLORS.dark.level3}`}
+            className={cn(
+              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
+              HEATMAP_COLORS.light.level3,
+              `dark:${HEATMAP_COLORS.dark.level3}`
+            )}
           />
           <div
-            className={`w-[10px] h-[10px] rounded-[2px] transition-colors duration-200 ${HEATMAP_COLORS.light.level4} dark:${HEATMAP_COLORS.dark.level4}`}
+            className={cn(
+              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
+              HEATMAP_COLORS.light.level4,
+              `dark:${HEATMAP_COLORS.dark.level4}`
+            )}
           />
           <span>More</span>
         </div>

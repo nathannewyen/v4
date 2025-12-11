@@ -1,5 +1,13 @@
 // Type definitions for the portfolio
 
+import { CONTRIBUTION_SOURCES } from "@/constants";
+
+// Filter source type derived from CONTRIBUTION_SOURCES constant
+export type FilterSource = (typeof CONTRIBUTION_SOURCES)[number];
+
+// Sort order type for contribution list
+export type SortOrder = "newest" | "oldest";
+
 // Project type definition for open source contributions
 export interface Project {
   name: string;
