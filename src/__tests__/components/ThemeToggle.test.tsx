@@ -39,10 +39,18 @@ describe("ThemeToggle", () => {
     render(<ThemeToggle />);
 
     const button = screen.getByRole("button");
+    expect(button).toHaveAttribute("aria-label", "Switch to system mode");
+  });
+
+  it("should have correct aria-label for system mode", () => {
+    mockTheme = "system";
+    render(<ThemeToggle />);
+
+    const button = screen.getByRole("button");
     expect(button).toHaveAttribute("aria-label", "Switch to light mode");
   });
 
-  it("should switch to dark mode when in light mode", () => {
+  it("should cycle from light to dark mode", () => {
     mockTheme = "light";
     render(<ThemeToggle />);
 
@@ -52,8 +60,18 @@ describe("ThemeToggle", () => {
     expect(mockSetTheme).toHaveBeenCalledWith("dark");
   });
 
-  it("should switch to light mode when in dark mode", () => {
+  it("should cycle from dark to system mode", () => {
     mockTheme = "dark";
+    render(<ThemeToggle />);
+
+    const button = screen.getByRole("button");
+    fireEvent.click(button);
+
+    expect(mockSetTheme).toHaveBeenCalledWith("system");
+  });
+
+  it("should cycle from system to light mode", () => {
+    mockTheme = "system";
     render(<ThemeToggle />);
 
     const button = screen.getByRole("button");
