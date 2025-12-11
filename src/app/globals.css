@@ -17,10 +17,9 @@ body {
     sans-serif;
 }
 
-/* Smooth scrolling for anchor links */
-html {
-  scroll-behavior: smooth;
-}
+/* Note: Removed global scroll-behavior: smooth to fix laggy page navigation.
+   Smooth scrolling is still applied locally via scrollIntoView({ behavior: "smooth" })
+   in Portfolio.tsx for section navigation. */
 
 /* Hide Next.js development indicator */
 [data-nextjs-dialog-overlay],
