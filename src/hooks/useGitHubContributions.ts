@@ -22,7 +22,11 @@ const REPO_DISPLAY_NAMES: Record<string, string> = {
   "flutter/flutter": "Flutter",
   "flutter/engine": "Flutter Engine",
   "golang/go": "Go",
+  "nathannewyen/gitcraft": "Gitcraft",
 };
+
+// Own repos to include commits from
+const OWN_REPOS_TO_INCLUDE = ["nathannewyen/gitcraft"];
 
 // GitHub API response types
 interface GitHubPR {
@@ -42,6 +46,22 @@ interface GitHubPR {
 interface GitHubSearchResponse {
   total_count: number;
   items: GitHubPR[];
+}
+
+// GitHub commit API response type
+interface GitHubCommit {
+  sha: string;
+  commit: {
+    message: string;
+    author: {
+      date: string;
+    };
+  };
+  html_url: string;
+  stats?: {
+    additions: number;
+    deletions: number;
+  };
 }
 
 // Helper to extract repo name from repository_url
@@ -177,6 +197,58 @@ const fetchGerritContributions = async (): Promise<Contribution[]> => {
   }
 };
 
+// Fetch commits from own repos (like gitcraft)
+const fetchOwnRepoCommits = async (token?: string): Promise<Contribution[]> => {
+  const headers: HeadersInit = {
+    Accept: "application/vnd.github.v3+json",
+  };
+
+  if (token) {
+    headers.Authorization = `token ${token}`;
+  }
+
+  const allCommits: Contribution[] = [];
+
+  // Fetch commits from each repo in OWN_REPOS_TO_INCLUDE
+  for (const repo of OWN_REPOS_TO_INCLUDE) {
+    try {
+      const commitsUrl = `https://api.github.com/repos/${repo}/commits?per_page=50`;
+      const response = await fetch(commitsUrl, { headers });
+
+      if (!response.ok) {
+        console.warn(`Failed to fetch commits from ${repo}: ${response.status}`);
+        continue;
+      }
+
+      const commits: GitHubCommit[] = await response.json();
+      const repoName = getRepoDisplayName(repo);
+
+      // Transform commits to Contribution format
+      const contributions: Contribution[] = commits.map((commit) => ({
+        id: `commit-${repo}-${commit.sha.slice(0, 7)}`,
+        repo: repo,
+        repoName: repoName,
+        type: "commit" as const,
+        title: commit.commit.message.split("\n")[0], // First line of commit message
+        description: commit.commit.message.split("\n").slice(1).join("\n").trim().slice(0, 200),
+        url: commit.html_url,
+        date: commit.commit.author.date.split("T")[0],
+        status: "merged" as const, // Commits are always "merged"
+        additions: commit.stats?.additions || 0,
+        deletions: commit.stats?.deletions || 0,
+        files: [],
+        source: "github" as const,
+      }));
+
+      allCommits.push(...contributions);
+    } catch (error) {
+      console.warn(`Error fetching commits from ${repo}:`, error);
+    }
+  }
+
+  return allCommits;
+};
+
 // Main fetcher function for SWR
 const fetchAllContributions = async (): Promise<Contribution[]> => {
   // Get GitHub token from environment variable (optional)
@@ -188,23 +260,27 @@ const fetchAllContributions = async (): Promise<Contribution[]> => {
   // Fetch contributions from Gerrit via API route
   const gerritPromise = fetchGerritContributions();
 
+  // Fetch commits from own repos (like gitcraft)
+  const ownRepoCommitsPromise = fetchOwnRepoCommits(token);
+
   // Wait for all fetches to complete
-  const [githubContributions, gerritContributions] = await Promise.all([
+  const [githubContributions, gerritContributions, ownRepoCommits] = await Promise.all([
     githubPromise,
     gerritPromise,
+    ownRepoCommitsPromise,
   ]);
 
   // Combine all contributions
-  let allContributions = [...githubContributions, ...gerritContributions];
+  let allContributions = [...githubContributions, ...gerritContributions, ...ownRepoCommits];
 
   // Fetch details for GitHub PRs (line counts, files)
   // Only fetch details for first 15 GitHub PRs to avoid rate limits
   const detailPromises = githubContributions.slice(0, 15).map((c) => fetchPRDetails(c, token));
   const detailedContributions = await Promise.all(detailPromises);
 
-  // Merge detailed info back into GitHub contributions
+  // Merge detailed info back into GitHub contributions (PRs only, not commits)
   allContributions = allContributions.map((c) => {
-    if (c.source === "github") {
+    if (c.source === "github" && c.type === "pr") {
       const detailed = detailedContributions.find((d) => d.id === c.id);
       return detailed || c;
     }
