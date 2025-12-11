@@ -18,6 +18,7 @@ interface TooltipState {
   count: number;
   x: number;
   y: number;
+  alignRight: boolean; // True when tooltip would overflow right edge
 }
 
 // Number of weeks to display in the heatmap
@@ -176,11 +177,22 @@ const ContributionHeatmap = ({
   const handleMouseEnter = useCallback(
     (event: React.MouseEvent<HTMLDivElement>, date: string, count: number) => {
       const rect = event.currentTarget.getBoundingClientRect();
+      const cellCenterX = rect.left + rect.width / 2;
+
+      // Estimate tooltip width (roughly 220px for "X contributions on Mon DD, YYYY")
+      const estimatedTooltipWidth = 220;
+      const viewportPadding = 8;
+
+      // Check if tooltip would overflow right edge of viewport
+      const wouldOverflowRight =
+        cellCenterX + estimatedTooltipWidth / 2 > window.innerWidth - viewportPadding;
+
       setTooltip({
         date,
         count,
-        x: rect.left + rect.width / 2,
+        x: wouldOverflowRight ? window.innerWidth - viewportPadding : cellCenterX,
         y: rect.top,
+        alignRight: wouldOverflowRight,
       });
     },
     []
@@ -221,7 +233,8 @@ const ContributionHeatmap = ({
         style={{
           left: tooltip ? tooltip.x : 0,
           top: tooltip ? tooltip.y - 8 : 0,
-          transform: "translate(-50%, -100%)",
+          // Align right edge to x position when near viewport edge, otherwise center
+          transform: tooltip?.alignRight ? "translate(-100%, -100%)" : "translate(-50%, -100%)",
           visibility: tooltip ? "visible" : "hidden",
         }}
       >
@@ -229,9 +242,12 @@ const ContributionHeatmap = ({
           <>
             {tooltip.count} contribution{tooltip.count !== 1 ? "s" : ""} on{" "}
             {formatDateForTooltip(tooltip.date)}
-            {/* Tooltip arrow */}
+            {/* Tooltip arrow - position changes based on alignment */}
             <div
-              className="absolute left-1/2 bottom-0 w-0 h-0 -translate-x-1/2 translate-y-full"
+              className={cn(
+                "absolute bottom-0 w-0 h-0 translate-y-full",
+                tooltip.alignRight ? "right-3" : "left-1/2 -translate-x-1/2"
+              )}
               style={{
                 borderLeft: "4px solid transparent",
                 borderRight: "4px solid transparent",
