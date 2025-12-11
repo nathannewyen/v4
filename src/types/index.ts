@@ -1,9 +1,12 @@
 // Type definitions for the portfolio
 
-import { CONTRIBUTION_SOURCES } from "@/constants";
+import { CONTRIBUTION_SOURCES, CONTRIBUTION_STATUSES } from "@/constants";
 
 // Filter source type derived from CONTRIBUTION_SOURCES constant
 export type FilterSource = (typeof CONTRIBUTION_SOURCES)[number];
+
+// Filter status type derived from CONTRIBUTION_STATUSES constant
+export type StatusFilter = (typeof CONTRIBUTION_STATUSES)[number];
 
 // Sort order type for contribution list
 export type SortOrder = "newest" | "oldest";

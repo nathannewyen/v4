@@ -22,6 +22,7 @@ const ContributionsShowcase = () => {
   // Filter and sort state
   const [selectedProject, setSelectedProject] = useState("all");
   const [selectedSource, setSelectedSource] = useState("all");
+  const [selectedStatus, setSelectedStatus] = useState("all");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
@@ -31,7 +32,7 @@ const ContributionsShowcase = () => {
   // Reset to first page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedProject, selectedSource, sortOrder, selectedDate]);
+  }, [selectedProject, selectedSource, selectedStatus, sortOrder, selectedDate]);
 
   // Get unique projects for filter options
   const projects = useMemo(() => getUniqueProjects(contributions), [contributions]);
@@ -42,8 +43,9 @@ const ContributionsShowcase = () => {
     const filtered = contributions.filter((contribution) => {
       const matchesProject = selectedProject === "all" || contribution.repo === selectedProject;
       const matchesSource = selectedSource === "all" || contribution.source === selectedSource;
+      const matchesStatus = selectedStatus === "all" || contribution.status === selectedStatus;
       const matchesDate = selectedDate === null || contribution.date === selectedDate;
-      return matchesProject && matchesSource && matchesDate;
+      return matchesProject && matchesSource && matchesStatus && matchesDate;
     });
 
     // Apply sorting
@@ -52,7 +54,7 @@ const ContributionsShowcase = () => {
       const dateB = new Date(b.date).getTime();
       return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
     });
-  }, [contributions, selectedProject, selectedSource, sortOrder, selectedDate]);
+  }, [contributions, selectedProject, selectedSource, selectedStatus, sortOrder, selectedDate]);
 
   // Calculate pagination values
   const totalPages = Math.ceil(filteredContributions.length / ITEMS_PER_PAGE);
@@ -120,9 +122,11 @@ const ContributionsShowcase = () => {
               projects={projects}
               selectedProject={selectedProject}
               selectedSource={selectedSource}
+              selectedStatus={selectedStatus}
               sortOrder={sortOrder}
               onProjectChange={setSelectedProject}
               onSourceChange={setSelectedSource}
+              onStatusChange={setSelectedStatus}
               onSortChange={setSortOrder}
             />
           </section>

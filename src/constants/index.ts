@@ -161,5 +161,8 @@ export const STATUS_CONFIG = {
 // Contribution sources for filter dropdown
 export const CONTRIBUTION_SOURCES = ["all", "github", "gerrit"] as const;
 
+// Contribution statuses for filter dropdown
+export const CONTRIBUTION_STATUSES = ["all", "merged", "open", "closed"] as const;
+
 // Animation timing
 export const ANIMATION_DELAY_MS = 50;

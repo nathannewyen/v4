@@ -1,6 +1,11 @@
 "use client";
 
-import { SOCIAL_LINKS, CONTRIBUTION_SOURCES } from "@/constants";
+import {
+  SOCIAL_LINKS,
+  CONTRIBUTION_SOURCES,
+  CONTRIBUTION_STATUSES,
+  STATUS_CONFIG,
+} from "@/constants";
 import { SortOrder } from "@/types";
 import FilterSelect from "@/components/ui/FilterSelect";
 import FilterButton from "@/components/ui/FilterButton";
@@ -9,9 +14,11 @@ interface ContributionFiltersProps {
   projects: string[];
   selectedProject: string;
   selectedSource: string;
+  selectedStatus: string;
   sortOrder: SortOrder;
   onProjectChange: (project: string) => void;
   onSourceChange: (source: string) => void;
+  onStatusChange: (status: string) => void;
   onSortChange: (sort: SortOrder) => void;
 }
 
@@ -20,9 +27,11 @@ const ContributionFilters = ({
   projects,
   selectedProject,
   selectedSource,
+  selectedStatus,
   sortOrder,
   onProjectChange,
   onSourceChange,
+  onStatusChange,
   onSortChange,
 }: ContributionFiltersProps) => {
   // Build project options for the select dropdown
@@ -41,6 +50,13 @@ const ContributionFilters = ({
   const formatSourceLabel = (source: string) => {
     if (source === "all") return "All";
     return source.charAt(0).toUpperCase() + source.slice(1);
+  };
+
+  // Get status label from STATUS_CONFIG or capitalize for "all"
+  const formatStatusLabel = (status: string) => {
+    if (status === "all") return "All";
+    const config = STATUS_CONFIG[status as keyof typeof STATUS_CONFIG];
+    return config ? config.label : status;
   };
 
   return (
@@ -65,7 +81,7 @@ const ContributionFilters = ({
           onChange={(value) => onSortChange(value as SortOrder)}
         />
 
-        {/* Source filter - full width row on mobile */}
+        {/* Source filter */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:col-span-2 lg:col-span-1">
           <span id="source-filter-label" className="text-xs text-[#888] dark:text-[#777] uppercase">
             Source:
@@ -81,6 +97,24 @@ const ContributionFilters = ({
               </FilterButton>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Status filter - separate row for better layout */}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+        <span id="status-filter-label" className="text-xs text-[#888] dark:text-[#777] uppercase">
+          Status:
+        </span>
+        <div className="flex gap-1 flex-wrap" role="group" aria-labelledby="status-filter-label">
+          {CONTRIBUTION_STATUSES.map((status) => (
+            <FilterButton
+              key={status}
+              active={selectedStatus === status}
+              onClick={() => onStatusChange(status)}
+            >
+              {formatStatusLabel(status)}
+            </FilterButton>
+          ))}
         </div>
       </div>
 
