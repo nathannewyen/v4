@@ -103,15 +103,14 @@ const ContributionsShowcase = () => {
               </p>
 
               {/* Heatmap aligned with description (hidden on mobile/tablet) */}
-              {!isLoading && contributions.length > 0 && (
-                <div className="hidden lg:block flex-shrink-0">
-                  <ContributionHeatmap
-                    contributions={contributions}
-                    selectedDate={selectedDate}
-                    onDateSelect={setSelectedDate}
-                  />
-                </div>
-              )}
+              <div className="hidden lg:block flex-shrink-0">
+                <ContributionHeatmap
+                  contributions={contributions}
+                  selectedDate={selectedDate}
+                  onDateSelect={setSelectedDate}
+                  isLoading={isLoading}
+                />
+              </div>
             </div>
           </header>
 
