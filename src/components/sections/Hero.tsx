@@ -1,7 +1,7 @@
 "use client";
 
 import { SOCIAL_LINKS } from "@/constants";
-import { GitHubIcon, XIcon, LinkedInIcon, StackOverflowIcon } from "@/components/icons";
+import { GitHubIcon, XIcon, StackOverflowIcon } from "@/components/icons";
 
 interface HeroProps {
   isLoaded: boolean;
@@ -37,24 +37,21 @@ const Hero = ({ isLoaded }: HeroProps) => {
               AI/ML/Engineer. Interested in AI agents, drones, rockets, and software development.
             </p>
 
-            {/* Social Links - X/Twitter, LinkedIn, and GitHub */}
+            {/* Social Links - X/Twitter, Stack Overflow, and GitHub */}
             <div className="flex items-center gap-4 flex-wrap">
               <a
                 href={SOCIAL_LINKS.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex items-center gap-2 px-4 py-2.5 border-2 border-[#1A2234] dark:border-white text-[#1A2234] dark:text-white hover:bg-[#1A2234] dark:hover:bg-white hover:text-white dark:hover:text-[#1A2234] transition-all duration-200"
               >
                 <XIcon />
                 <span className="text-xs font-bold tracking-wider">X / TWITTER</span>
               </a>
               <a
-                href={SOCIAL_LINKS.linkedin}
-                className="group flex items-center gap-2 px-4 py-2.5 border-2 border-[#1A2234] dark:border-white text-[#1A2234] dark:text-white hover:bg-[#1A2234] dark:hover:bg-white hover:text-white dark:hover:text-[#1A2234] transition-all duration-200"
-              >
-                <LinkedInIcon />
-                <span className="text-xs font-bold tracking-wider">LINKEDIN</span>
-              </a>
-              <a
                 href={SOCIAL_LINKS.stackoverflow}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex items-center gap-2 px-4 py-2.5 border-2 border-[#1A2234] dark:border-white text-[#1A2234] dark:text-white hover:bg-[#1A2234] dark:hover:bg-white hover:text-white dark:hover:text-[#1A2234] transition-all duration-200"
               >
                 <StackOverflowIcon />
@@ -62,6 +59,8 @@ const Hero = ({ isLoaded }: HeroProps) => {
               </a>
               <a
                 href={SOCIAL_LINKS.github}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex items-center gap-2 px-4 py-2.5 bg-[#1A2234] dark:bg-white text-white dark:text-[#1A2234] hover:bg-[#2a2a4e] dark:hover:bg-[#e0e0e0] transition-all duration-200"
               >
                 <GitHubIcon />
