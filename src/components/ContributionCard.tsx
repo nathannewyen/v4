@@ -50,8 +50,8 @@ const ContributionCard = memo(function ContributionCard({
   // Get status configuration from centralized config
   const statusConfig = STATUS_CONFIG[contribution.status];
 
-  // Format the date for display
-  const formattedDate = new Date(contribution.date).toLocaleDateString("en-US", {
+  // Format the date for display (use noon to prevent timezone day shift)
+  const formattedDate = new Date(contribution.date + "T12:00:00").toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
