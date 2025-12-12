@@ -57,8 +57,12 @@ export async function GET() {
         description: change.subject,
         url: `${GERRIT_URL}/c/${GERRIT_PROJECT}/+/${change._number}`,
         date: change.created.split(" ")[0],
-        // For "Last Updated" sorting - use updated timestamp from Gerrit
+        // For "Last Updated" sorting - use updated timestamp from Gerrit (date only for display)
         updatedAt: change.updated.split(" ")[0],
+        // Full timestamp for precise sorting (Gerrit format: "2025-12-12 10:30:45.000000000")
+        updatedAtTimestamp: change.updated.replace(" ", "T") + "Z",
+        // Change number for display (e.g., #638042)
+        prNumber: change._number,
         status: status,
         additions: change.insertions || 0,
         deletions: change.deletions || 0,

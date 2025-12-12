@@ -47,8 +47,12 @@ export interface Contribution {
   description: string;
   url: string;
   date: string;
-  // For "Last Updated" sorting - stores merged_at if merged, otherwise updated_at
+  // For "Last Updated" sorting - stores merged_at if merged, otherwise updated_at (date only for display)
   updatedAt?: string;
+  // Full ISO timestamp for precise sorting (includes time)
+  updatedAtTimestamp?: string;
+  // PR/change number for display (e.g., #34268)
+  prNumber?: number;
   status: "merged" | "open" | "closed";
   additions: number;
   deletions: number;

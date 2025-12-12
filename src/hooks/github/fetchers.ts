@@ -68,10 +68,14 @@ export const fetchAllGitHubPRs = async (token?: string): Promise<Contribution[]>
         url: pr.html_url,
         // Convert UTC timestamp to local date to match GitHub's heatmap behavior
         date: isoToLocalDate(pr.created_at),
-        // Store merged_at if merged, otherwise updated_at for "Last Updated" sorting
+        // Store merged_at if merged, otherwise updated_at for display (date only)
         updatedAt: pr.pull_request?.merged_at
           ? isoToLocalDate(pr.pull_request.merged_at)
           : isoToLocalDate(pr.updated_at),
+        // Full ISO timestamp for precise sorting (includes time)
+        updatedAtTimestamp: pr.pull_request?.merged_at || pr.updated_at,
+        // PR number for display (e.g., #34268)
+        prNumber: pr.number,
         status: status,
         additions: 0,
         deletions: 0,
@@ -170,6 +174,10 @@ export const fetchOwnRepoCommits = async (token?: string): Promise<Contribution[
           date: commitDate,
           // For commits, updatedAt is same as date (commits don't have separate update time)
           updatedAt: commitDate,
+          // Full ISO timestamp for precise sorting
+          updatedAtTimestamp: commit.commit.author.date,
+          // Commits don't have PR numbers
+          prNumber: undefined,
           status: "merged" as const, // Commits are always "merged"
           additions: commit.stats?.additions || 0,
           deletions: commit.stats?.deletions || 0,

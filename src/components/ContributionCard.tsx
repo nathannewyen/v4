@@ -75,11 +75,17 @@ const ContributionCard = memo(function ContributionCard({
 
           {/* Content */}
           <div className="flex-1 min-w-0">
-            {/* Repository full path (owner/repo) */}
+            {/* Repository full path (owner/repo) with PR number */}
             <div className="flex items-center gap-2 mb-1">
               <span className={`text-xs font-semibold ${projectColors.text}`}>
                 {contribution.repo}
               </span>
+              {/* PR/Change number (e.g., #34268) */}
+              {contribution.prNumber && (
+                <span className="text-xs text-[#57606a] dark:text-[#8b949e]">
+                  #{contribution.prNumber}
+                </span>
+              )}
               <span className="text-xs text-[#57606a] dark:text-[#8b949e]">•</span>
               <span className={`text-xs font-medium ${statusConfig.color}`}>
                 {statusConfig.label}
@@ -96,8 +102,16 @@ const ContributionCard = memo(function ContributionCard({
               {/* Source */}
               <span className="uppercase font-medium">{contribution.source}</span>
 
-              {/* Date */}
-              <span>{formattedDate}</span>
+              {/* Created date */}
+              <span>Created {formattedDate}</span>
+
+              {/* Merged/Updated date - only show if different from created date */}
+              {contribution.updatedAt && contribution.updatedAt !== contribution.date && (
+                <span>
+                  {contribution.status === "merged" ? "Merged" : "Updated"}{" "}
+                  {formatDateForDisplay(contribution.updatedAt)}
+                </span>
+              )}
 
               {/* Line changes - display additions and deletions with descriptive labels */}
               {contribution.additions > 0 && (

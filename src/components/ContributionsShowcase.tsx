@@ -49,10 +49,10 @@ const ContributionsShowcase = () => {
 
     // Apply sorting
     return filtered.sort((a, b) => {
-      // "Last Updated" sorts by updatedAt (merged/updated date), fallback to date
+      // "Last Updated" sorts by full timestamp for precise ordering (includes time)
       if (sortOrder === "updated") {
-        const updatedA = new Date(a.updatedAt || a.date).getTime();
-        const updatedB = new Date(b.updatedAt || b.date).getTime();
+        const updatedA = new Date(a.updatedAtTimestamp || a.date).getTime();
+        const updatedB = new Date(b.updatedAtTimestamp || b.date).getTime();
         return updatedB - updatedA; // Always newest updates first
       }
       // "Newest First" and "Oldest First" sort by creation date
