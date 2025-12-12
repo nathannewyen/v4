@@ -47,9 +47,9 @@ const ContributionFilters = ({
   // Build sort options for the select dropdown (static, never changes)
   const sortOptions = useMemo(
     () => [
+      { value: "updated", label: "Last Updated" },
       { value: "newest", label: "Newest First" },
       { value: "oldest", label: "Oldest First" },
-      { value: "updated", label: "Last Updated" },
     ],
     []
   );

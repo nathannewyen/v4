@@ -8,7 +8,7 @@ import {
   ANIMATION_DELAY_MS,
   DEFAULT_PROJECT_COLORS,
 } from "@/constants";
-import { formatDateForDisplay } from "@/lib/dateUtils";
+import { formatDateShort } from "@/lib/dateUtils";
 
 interface ContributionCardProps {
   contribution: Contribution;
@@ -48,9 +48,6 @@ const ContributionCard = memo(function ContributionCard({
   // Get status configuration from centralized config
   const statusConfig = STATUS_CONFIG[contribution.status];
 
-  // Format the date for display
-  const formattedDate = formatDateForDisplay(contribution.date);
-
   // Calculate animation delay based on card index for staggered entrance
   const animationDelay = `${index * ANIMATION_DELAY_MS}ms`;
 
@@ -75,21 +72,16 @@ const ContributionCard = memo(function ContributionCard({
 
           {/* Content */}
           <div className="flex-1 min-w-0">
-            {/* Repository full path (owner/repo) with PR number */}
-            <div className="flex items-center gap-2 mb-1">
-              <span className={`text-xs font-semibold ${projectColors.text}`}>
-                {contribution.repo}
-              </span>
-              {/* PR/Change number (e.g., #34268) */}
+            {/* Repository full path (owner/repo) with PR number and status */}
+            <div className="flex items-center gap-3 mb-1 text-xs">
+              <span className={`font-semibold ${projectColors.text}`}>{contribution.repo}</span>
+              {/* PR/Change number (e.g., PR #34268) */}
               {contribution.prNumber && (
-                <span className="text-xs text-[#57606a] dark:text-[#8b949e]">
-                  #{contribution.prNumber}
+                <span className="text-[#57606a] dark:text-[#8b949e]">
+                  PR #{contribution.prNumber}
                 </span>
               )}
-              <span className="text-xs text-[#57606a] dark:text-[#8b949e]">•</span>
-              <span className={`text-xs font-medium ${statusConfig.color}`}>
-                {statusConfig.label}
-              </span>
+              <span className={`font-medium ${statusConfig.color}`}>{statusConfig.label}</span>
             </div>
 
             {/* PR Title - uses GITHUB_COLORS.text.primary and borderHover */}
@@ -97,41 +89,50 @@ const ContributionCard = memo(function ContributionCard({
               {contribution.title}
             </h3>
 
-            {/* Meta row - uses GITHUB_COLORS.text.muted */}
-            <div className="flex items-center flex-wrap gap-x-3 gap-y-1 text-xs text-[#57606a] dark:text-[#8b949e]">
+            {/* Meta row - minimal design with · separators */}
+            <div className="flex items-center flex-wrap gap-x-2 gap-y-1 text-xs text-[#57606a] dark:text-[#8b949e]">
               {/* Source */}
               <span className="uppercase font-medium">{contribution.source}</span>
+              <span>·</span>
 
-              {/* Created date */}
-              <span>Created {formattedDate}</span>
+              {/* Dates - show as "Dec 9 → Dec 12" or just "Dec 9" */}
+              <span>
+                {formatDateShort(contribution.date)}
+                {contribution.updatedAt && contribution.updatedAt !== contribution.date && (
+                  <> → {formatDateShort(contribution.updatedAt)}</>
+                )}
+              </span>
 
-              {/* Merged/Updated date - only show if different from created date */}
-              {contribution.updatedAt && contribution.updatedAt !== contribution.date && (
-                <span>
-                  {contribution.status === "merged" ? "Merged" : "Updated"}{" "}
-                  {formatDateForDisplay(contribution.updatedAt)}
-                </span>
-              )}
-
-              {/* Line changes - display additions and deletions with descriptive labels */}
-              {contribution.additions > 0 && (
-                <span className="text-green-600 dark:text-green-400">
-                  +{contribution.additions} lines added
-                </span>
-              )}
-              {contribution.deletions > 0 && (
-                <span className="text-red-600 dark:text-red-400">
-                  -{contribution.deletions} lines removed
-                </span>
+              {/* Line changes - compact format */}
+              {(contribution.additions > 0 || contribution.deletions > 0) && (
+                <>
+                  <span>·</span>
+                  <span>
+                    {contribution.additions > 0 && (
+                      <span className="text-green-600 dark:text-green-400">
+                        +{contribution.additions}
+                      </span>
+                    )}
+                    {contribution.additions > 0 && contribution.deletions > 0 && " "}
+                    {contribution.deletions > 0 && (
+                      <span className="text-red-600 dark:text-red-400">
+                        -{contribution.deletions}
+                      </span>
+                    )}
+                  </span>
+                </>
               )}
 
               {/* Files */}
               {contribution.files.length > 0 && (
-                <span>
-                  {contribution.files[0].includes("file")
-                    ? contribution.files[0]
-                    : `${contribution.files.length} file${contribution.files.length > 1 ? "s" : ""}`}
-                </span>
+                <>
+                  <span>·</span>
+                  <span>
+                    {contribution.files[0].includes("file")
+                      ? contribution.files[0]
+                      : `${contribution.files.length} file${contribution.files.length > 1 ? "s" : ""}`}
+                  </span>
+                </>
               )}
             </div>
           </div>

@@ -14,6 +14,18 @@ export const formatDateForDisplay = (dateString: string): string => {
 };
 
 /**
+ * Format a date string as short format without year (e.g., "Dec 11")
+ * Used for compact display in contribution cards
+ */
+export const formatDateShort = (dateString: string): string => {
+  const date = new Date(dateString + "T12:00:00");
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+};
+
+/**
  * Convert an ISO timestamp to local date string (YYYY-MM-DD)
  * Used to match GitHub's heatmap behavior (shows dates in user's local timezone)
  */
