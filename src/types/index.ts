@@ -9,7 +9,8 @@ export type FilterSource = (typeof CONTRIBUTION_SOURCES)[number];
 export type StatusFilter = (typeof CONTRIBUTION_STATUSES)[number];
 
 // Sort order type for contribution list
-export type SortOrder = "newest" | "oldest";
+// newest/oldest sort by creation date, updated sorts by merged_at or updated_at
+export type SortOrder = "newest" | "oldest" | "updated";
 
 // Project type definition for open source contributions
 export interface Project {
@@ -46,6 +47,8 @@ export interface Contribution {
   description: string;
   url: string;
   date: string;
+  // For "Last Updated" sorting - stores merged_at if merged, otherwise updated_at
+  updatedAt?: string;
   status: "merged" | "open" | "closed";
   additions: number;
   deletions: number;

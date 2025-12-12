@@ -68,6 +68,10 @@ export const fetchAllGitHubPRs = async (token?: string): Promise<Contribution[]>
         url: pr.html_url,
         // Convert UTC timestamp to local date to match GitHub's heatmap behavior
         date: isoToLocalDate(pr.created_at),
+        // Store merged_at if merged, otherwise updated_at for "Last Updated" sorting
+        updatedAt: pr.pull_request?.merged_at
+          ? isoToLocalDate(pr.pull_request.merged_at)
+          : isoToLocalDate(pr.updated_at),
         status: status,
         additions: 0,
         deletions: 0,
@@ -148,26 +152,31 @@ export const fetchOwnRepoCommits = async (token?: string): Promise<Contribution[
       const repoName = getRepoDisplayName(repo);
 
       // Transform commits to Contribution format
-      const contributions: Contribution[] = commits.map((commit) => ({
-        id: `commit-${repo}-${commit.sha.slice(0, 7)}`,
-        repo: repo,
-        repoName: repoName,
-        type: "commit" as const,
-        title: commit.commit.message.split("\n")[0], // First line of commit message
-        description: commit.commit.message
-          .split("\n")
-          .slice(1)
-          .join("\n")
-          .trim()
-          .slice(0, DESCRIPTION_MAX_LENGTH),
-        url: commit.html_url,
-        date: extractDateFromISO(commit.commit.author.date),
-        status: "merged" as const, // Commits are always "merged"
-        additions: commit.stats?.additions || 0,
-        deletions: commit.stats?.deletions || 0,
-        files: [],
-        source: "github" as const,
-      }));
+      const contributions: Contribution[] = commits.map((commit) => {
+        const commitDate = extractDateFromISO(commit.commit.author.date);
+        return {
+          id: `commit-${repo}-${commit.sha.slice(0, 7)}`,
+          repo: repo,
+          repoName: repoName,
+          type: "commit" as const,
+          title: commit.commit.message.split("\n")[0], // First line of commit message
+          description: commit.commit.message
+            .split("\n")
+            .slice(1)
+            .join("\n")
+            .trim()
+            .slice(0, DESCRIPTION_MAX_LENGTH),
+          url: commit.html_url,
+          date: commitDate,
+          // For commits, updatedAt is same as date (commits don't have separate update time)
+          updatedAt: commitDate,
+          status: "merged" as const, // Commits are always "merged"
+          additions: commit.stats?.additions || 0,
+          deletions: commit.stats?.deletions || 0,
+          files: [],
+          source: "github" as const,
+        };
+      });
 
       allCommits.push(...contributions);
     } catch (error) {

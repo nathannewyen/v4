@@ -8,6 +8,7 @@ export interface GitHubPR {
   body: string;
   html_url: string;
   created_at: string;
+  updated_at: string;
   state: string;
   repository_url: string;
   pull_request?: {

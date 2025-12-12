@@ -49,6 +49,7 @@ const ContributionFilters = ({
     () => [
       { value: "newest", label: "Newest First" },
       { value: "oldest", label: "Oldest First" },
+      { value: "updated", label: "Last Updated" },
     ],
     []
   );

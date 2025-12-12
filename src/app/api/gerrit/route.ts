@@ -11,6 +11,7 @@ interface GerritChange {
   subject: string;
   status: string;
   created: string;
+  updated: string;
   insertions: number;
   deletions: number;
 }
@@ -56,6 +57,8 @@ export async function GET() {
         description: change.subject,
         url: `${GERRIT_URL}/c/${GERRIT_PROJECT}/+/${change._number}`,
         date: change.created.split(" ")[0],
+        // For "Last Updated" sorting - use updated timestamp from Gerrit
+        updatedAt: change.updated.split(" ")[0],
         status: status,
         additions: change.insertions || 0,
         deletions: change.deletions || 0,
