@@ -130,7 +130,8 @@ const fetchAllGitHubPRs = async (token?: string): Promise<Contribution[]> => {
         title: pr.title,
         description: pr.body?.slice(0, 200) || "No description provided.",
         url: pr.html_url,
-        date: pr.created_at.split("T")[0],
+        // Convert UTC timestamp to local date to match GitHub's heatmap behavior
+        date: new Date(pr.created_at).toLocaleDateString("en-CA"),
         status: status,
         additions: 0,
         deletions: 0,

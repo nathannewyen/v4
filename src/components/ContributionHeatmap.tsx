@@ -130,8 +130,9 @@ const ContributionHeatmap = ({
     // Calculate total days to display (WEEKS_TO_DISPLAY * ROWS_TO_DISPLAY gives us total cells)
     const totalDays = WEEKS_TO_DISPLAY * ROWS_TO_DISPLAY;
 
-    // Start from today and go backwards (use UTC to match GitHub API dates)
+    // Start from today and go backwards (use local time to match GitHub's heatmap)
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
     // Generate flat array of days going backwards from today
     const days: { date: string; count: number }[] = [];
@@ -139,12 +140,12 @@ const ContributionHeatmap = ({
 
     for (let i = totalDays - 1; i >= 0; i--) {
       const currentDate = new Date(today);
-      currentDate.setUTCDate(today.getUTCDate() - i);
+      currentDate.setDate(today.getDate() - i);
 
-      // Use UTC methods to match contribution dates from GitHub API
-      const year = currentDate.getUTCFullYear();
-      const month = String(currentDate.getUTCMonth() + 1).padStart(2, "0");
-      const day = String(currentDate.getUTCDate()).padStart(2, "0");
+      // Use local date methods to match contribution dates (converted to local time)
+      const year = currentDate.getFullYear();
+      const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+      const day = String(currentDate.getDate()).padStart(2, "0");
       const dateKey = `${year}-${month}-${day}`;
 
       const contributionCount = contributionsByDate.get(dateKey);
