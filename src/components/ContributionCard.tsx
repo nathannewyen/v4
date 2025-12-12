@@ -2,7 +2,13 @@
 
 import { memo } from "react";
 import { Contribution } from "@/types";
-import { PROJECT_COLORS, STATUS_CONFIG, ANIMATION_DELAY_MS } from "@/constants";
+import {
+  PROJECT_COLORS,
+  STATUS_CONFIG,
+  ANIMATION_DELAY_MS,
+  DEFAULT_PROJECT_COLORS,
+} from "@/constants";
+import { formatDateForDisplay } from "@/lib/dateUtils";
 
 interface ContributionCardProps {
   contribution: Contribution;
@@ -28,14 +34,6 @@ const PRStatusIcon = ({ status }: { status: Contribution["status"] }) => {
   );
 };
 
-// Default colors for projects not in PROJECT_COLORS
-const DEFAULT_PROJECT_COLORS = {
-  primary: "#6B7280",
-  background: "bg-gray-500/10",
-  text: "text-gray-600 dark:text-gray-400",
-  border: "border-gray-500/30",
-};
-
 // GitHub-style contribution card component - memoized to prevent unnecessary re-renders
 const ContributionCard = memo(function ContributionCard({
   contribution,
@@ -50,12 +48,8 @@ const ContributionCard = memo(function ContributionCard({
   // Get status configuration from centralized config
   const statusConfig = STATUS_CONFIG[contribution.status];
 
-  // Format the date for display (date is already in local time from API conversion)
-  const formattedDate = new Date(contribution.date + "T12:00:00").toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
+  // Format the date for display
+  const formattedDate = formatDateForDisplay(contribution.date);
 
   // Calculate animation delay based on card index for staggered entrance
   const animationDelay = `${index * ANIMATION_DELAY_MS}ms`;

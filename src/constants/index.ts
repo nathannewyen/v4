@@ -167,3 +167,20 @@ export const CONTRIBUTION_STATUSES = ["all", "merged", "open", "closed"] as cons
 
 // Animation timing
 export const ANIMATION_DELAY_MS = 50;
+export const HEATMAP_CELL_ANIMATION_DELAY = 5;
+
+// API configuration
+export const DESCRIPTION_MAX_LENGTH = 200;
+export const PR_DETAILS_FETCH_LIMIT = 15;
+export const COMMITS_PER_PAGE = 50;
+
+// Default project colors for repos not in PROJECT_COLORS
+export const DEFAULT_PROJECT_COLORS = {
+  primary: "#6B7280",
+  background: "bg-gray-500/10",
+  text: "text-gray-600 dark:text-gray-400",
+  border: "border-gray-500/30",
+} as const;
+
+// Pagination
+export const ITEMS_PER_PAGE = 10;

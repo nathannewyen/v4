@@ -3,6 +3,8 @@
 import { useMemo, useState, useCallback } from "react";
 import { Contribution } from "@/types";
 import { cn } from "@/lib/utils";
+import { formatDateForDisplay, getLocalDateKey } from "@/lib/dateUtils";
+import { HEATMAP_CELL_ANIMATION_DELAY } from "@/constants";
 import Skeleton from "@/components/Skeleton";
 
 interface ContributionHeatmapProps {
@@ -26,9 +28,6 @@ const WEEKS_TO_DISPLAY = 26;
 
 // Number of rows to display (4 rows instead of 7 days)
 const ROWS_TO_DISPLAY = 4;
-
-// Animation delay between cells for staggered effect (ms)
-const CELL_ANIMATION_DELAY = 5;
 
 // GitHub-style color levels for contribution intensity
 const HEATMAP_COLORS = {
@@ -55,16 +54,6 @@ const getColorClass = (count: number): string => {
   if (count <= 2) return `${HEATMAP_COLORS.light.level2} dark:${HEATMAP_COLORS.dark.level2}`;
   if (count <= 3) return `${HEATMAP_COLORS.light.level3} dark:${HEATMAP_COLORS.dark.level3}`;
   return `${HEATMAP_COLORS.light.level4} dark:${HEATMAP_COLORS.dark.level4}`;
-};
-
-// Format date for tooltip display like GitHub (e.g., "Nov 20, 2024")
-const formatDateForTooltip = (dateString: string): string => {
-  const date = new Date(dateString + "T00:00:00");
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
 };
 
 // Skeleton loading component for the heatmap grid
@@ -142,11 +131,8 @@ const ContributionHeatmap = ({
       const currentDate = new Date(today);
       currentDate.setDate(today.getDate() - i);
 
-      // Use local date methods to match contribution dates (converted to local time)
-      const year = currentDate.getFullYear();
-      const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-      const day = String(currentDate.getDate()).padStart(2, "0");
-      const dateKey = `${year}-${month}-${day}`;
+      // Use local date key to match contribution dates
+      const dateKey = getLocalDateKey(currentDate);
 
       const contributionCount = contributionsByDate.get(dateKey);
       const count = contributionCount !== undefined ? contributionCount : 0;
@@ -242,7 +228,7 @@ const ContributionHeatmap = ({
         {tooltip && (
           <>
             {tooltip.count} contribution{tooltip.count !== 1 ? "s" : ""} on{" "}
-            {formatDateForTooltip(tooltip.date)}
+            {formatDateForDisplay(tooltip.date)}
             {/* Tooltip arrow - position changes based on alignment */}
             <div
               className={cn(
@@ -278,7 +264,7 @@ const ContributionHeatmap = ({
                     !isSelected && "hover:scale-110"
                   )}
                   style={{
-                    animationDelay: `${cellIndex * CELL_ANIMATION_DELAY}ms`,
+                    animationDelay: `${cellIndex * HEATMAP_CELL_ANIMATION_DELAY}ms`,
                   }}
                   onMouseEnter={(e) => handleMouseEnter(e, day.date, day.count)}
                   onMouseLeave={handleMouseLeave}

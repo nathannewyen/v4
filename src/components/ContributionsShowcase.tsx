@@ -10,9 +10,8 @@ import ContributionHeatmap from "@/components/ContributionHeatmap";
 import { Footer } from "@/components/sections";
 import ThemeToggle from "@/components/ThemeToggle";
 import Skeleton from "@/components/Skeleton";
-
-// Number of contributions to display per page
-const ITEMS_PER_PAGE = 10;
+import { FilterSource, StatusFilter, SortOrder } from "@/types";
+import { ITEMS_PER_PAGE } from "@/constants";
 
 // Main contributions showcase component
 const ContributionsShowcase = () => {
@@ -21,9 +20,9 @@ const ContributionsShowcase = () => {
 
   // Filter and sort state
   const [selectedProject, setSelectedProject] = useState("all");
-  const [selectedSource, setSelectedSource] = useState("all");
-  const [selectedStatus, setSelectedStatus] = useState("all");
-  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
+  const [selectedSource, setSelectedSource] = useState<FilterSource>("all");
+  const [selectedStatus, setSelectedStatus] = useState<StatusFilter>("all");
+  const [sortOrder, setSortOrder] = useState<SortOrder>("newest");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   // Pagination state

@@ -6,19 +6,19 @@ import {
   CONTRIBUTION_STATUSES,
   STATUS_CONFIG,
 } from "@/constants";
-import { SortOrder } from "@/types";
+import { SortOrder, FilterSource, StatusFilter } from "@/types";
 import FilterSelect from "@/components/ui/FilterSelect";
 import FilterButton from "@/components/ui/FilterButton";
 
 interface ContributionFiltersProps {
   projects: string[];
   selectedProject: string;
-  selectedSource: string;
-  selectedStatus: string;
+  selectedSource: FilterSource;
+  selectedStatus: StatusFilter;
   sortOrder: SortOrder;
   onProjectChange: (project: string) => void;
-  onSourceChange: (source: string) => void;
-  onStatusChange: (status: string) => void;
+  onSourceChange: (source: FilterSource) => void;
+  onStatusChange: (status: StatusFilter) => void;
   onSortChange: (sort: SortOrder) => void;
 }
 

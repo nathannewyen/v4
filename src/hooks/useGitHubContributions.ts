@@ -1,5 +1,7 @@
 import useSWR from "swr";
 import { Contribution } from "@/types";
+import { DESCRIPTION_MAX_LENGTH, PR_DETAILS_FETCH_LIMIT, COMMITS_PER_PAGE } from "@/constants";
+import { isoToLocalDate, extractDateFromISO } from "@/lib/dateUtils";
 
 // GitHub username to fetch contributions for
 const GITHUB_USERNAME = "nathannewyen";
@@ -128,10 +130,10 @@ const fetchAllGitHubPRs = async (token?: string): Promise<Contribution[]> => {
         repoName: repoName,
         type: "pr" as const,
         title: pr.title,
-        description: pr.body?.slice(0, 200) || "No description provided.",
+        description: pr.body?.slice(0, DESCRIPTION_MAX_LENGTH) || "No description provided.",
         url: pr.html_url,
         // Convert UTC timestamp to local date to match GitHub's heatmap behavior
-        date: new Date(pr.created_at).toLocaleDateString("en-CA"),
+        date: isoToLocalDate(pr.created_at),
         status: status,
         additions: 0,
         deletions: 0,
@@ -213,7 +215,7 @@ const fetchOwnRepoCommits = async (token?: string): Promise<Contribution[]> => {
   // Fetch commits from each repo in OWN_REPOS_TO_INCLUDE
   for (const repo of OWN_REPOS_TO_INCLUDE) {
     try {
-      const commitsUrl = `https://api.github.com/repos/${repo}/commits?per_page=50`;
+      const commitsUrl = `https://api.github.com/repos/${repo}/commits?per_page=${COMMITS_PER_PAGE}`;
       const response = await fetch(commitsUrl, { headers });
 
       if (!response.ok) {
@@ -231,9 +233,14 @@ const fetchOwnRepoCommits = async (token?: string): Promise<Contribution[]> => {
         repoName: repoName,
         type: "commit" as const,
         title: commit.commit.message.split("\n")[0], // First line of commit message
-        description: commit.commit.message.split("\n").slice(1).join("\n").trim().slice(0, 200),
+        description: commit.commit.message
+          .split("\n")
+          .slice(1)
+          .join("\n")
+          .trim()
+          .slice(0, DESCRIPTION_MAX_LENGTH),
         url: commit.html_url,
-        date: commit.commit.author.date.split("T")[0],
+        date: extractDateFromISO(commit.commit.author.date),
         status: "merged" as const, // Commits are always "merged"
         additions: commit.stats?.additions || 0,
         deletions: commit.stats?.deletions || 0,
@@ -275,8 +282,10 @@ const fetchAllContributions = async (): Promise<Contribution[]> => {
   let allContributions = [...githubContributions, ...gerritContributions, ...ownRepoCommits];
 
   // Fetch details for GitHub PRs (line counts, files)
-  // Only fetch details for first 15 GitHub PRs to avoid rate limits
-  const detailPromises = githubContributions.slice(0, 15).map((c) => fetchPRDetails(c, token));
+  // Only fetch details for first N PRs to avoid rate limits
+  const detailPromises = githubContributions
+    .slice(0, PR_DETAILS_FETCH_LIMIT)
+    .map((c) => fetchPRDetails(c, token));
   const detailedContributions = await Promise.all(detailPromises);
 
   // Merge detailed info back into GitHub contributions (PRs only, not commits)
