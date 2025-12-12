@@ -1,7 +1,7 @@
 "use client";
 
 import { SOCIAL_LINKS } from "@/constants";
-import { GitHubIcon, XIcon, LinkedInIcon } from "@/components/icons";
+import { GitHubIcon, XIcon, LinkedInIcon, StackOverflowIcon } from "@/components/icons";
 
 interface HeroProps {
   isLoaded: boolean;
@@ -52,6 +52,13 @@ const Hero = ({ isLoaded }: HeroProps) => {
               >
                 <LinkedInIcon />
                 <span className="text-xs font-bold tracking-wider">LINKEDIN</span>
+              </a>
+              <a
+                href={SOCIAL_LINKS.stackoverflow}
+                className="group flex items-center gap-2 px-4 py-2.5 border-2 border-[#1A2234] dark:border-white text-[#1A2234] dark:text-white hover:bg-[#1A2234] dark:hover:bg-white hover:text-white dark:hover:text-[#1A2234] transition-all duration-200"
+              >
+                <StackOverflowIcon />
+                <span className="text-xs font-bold tracking-wider">STACK OVERFLOW</span>
               </a>
               <a
                 href={SOCIAL_LINKS.github}

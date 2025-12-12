@@ -59,6 +59,7 @@ export const SOCIAL_LINKS = {
   github: "https://github.com/nathannewyen",
   twitter: "https://x.com/nathannewyenn",
   linkedin: "https://www.linkedin.com/in/nhannguyen3112/",
+  stackoverflow: "https://stackoverflow.com/users/14785807/nathan-nguyen",
   email: "nhan13574@gmail.com",
 } as const;
 
