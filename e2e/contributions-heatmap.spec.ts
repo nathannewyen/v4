@@ -8,7 +8,10 @@ test.describe("Contributions Heatmap", () => {
     await page.waitForLoadState("networkidle");
   });
 
-  test("should display heatmap on desktop", async ({ page }) => {
+  test("should display heatmap on desktop", async ({ page }, testInfo) => {
+    // Skip on mobile - heatmap is hidden via CSS (hidden lg:block)
+    test.skip(testInfo.project.name === "Mobile Safari", "Heatmap hidden on mobile");
+
     // Set viewport to desktop size
     await page.setViewportSize({ width: 1280, height: 720 });
 
@@ -35,7 +38,10 @@ test.describe("Contributions Heatmap", () => {
     await expect(heatmap).toBeHidden();
   });
 
-  test("should show skeleton while loading", async ({ page }) => {
+  test("should show skeleton while loading", async ({ page }, testInfo) => {
+    // Skip on mobile - heatmap is hidden via CSS (hidden lg:block)
+    test.skip(testInfo.project.name === "Mobile Safari", "Heatmap hidden on mobile");
+
     // Intercept API calls to delay them
     await page.route("**/api.github.com/**", async (route) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -53,7 +59,10 @@ test.describe("Contributions Heatmap", () => {
     await expect(heatmap).toBeVisible({ timeout: 15000 });
   });
 
-  test("should display tooltip on cell hover", async ({ page }) => {
+  test("should display tooltip on cell hover", async ({ page }, testInfo) => {
+    // Skip on mobile - heatmap is hidden via CSS (hidden lg:block)
+    test.skip(testInfo.project.name === "Mobile Safari", "Heatmap hidden on mobile");
+
     // Wait for heatmap to load
     const heatmap = page.getByTestId("contribution-heatmap");
     await expect(heatmap).toBeVisible({ timeout: 10000 });
@@ -73,7 +82,10 @@ test.describe("Contributions Heatmap", () => {
     await expect(tooltipText).toBeVisible();
   });
 
-  test("should filter contributions when clicking a cell", async ({ page }) => {
+  test("should filter contributions when clicking a cell", async ({ page }, testInfo) => {
+    // Skip on mobile - heatmap is hidden via CSS (hidden lg:block)
+    test.skip(testInfo.project.name === "Mobile Safari", "Heatmap hidden on mobile");
+
     // Wait for heatmap to load
     const heatmap = page.getByTestId("contribution-heatmap");
     await expect(heatmap).toBeVisible({ timeout: 10000 });
@@ -103,7 +115,10 @@ test.describe("Contributions Heatmap", () => {
     await expect(targetCell).not.toHaveClass(/ring-2/);
   });
 
-  test("should show selected state with ring highlight", async ({ page }) => {
+  test("should show selected state with ring highlight", async ({ page }, testInfo) => {
+    // Skip on mobile - heatmap is hidden via CSS (hidden lg:block)
+    test.skip(testInfo.project.name === "Mobile Safari", "Heatmap hidden on mobile");
+
     // Wait for heatmap to load
     const heatmap = page.getByTestId("contribution-heatmap");
     await expect(heatmap).toBeVisible({ timeout: 10000 });
@@ -119,7 +134,10 @@ test.describe("Contributions Heatmap", () => {
     await expect(targetCell).toHaveClass(/ring-blue-500/);
   });
 
-  test("should display total contributions count", async ({ page }) => {
+  test("should display total contributions count", async ({ page }, testInfo) => {
+    // Skip on mobile - heatmap is hidden via CSS (hidden lg:block)
+    test.skip(testInfo.project.name === "Mobile Safari", "Heatmap hidden on mobile");
+
     // Wait for heatmap to load
     const heatmap = page.getByTestId("contribution-heatmap");
     await expect(heatmap).toBeVisible({ timeout: 10000 });
@@ -130,17 +148,23 @@ test.describe("Contributions Heatmap", () => {
     await expect(totalText).toContainText("contributions");
   });
 
-  test("should have Less/More legend", async ({ page }) => {
+  test("should have Less/More legend", async ({ page }, testInfo) => {
+    // Skip on mobile - heatmap is hidden via CSS (hidden lg:block)
+    test.skip(testInfo.project.name === "Mobile Safari", "Heatmap hidden on mobile");
+
     // Wait for heatmap to load
     const heatmap = page.getByTestId("contribution-heatmap");
     await expect(heatmap).toBeVisible({ timeout: 10000 });
 
-    // Check for legend text
-    await expect(page.locator("text=Less")).toBeVisible();
-    await expect(page.locator("text=More")).toBeVisible();
+    // Check for legend text within the heatmap (avoid matching "Want to see more?")
+    await expect(heatmap.locator("text=Less")).toBeVisible();
+    await expect(heatmap.locator("text=More")).toBeVisible();
   });
 
-  test("cells should have smooth hover animation", async ({ page }) => {
+  test("cells should have smooth hover animation", async ({ page }, testInfo) => {
+    // Skip on mobile - heatmap is hidden via CSS (hidden lg:block)
+    test.skip(testInfo.project.name === "Mobile Safari", "Heatmap hidden on mobile");
+
     // Wait for heatmap to load
     const heatmap = page.getByTestId("contribution-heatmap");
     await expect(heatmap).toBeVisible({ timeout: 10000 });
