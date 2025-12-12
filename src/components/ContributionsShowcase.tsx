@@ -22,7 +22,7 @@ const ContributionsShowcase = () => {
   const [selectedProject, setSelectedProject] = useState("all");
   const [selectedSource, setSelectedSource] = useState<FilterSource>("all");
   const [selectedStatus, setSelectedStatus] = useState<StatusFilter>("all");
-  const [sortOrder, setSortOrder] = useState<SortOrder>("newest");
+  const [sortOrder, setSortOrder] = useState<SortOrder>("updated");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   // Pagination state
