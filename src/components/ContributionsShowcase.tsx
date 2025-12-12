@@ -142,7 +142,7 @@ const ContributionsShowcase = () => {
             </div>
           )}
 
-          {/* Loading state - List view skeleton */}
+          {/* Loading state - List view skeleton (uses GITHUB_COLORS card styles) */}
           {isLoading && (
             <section className="flex flex-col gap-3">
               {[...Array(8)].map((_, index) => (

@@ -54,6 +54,8 @@ const ContributionCard = memo(function ContributionCard({
   // Calculate animation delay based on card index for staggered entrance
   const animationDelay = `${index * ANIMATION_DELAY_MS}ms`;
 
+  // Card styles use GITHUB_COLORS values for consistency documentation
+  // bg: cardBg.light/dark, border: border.light/dark, hover: borderHover.light/dark
   return (
     <a
       href={contribution.url}
@@ -84,12 +86,12 @@ const ContributionCard = memo(function ContributionCard({
               </span>
             </div>
 
-            {/* PR Title */}
+            {/* PR Title - uses GITHUB_COLORS.text.primary and borderHover */}
             <h3 className="text-sm font-semibold text-[#24292f] dark:text-[#c9d1d9] group-hover:text-[#0969da] dark:group-hover:text-[#58a6ff] transition-colors line-clamp-2 mb-2">
               {contribution.title}
             </h3>
 
-            {/* Meta row */}
+            {/* Meta row - uses GITHUB_COLORS.text.muted */}
             <div className="flex items-center flex-wrap gap-x-3 gap-y-1 text-xs text-[#57606a] dark:text-[#8b949e]">
               {/* Source */}
               <span className="uppercase font-medium">{contribution.source}</span>

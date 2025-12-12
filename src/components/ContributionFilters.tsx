@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useCallback } from "react";
 import {
   SOCIAL_LINKS,
   CONTRIBUTION_SOURCES,
@@ -34,30 +35,39 @@ const ContributionFilters = ({
   onStatusChange,
   onSortChange,
 }: ContributionFiltersProps) => {
-  // Build project options for the select dropdown
-  const projectOptions = [
-    { value: "all", label: `All Projects (${projects.length})` },
-    ...projects.map((project) => ({ value: project, label: project })),
-  ];
+  // Build project options for the select dropdown (memoized to avoid recreation on every render)
+  const projectOptions = useMemo(
+    () => [
+      { value: "all", label: `All Projects (${projects.length})` },
+      ...projects.map((project) => ({ value: project, label: project })),
+    ],
+    [projects]
+  );
 
-  // Build sort options for the select dropdown
-  const sortOptions = [
-    { value: "newest", label: "Newest First" },
-    { value: "oldest", label: "Oldest First" },
-  ];
+  // Build sort options for the select dropdown (static, never changes)
+  const sortOptions = useMemo(
+    () => [
+      { value: "newest", label: "Newest First" },
+      { value: "oldest", label: "Oldest First" },
+    ],
+    []
+  );
 
   // Capitalize first letter of source name for display
-  const formatSourceLabel = (source: string) => {
+  const formatSourceLabel = useCallback((source: string) => {
     if (source === "all") return "All";
     return source.charAt(0).toUpperCase() + source.slice(1);
-  };
+  }, []);
 
   // Get status label from STATUS_CONFIG or capitalize for "all"
-  const formatStatusLabel = (status: string) => {
+  const formatStatusLabel = useCallback((status: string) => {
     if (status === "all") return "All";
     const config = STATUS_CONFIG[status as keyof typeof STATUS_CONFIG];
-    return config ? config.label : status;
-  };
+    if (config) {
+      return config.label;
+    }
+    return status;
+  }, []);
 
   return (
     <div className="flex flex-col gap-4">
@@ -118,7 +128,7 @@ const ContributionFilters = ({
         </div>
       </div>
 
-      {/* GitHub link - stack on mobile */}
+      {/* GitHub link - stack on mobile (button uses GITHUB_COLORS.button styles) */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-3 border-t border-[#e0e0e0] dark:border-[#3a3a4e]">
         <span className="text-xs text-[#888] dark:text-[#777]">
           Want to see more? Check out my full GitHub profile.

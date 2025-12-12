@@ -184,3 +184,66 @@ export const DEFAULT_PROJECT_COLORS = {
 
 // Pagination
 export const ITEMS_PER_PAGE = 10;
+
+// GitHub UI colors - exact colors from GitHub's design system for consistent styling
+export const GITHUB_COLORS = {
+  // Card and container backgrounds
+  cardBg: {
+    light: "white",
+    dark: "#161b22",
+  },
+  // Border colors
+  border: {
+    light: "#d0d7de",
+    dark: "#30363d",
+  },
+  // Interactive border colors for hover states
+  borderHover: {
+    light: "#0969da",
+    dark: "#58a6ff",
+  },
+  // Text colors
+  text: {
+    primary: {
+      light: "#24292f",
+      dark: "#c9d1d9",
+    },
+    muted: {
+      light: "#57606a",
+      dark: "#8b949e",
+    },
+  },
+  // Tooltip colors
+  tooltip: {
+    bg: "#24292f",
+    text: "white",
+  },
+  // GitHub button colors (for link button in filters)
+  button: {
+    light: {
+      bg: "#24292f",
+      bgHover: "#32383f",
+    },
+    dark: {
+      bg: "#f0f6fc",
+      bgHover: "#d0d7de",
+    },
+  },
+  // Heatmap intensity colors - matches GitHub's contribution graph
+  heatmap: {
+    light: {
+      empty: "#ebedf0",
+      level1: "#9be9a8",
+      level2: "#40c463",
+      level3: "#30a14e",
+      level4: "#216e39",
+    },
+    dark: {
+      empty: "#161b22",
+      level1: "#0e4429",
+      level2: "#006d32",
+      level3: "#26a641",
+      level4: "#39d353",
+    },
+  },
+} as const;

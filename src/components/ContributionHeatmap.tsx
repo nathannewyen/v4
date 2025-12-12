@@ -30,20 +30,21 @@ const WEEKS_TO_DISPLAY = 26;
 const ROWS_TO_DISPLAY = 4;
 
 // GitHub-style color levels for contribution intensity
+// Colors reference GITHUB_COLORS.heatmap from constants but use literal strings for Tailwind JIT compatibility
 const HEATMAP_COLORS = {
   light: {
-    empty: "bg-[#ebedf0]",
-    level1: "bg-[#9be9a8]",
-    level2: "bg-[#40c463]",
-    level3: "bg-[#30a14e]",
-    level4: "bg-[#216e39]",
+    empty: "bg-[#ebedf0]", // GITHUB_COLORS.heatmap.light.empty
+    level1: "bg-[#9be9a8]", // GITHUB_COLORS.heatmap.light.level1
+    level2: "bg-[#40c463]", // GITHUB_COLORS.heatmap.light.level2
+    level3: "bg-[#30a14e]", // GITHUB_COLORS.heatmap.light.level3
+    level4: "bg-[#216e39]", // GITHUB_COLORS.heatmap.light.level4
   },
   dark: {
-    empty: "bg-[#161b22]",
-    level1: "bg-[#0e4429]",
-    level2: "bg-[#006d32]",
-    level3: "bg-[#26a641]",
-    level4: "bg-[#39d353]",
+    empty: "bg-[#161b22]", // GITHUB_COLORS.heatmap.dark.empty
+    level1: "bg-[#0e4429]", // GITHUB_COLORS.heatmap.dark.level1
+    level2: "bg-[#006d32]", // GITHUB_COLORS.heatmap.dark.level2
+    level3: "bg-[#26a641]", // GITHUB_COLORS.heatmap.dark.level3
+    level4: "bg-[#39d353]", // GITHUB_COLORS.heatmap.dark.level4
   },
 } as const;
 
@@ -238,7 +239,7 @@ const ContributionHeatmap = ({
               style={{
                 borderLeft: "4px solid transparent",
                 borderRight: "4px solid transparent",
-                borderTop: "4px solid #24292f",
+                borderTop: "4px solid #24292f", // GITHUB_COLORS.tooltip.bg
               }}
             />
           </>
@@ -276,7 +277,7 @@ const ContributionHeatmap = ({
         ))}
       </div>
 
-      {/* Legend row */}
+      {/* Legend row - uses GITHUB_COLORS.text.muted colors */}
       <div className="flex items-center justify-between text-xs text-[#57606a] dark:text-[#8b949e]">
         <span data-testid="heatmap-total">{totalContributions} contributions</span>
         <div className="flex items-center gap-1">

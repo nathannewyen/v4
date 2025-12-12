@@ -48,7 +48,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
         ← Previous
       </button>
 
-      {/* Page indicator */}
+      {/* Page indicator - uses GITHUB_COLORS.text.muted */}
       <span className="text-sm font-mono text-[#57606a] dark:text-[#8b949e]">
         Page {currentPage} of {totalPages}
       </span>

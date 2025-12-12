@@ -1,0 +1,26 @@
+// GitHub username to fetch contributions for
+export const GITHUB_USERNAME = "nathannewyen";
+
+// API route for Gerrit contributions (server-side to bypass CORS)
+export const GERRIT_API_ROUTE = "/api/gerrit";
+
+// Own repos to include commits from
+export const OWN_REPOS_TO_INCLUDE = ["nathannewyen/gitcraft"];
+
+// Map repo full names to display names for known projects
+// New repos will automatically use the repo name as display name
+export const REPO_DISPLAY_NAMES: Record<string, string> = {
+  "facebook/react-native": "React Native",
+  "kubernetes/kubernetes": "Kubernetes",
+  "langchain-ai/langchain": "LangChain",
+  "langchain-ai/langchainjs": "LangChainJS",
+  "langchain-ai/langgraph": "LangGraph",
+  "langchain-ai/langgraph-js": "LangGraph JS",
+  "langchain-ai/langchain-docs": "LangChain Docs",
+  "langchain-ai/langserve": "LangServe",
+  "stylelint/stylelint": "Stylelint",
+  "flutter/flutter": "Flutter",
+  "flutter/engine": "Flutter Engine",
+  "golang/go": "Go",
+  "nathannewyen/gitcraft": "Gitcraft",
+};
