@@ -15,7 +15,7 @@ const Hero = ({ isLoaded }: HeroProps) => {
         <div className="flex items-center justify-between">
           {/* Left Content - Name, title, description, and social links */}
           <div
-            className={`max-w-xl transition-all duration-700 delay-100 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+            className={`max-w-2xl xl:max-w-xl transition-all duration-700 delay-100 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
           >
             {/* Name */}
             <h1 className="font-display text-6xl md:text-8xl leading-none mb-6 text-[#1A2234] dark:text-white">
