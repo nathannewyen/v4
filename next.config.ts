@@ -13,6 +13,15 @@ const withPWA = withPWAInit({
 const nextConfig: NextConfig = {
   // Disable source maps in production to protect code from being copied
   productionBrowserSourceMaps: false,
+  // Allow external images from GitHub for organization avatars
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "github.com",
+      },
+    ],
+  },
   // Empty turbopack config to allow both turbopack and webpack plugins
   turbopack: {},
   // Security headers for production

@@ -1,6 +1,7 @@
 "use client";
 
 import { memo } from "react";
+import Image from "next/image";
 import { Contribution } from "@/types";
 import {
   PROJECT_COLORS,
@@ -89,10 +90,12 @@ const ContributionCard = memo(function ContributionCard({
               {/* Organization avatar and repo name */}
               <span className={`font-semibold ${projectColors.text} flex items-center gap-1.5`}>
                 {githubOrg && (
-                  <img
+                  <Image
                     src={`https://github.com/${githubOrg}.png`}
                     alt={`${githubOrg} avatar`}
-                    className="w-5 h-5 rounded-full"
+                    width={20}
+                    height={20}
+                    className="rounded-full"
                   />
                 )}
                 {contribution.repo}
