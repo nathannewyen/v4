@@ -7,6 +7,7 @@ import {
   STATUS_CONFIG,
   ANIMATION_DELAY_MS,
   DEFAULT_PROJECT_COLORS,
+  GERRIT_TO_GITHUB_ORG,
 } from "@/constants";
 import { formatDateShort } from "@/lib/dateUtils";
 
@@ -14,6 +15,14 @@ interface ContributionCardProps {
   contribution: Contribution;
   index: number;
 }
+
+// Get GitHub organization name for avatar from repo path or Gerrit mapping
+const getGitHubOrg = (repo: string): string | null => {
+  if (repo.includes("/")) {
+    return repo.split("/")[0];
+  }
+  return GERRIT_TO_GITHUB_ORG[repo] ?? null;
+};
 
 // SVG path data for each status icon
 const STATUS_ICON_PATHS = {
@@ -48,6 +57,9 @@ const ContributionCard = memo(function ContributionCard({
   // Get status configuration from centralized config
   const statusConfig = STATUS_CONFIG[contribution.status];
 
+  // Get GitHub organization for avatar display
+  const githubOrg = getGitHubOrg(contribution.repo);
+
   // Calculate animation delay based on card index for staggered entrance
   const animationDelay = `${index * ANIMATION_DELAY_MS}ms`;
 
@@ -74,7 +86,17 @@ const ContributionCard = memo(function ContributionCard({
           <div className="flex-1 min-w-0">
             {/* Repository full path (owner/repo) with PR number and status */}
             <div className="flex items-center gap-3 mb-1 text-xs">
-              <span className={`font-semibold ${projectColors.text}`}>{contribution.repo}</span>
+              {/* Organization avatar and repo name */}
+              <span className={`font-semibold ${projectColors.text} flex items-center gap-1.5`}>
+                {githubOrg && (
+                  <img
+                    src={`https://github.com/${githubOrg}.png`}
+                    alt={`${githubOrg} avatar`}
+                    className="w-5 h-5 rounded-full"
+                  />
+                )}
+                {contribution.repo}
+              </span>
               {/* PR/Change number (e.g., PR #34268) */}
               {contribution.prNumber && (
                 <span className="text-[#57606a] dark:text-[#8b949e]">
