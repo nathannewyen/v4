@@ -2,6 +2,7 @@
 
 import { experience } from "@/data/experience";
 import { useScrollAnimation } from "@/hooks";
+import { DocumentIcon } from "@/components/icons";
 
 // Experience section - Work history with companies and roles
 const Experience = () => {
@@ -66,6 +67,22 @@ const Experience = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Resume link at bottom of experience section */}
+        <div
+          className={`mt-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          style={{ transitionDelay: `${experience.length * 150 + 150}ms` }}
+        >
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 text-lg text-[#1A2234] dark:text-white hover:underline transition-colors"
+          >
+            <DocumentIcon />
+            <span>View Full Resume</span>
+          </a>
         </div>
       </div>
     </section>

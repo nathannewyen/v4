@@ -1,7 +1,7 @@
 "use client";
 
 import { SOCIAL_LINKS } from "@/constants";
-import { GitHubIcon, XIcon, LinkedInIcon, EmailIcon, DocumentIcon } from "@/components/icons";
+import { GitHubIcon, XIcon, LinkedInIcon, EmailIcon } from "@/components/icons";
 import { useScrollAnimation } from "@/hooks";
 
 // Connect section - Contact links in single line
@@ -50,16 +50,6 @@ const Connect = () => {
           >
             <EmailIcon />
             <span>nhan13574 (at) gmail.com</span>
-          </a>
-          {/* Resume link with icon */}
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 text-lg text-[#1A2234] dark:text-white hover:underline transition-colors"
-          >
-            <DocumentIcon />
-            <span>Resume</span>
           </a>
         </div>
       </div>
