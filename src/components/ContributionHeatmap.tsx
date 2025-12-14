@@ -281,26 +281,12 @@ const ContributionHeatmap = ({
       <div className="flex items-center justify-between text-xs text-[#57606a] dark:text-[#8b949e]">
         <span data-testid="heatmap-total">{totalContributions} contributions</span>
         <div className="flex items-center gap-1">
-          <span>Less</span>
+          <span>More</span>
           <div
             className={cn(
               "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
-              HEATMAP_COLORS.light.empty,
-              `dark:${HEATMAP_COLORS.dark.empty}`
-            )}
-          />
-          <div
-            className={cn(
-              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
-              HEATMAP_COLORS.light.level1,
-              `dark:${HEATMAP_COLORS.dark.level1}`
-            )}
-          />
-          <div
-            className={cn(
-              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
-              HEATMAP_COLORS.light.level2,
-              `dark:${HEATMAP_COLORS.dark.level2}`
+              HEATMAP_COLORS.light.level4,
+              `dark:${HEATMAP_COLORS.dark.level4}`
             )}
           />
           <div
@@ -313,11 +299,25 @@ const ContributionHeatmap = ({
           <div
             className={cn(
               "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
-              HEATMAP_COLORS.light.level4,
-              `dark:${HEATMAP_COLORS.dark.level4}`
+              HEATMAP_COLORS.light.level2,
+              `dark:${HEATMAP_COLORS.dark.level2}`
             )}
           />
-          <span>More</span>
+          <div
+            className={cn(
+              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
+              HEATMAP_COLORS.light.level1,
+              `dark:${HEATMAP_COLORS.dark.level1}`
+            )}
+          />
+          <div
+            className={cn(
+              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
+              HEATMAP_COLORS.light.empty,
+              `dark:${HEATMAP_COLORS.dark.empty}`
+            )}
+          />
+          <span>Less</span>
         </div>
       </div>
     </div>
