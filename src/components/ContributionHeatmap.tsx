@@ -46,6 +46,14 @@ const HEATMAP_COLORS = {
     level3: "bg-[#26a641]", // GITHUB_COLORS.heatmap.dark.level3
     level4: "bg-[#39d353]", // GITHUB_COLORS.heatmap.dark.level4
   },
+  // Combined light+dark classes for Tailwind JIT detection (full strings required)
+  combined: {
+    empty: "bg-[#ebedf0] dark:bg-[#161b22]",
+    level1: "bg-[#9be9a8] dark:bg-[#0e4429]",
+    level2: "bg-[#40c463] dark:bg-[#006d32]",
+    level3: "bg-[#30a14e] dark:bg-[#26a641]",
+    level4: "bg-[#216e39] dark:bg-[#39d353]",
+  },
 } as const;
 
 // Get the appropriate color class based on contribution count
@@ -281,43 +289,39 @@ const ContributionHeatmap = ({
       <div className="flex items-center justify-between text-xs text-[#57606a] dark:text-[#8b949e]">
         <span data-testid="heatmap-total">{totalContributions} contributions</span>
         <div className="flex items-center gap-1">
-          <span>More</span>
-          <div
-            className={cn(
-              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
-              HEATMAP_COLORS.light.level4,
-              `dark:${HEATMAP_COLORS.dark.level4}`
-            )}
-          />
-          <div
-            className={cn(
-              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
-              HEATMAP_COLORS.light.level3,
-              `dark:${HEATMAP_COLORS.dark.level3}`
-            )}
-          />
-          <div
-            className={cn(
-              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
-              HEATMAP_COLORS.light.level2,
-              `dark:${HEATMAP_COLORS.dark.level2}`
-            )}
-          />
-          <div
-            className={cn(
-              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
-              HEATMAP_COLORS.light.level1,
-              `dark:${HEATMAP_COLORS.dark.level1}`
-            )}
-          />
-          <div
-            className={cn(
-              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
-              HEATMAP_COLORS.light.empty,
-              `dark:${HEATMAP_COLORS.dark.empty}`
-            )}
-          />
           <span>Less</span>
+          {/* Legend squares use combined classes for Tailwind JIT to detect dark mode */}
+          <div
+            className={cn(
+              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
+              HEATMAP_COLORS.combined.empty
+            )}
+          />
+          <div
+            className={cn(
+              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
+              HEATMAP_COLORS.combined.level1
+            )}
+          />
+          <div
+            className={cn(
+              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
+              HEATMAP_COLORS.combined.level2
+            )}
+          />
+          <div
+            className={cn(
+              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
+              HEATMAP_COLORS.combined.level3
+            )}
+          />
+          <div
+            className={cn(
+              "w-[10px] h-[10px] rounded-[2px] transition-colors duration-200",
+              HEATMAP_COLORS.combined.level4
+            )}
+          />
+          <span>More</span>
         </div>
       </div>
     </div>
