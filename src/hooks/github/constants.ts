@@ -4,8 +4,8 @@ export const GITHUB_USERNAME = "nathannewyen";
 // API route for Gerrit contributions (server-side to bypass CORS)
 export const GERRIT_API_ROUTE = "/api/gerrit";
 
-// Own repos to include commits from
-export const OWN_REPOS_TO_INCLUDE = ["nathannewyen/gitcraft"];
+// Own repos to include commits from (empty - only show OSS contributions)
+export const OWN_REPOS_TO_INCLUDE: string[] = [];
 
 // Map repo full names to display names for known projects
 // New repos will automatically use the repo name as display name
@@ -22,5 +22,4 @@ export const REPO_DISPLAY_NAMES: Record<string, string> = {
   "flutter/flutter": "Flutter",
   "flutter/engine": "Flutter Engine",
   "golang/go": "Go",
-  "nathannewyen/gitcraft": "Gitcraft",
 };

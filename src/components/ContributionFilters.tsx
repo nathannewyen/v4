@@ -10,6 +10,7 @@ import {
 import { SortOrder, FilterSource, StatusFilter } from "@/types";
 import FilterSelect from "@/components/ui/FilterSelect";
 import FilterButton from "@/components/ui/FilterButton";
+import ProjectSelect from "@/components/ui/ProjectSelect";
 
 interface ContributionFiltersProps {
   projects: string[];
@@ -35,15 +36,6 @@ const ContributionFilters = ({
   onStatusChange,
   onSortChange,
 }: ContributionFiltersProps) => {
-  // Build project options for the select dropdown (memoized to avoid recreation on every render)
-  const projectOptions = useMemo(
-    () => [
-      { value: "all", label: `All Projects (${projects.length})` },
-      ...projects.map((project) => ({ value: project, label: project })),
-    ],
-    [projects]
-  );
-
   // Build sort options for the select dropdown (static, never changes)
   const sortOptions = useMemo(
     () => [
@@ -74,14 +66,8 @@ const ContributionFilters = ({
     <div className="flex flex-col gap-4">
       {/* Filters - stack vertically on mobile */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:items-center lg:justify-between gap-4">
-        {/* Project filter */}
-        <FilterSelect
-          id="project-filter"
-          label="Project"
-          value={selectedProject}
-          options={projectOptions}
-          onChange={onProjectChange}
-        />
+        {/* Project filter with avatars */}
+        <ProjectSelect projects={projects} value={selectedProject} onChange={onProjectChange} />
 
         {/* Sort filter */}
         <FilterSelect
