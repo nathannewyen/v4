@@ -123,7 +123,7 @@ const ProjectSelect = ({ projects, value, onChange }: ProjectSelectProps) => {
               type="button"
               onClick={() => handleSelect("all")}
               className={cn(
-                "w-full px-3 py-2 text-sm font-mono text-left",
+                "w-full px-3 py-2 text-sm font-mono text-left cursor-pointer",
                 "flex items-center gap-2",
                 "hover:bg-[#f5f5f5] dark:hover:bg-[#3a3a4e]",
                 value === "all" && "bg-[#e8e8e8] dark:bg-[#3a3a4e] font-bold"
@@ -146,7 +146,7 @@ const ProjectSelect = ({ projects, value, onChange }: ProjectSelectProps) => {
                   type="button"
                   onClick={() => handleSelect(project)}
                   className={cn(
-                    "w-full px-3 py-2 text-sm font-mono text-left",
+                    "w-full px-3 py-2 text-sm font-mono text-left cursor-pointer",
                     "flex items-center gap-2",
                     "hover:bg-[#f5f5f5] dark:hover:bg-[#3a3a4e]",
                     "text-[#1A2234] dark:text-white",

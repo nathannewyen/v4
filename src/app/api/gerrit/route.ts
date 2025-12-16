@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 // Gerrit configuration
 const GERRIT_URL = "https://go-review.googlesource.com";
 const GERRIT_EMAIL = "nhan13574@gmail.com";
-const GERRIT_PROJECT = "go";
+// Use golang/go format to match GitHub repo naming and REPO_DISPLAY_NAMES
+const GERRIT_PROJECT = "golang/go";
 
 interface GerritChange {
   id: string;
@@ -55,7 +56,7 @@ export async function GET() {
         type: "pr",
         title: change.subject,
         description: change.subject,
-        url: `${GERRIT_URL}/c/${GERRIT_PROJECT}/+/${change._number}`,
+        url: `${GERRIT_URL}/c/go/+/${change._number}`,
         date: change.created.split(" ")[0],
         // For "Last Updated" sorting - use updated timestamp from Gerrit (date only for display)
         updatedAt: change.updated.split(" ")[0],
