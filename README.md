@@ -94,10 +94,61 @@ npm run dev
 
 To make this portfolio your own:
 
-1. Update `.env.local` with your credentials
-2. Edit `src/data/` for your projects and experience
-3. Update `src/constants/` for colors and social links
-4. Replace images in `public/`
+### 1. Personal Information (`src/config/site.ts`)
+
+This is the main configuration file. Update your name, title, bio, and social links:
+
+```typescript
+export const siteConfig = {
+  name: {
+    first: "YOUR",
+    last: "NAME",
+  },
+  title: "Your Title @ Company",
+  bio: "Your bio or tagline here.",
+  social: {
+    github: {
+      url: "https://github.com/yourusername",
+      displayName: "github.com/yourusername",
+    },
+    // ... other social links
+  },
+};
+```
+
+### 2. Environment Variables
+
+Copy `.env.example` to `.env.local` and add your API credentials (see [Getting Started](#getting-started)).
+
+### 3. Work Experience (`src/data/experience.ts`)
+
+Replace with your job history:
+
+```typescript
+export const experience: Experience[] = [
+  {
+    company: "Your Company",
+    url: "https://company.com",
+    location: "City, State",
+    roles: [
+      {
+        title: "Your Title",
+        period: "Start – Present",
+        description: "What you do...",
+      },
+    ],
+  },
+];
+```
+
+### 4. Featured Projects (`src/data/projects.ts`)
+
+Update with your open source contributions or projects.
+
+### 5. Assets
+
+- Replace `public/resume.pdf` with your resume
+- Update `public/` images as needed
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for more details on development.
 
@@ -129,7 +180,9 @@ src/
 │   ├── sections/           # Page sections (Hero, Experience, Projects, etc.)
 │   ├── ui/                 # Reusable UI components
 │   └── icons/              # SVG icon components
-├── constants/              # App constants and configuration
+├── config/
+│   └── site.ts             # Main site configuration (name, bio, social links)
+├── constants/              # Design tokens and app constants
 ├── data/                   # Static data (projects, experience)
 ├── hooks/                  # Custom React hooks
 └── __tests__/              # Test files

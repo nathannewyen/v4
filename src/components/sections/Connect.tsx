@@ -1,6 +1,6 @@
 "use client";
 
-import { SOCIAL_LINKS } from "@/constants";
+import { siteConfig } from "@/config/site";
 import { GitHubIcon, XIcon, LinkedInIcon, EmailIcon } from "@/components/icons";
 import { useScrollAnimation } from "@/hooks";
 
@@ -21,35 +21,35 @@ const Connect = () => {
         >
           {/* GitHub link with icon */}
           <a
-            href={SOCIAL_LINKS.github}
+            href={siteConfig.social.github.url}
             className="flex items-center gap-3 text-lg text-[#1A2234] dark:text-white hover:underline transition-colors"
           >
             <GitHubIcon className="w-7 h-7" />
-            <span>github.com/nathannewyen</span>
+            <span>{siteConfig.social.github.displayName}</span>
           </a>
           {/* X/Twitter link with icon */}
           <a
-            href={SOCIAL_LINKS.twitter}
+            href={siteConfig.social.twitter.url}
             className="flex items-center gap-3 text-lg text-[#1A2234] dark:text-white hover:underline transition-colors"
           >
             <XIcon className="w-7 h-7" />
-            <span>x.com/nathannewyenn</span>
+            <span>{siteConfig.social.twitter.displayName}</span>
           </a>
           {/* LinkedIn link with icon */}
           <a
-            href={SOCIAL_LINKS.linkedin}
+            href={siteConfig.social.linkedin.url}
             className="flex items-center gap-3 text-lg text-[#1A2234] dark:text-white hover:underline transition-colors"
           >
             <LinkedInIcon className="w-7 h-7" />
-            <span>linkedin.com/nhannguyen3112</span>
+            <span>{siteConfig.social.linkedin.displayName}</span>
           </a>
           {/* Email link with icon */}
           <a
-            href={`mailto:${SOCIAL_LINKS.email}`}
+            href={`mailto:${siteConfig.social.email.address}`}
             className="flex items-center gap-3 text-lg text-[#1A2234] dark:text-white hover:underline transition-colors"
           >
             <EmailIcon />
-            <span>nhan13574 (at) gmail.com</span>
+            <span>{siteConfig.social.email.displayName}</span>
           </a>
         </div>
       </div>

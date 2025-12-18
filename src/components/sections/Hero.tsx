@@ -1,5 +1,6 @@
 "use client";
 
+import { siteConfig } from "@/config/site";
 import { SOCIAL_LINKS } from "@/constants";
 import { GitHubIcon, XIcon, StackOverflowIcon } from "@/components/icons";
 
@@ -19,9 +20,9 @@ const Hero = ({ isLoaded }: HeroProps) => {
           >
             {/* Name */}
             <h1 className="font-display text-6xl md:text-8xl leading-none mb-6 text-[#1A2234] dark:text-white">
-              NHAN
+              {siteConfig.name.first}
               <br />
-              NGUYEN
+              {siteConfig.name.last}
             </h1>
 
             {/* Thick underline decoration */}
@@ -29,12 +30,12 @@ const Hero = ({ isLoaded }: HeroProps) => {
 
             {/* Title */}
             <p className="font-mono-custom text-sm mb-6 uppercase text-xl md:text-2xl text-[#1A2234] dark:text-white font-medium">
-              Software Engineer @ JPMorgan Chase
+              {siteConfig.title}
             </p>
 
             {/* Description */}
             <p className="text-lg md:text-xl text-[#1A2234] dark:text-[#a0a0a0] font-medium mb-8">
-              AI/ML/Engineer. Interested in AI agents, drones, rockets, and software development.
+              {siteConfig.bio}
             </p>
 
             {/* Social Links - X/Twitter, Stack Overflow, and GitHub */}

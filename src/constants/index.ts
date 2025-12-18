@@ -1,6 +1,8 @@
 // Design System - Centralized design tokens for consistent styling
 // All color values should reference these constants
 
+import { siteConfig } from "@/config/site";
+
 export const COLORS = {
   // === LIGHT MODE ===
   light: {
@@ -54,13 +56,14 @@ export const COLORS = {
 // Navigation section names - used for nav links and scroll targets
 export const NAVIGATION_SECTIONS = ["intro", "experience", "projects"] as const;
 
-// Social links - centralized URLs for easy updates
+// Social links - derived from site config for backward compatibility
+// Primary source of truth is src/config/site.ts
 export const SOCIAL_LINKS = {
-  github: "https://github.com/nathannewyen",
-  twitter: "https://x.com/nathannewyenn",
-  linkedin: "https://www.linkedin.com/in/nhannguyen3112/",
-  stackoverflow: "https://stackoverflow.com/users/14785807/nathan-nguyen",
-  email: "nhan13574@gmail.com",
+  github: siteConfig.social.github.url,
+  twitter: siteConfig.social.twitter.url,
+  linkedin: siteConfig.social.linkedin.url,
+  stackoverflow: siteConfig.social.stackoverflow.url,
+  email: siteConfig.social.email.address,
 } as const;
 
 // Spacing constants for consistent padding/margins
