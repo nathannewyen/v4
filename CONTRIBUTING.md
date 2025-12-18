@@ -24,12 +24,24 @@ Feature suggestions are welcome! Please open an issue with:
 
 ### Pull Requests
 
-1. Fork the repo and create your branch from `develop`
-2. Make your changes
-3. Run tests (`npm run test`)
-4. Ensure the build passes (`npm run build`)
-5. Run linting (`npm run lint`)
-6. Submit your pull request to `develop`
+1. Fork the repo
+2. Create a feature or fix branch from `develop`:
+   - `feature/your-feature-name` for new features
+   - `fix/issue-description` for bug fixes
+   - **Do not commit directly to `develop`**
+3. Make your changes
+4. Run tests (`npm run test`)
+5. Ensure the build passes (`npm run build`)
+6. Run linting (`npm run lint`)
+7. Submit your pull request to `develop`
+
+### Branch Naming
+
+| Type        | Pattern                   | Example                   |
+| ----------- | ------------------------- | ------------------------- |
+| Feature     | `feature/description`     | `feature/add-dark-mode`   |
+| Bug fix     | `fix/description`         | `fix/mobile-nav-overflow` |
+| Enhancement | `enhancement/description` | `enhancement/improve-seo` |
 
 ## Development Setup
 
