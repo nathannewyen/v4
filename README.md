@@ -8,6 +8,8 @@
 
 ---
 
+<img width="1600" height="800" alt="image" src="https://github.com/user-attachments/assets/527a0a07-e4e1-4904-a12c-0af3e98755a9" />
+
 ## Tech Stack
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
