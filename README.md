@@ -53,6 +53,12 @@
 | Card Accent     | `#2a2a3e` | ![#2a2a3e](https://img.shields.io/badge/-2a2a3e?style=flat-square&color=2a2a3e) |
 | Border          | `#3a3a4e` | ![#3a3a4e](https://img.shields.io/badge/-3a3a4e?style=flat-square&color=3a3a4e) |
 
+## Forking This Repo
+
+Yes, you can fork this repo. Please give me proper credit by linking back to [nathannewyen.github.io/v4](https://nathannewyen.github.io/v4). Thanks!
+
+I value keeping this site open source, but as you all know, _plagiarism is bad_. I spent a non-trivial amount of effort building and designing this iteration of my site, and I am proud of it! All I ask is that you not claim this effort as your own.
+
 ## Getting Started
 
 1. Clone the repository
@@ -68,13 +74,32 @@ cd v4
 npm install
 ```
 
-3. Start the development server
+3. Set up environment variables
+
+```bash
+cp .env.example .env.local
+```
+
+Then edit `.env.local` with your own values (GitHub token, username, etc.)
+
+4. Start the development server
 
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Customization
+
+To make this portfolio your own:
+
+1. Update `.env.local` with your credentials
+2. Edit `src/data/` for your projects and experience
+3. Update `src/constants/` for colors and social links
+4. Replace images in `public/`
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more details on development.
 
 ## Available Scripts
 

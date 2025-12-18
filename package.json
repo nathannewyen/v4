@@ -1,7 +1,25 @@
 {
   "name": "nathan-v4",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "description": "Personal portfolio website built with Next.js, React 19, and TypeScript",
+  "author": "Nhan Nguyen <nhan13574@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nathannewyen/v4.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nathannewyen/v4/issues"
+  },
+  "keywords": [
+    "portfolio",
+    "nextjs",
+    "react",
+    "typescript",
+    "tailwindcss",
+    "open-source"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
