@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
-// Gerrit configuration
+// Gerrit configuration - email is configurable via environment variable for easy forking
 const GERRIT_URL = "https://go-review.googlesource.com";
-const GERRIT_EMAIL = "nhan13574@gmail.com";
+const GERRIT_EMAIL = process.env.GERRIT_EMAIL ?? "nhan13574@gmail.com";
 // Use golang/go format to match GitHub repo naming and REPO_DISPLAY_NAMES
 const GERRIT_PROJECT = "golang/go";
 

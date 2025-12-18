@@ -49,8 +49,8 @@ interface AnswerWithQuestion {
   tags: string[];
 }
 
-// Stack Overflow user ID
-const STACKOVERFLOW_USER_ID = "14785807";
+// Stack Overflow user ID - configurable via environment variable for easy forking
+const STACKOVERFLOW_USER_ID = process.env.NEXT_PUBLIC_STACKOVERFLOW_USER_ID ?? "14785807";
 
 // Return type for useStackOverflow hook
 interface UseStackOverflowResult {

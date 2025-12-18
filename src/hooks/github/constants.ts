@@ -1,5 +1,6 @@
 // GitHub username to fetch contributions for
-export const GITHUB_USERNAME = "nathannewyen";
+// Configurable via environment variable for easy forking
+export const GITHUB_USERNAME = process.env.NEXT_PUBLIC_GITHUB_USERNAME ?? "nathannewyen";
 
 // API route for Gerrit contributions (server-side to bypass CORS)
 export const GERRIT_API_ROUTE = "/api/gerrit";
