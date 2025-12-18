@@ -37,6 +37,30 @@ export interface Experience {
   roles: Role[];
 }
 
+// Stack Overflow answer type definition
+export interface StackOverflowAnswer {
+  answerId: number;
+  questionId: number;
+  questionTitle: string;
+  isAccepted: boolean;
+  score: number;
+  link: string;
+  creationDate: number;
+  tags: string[];
+}
+
+// Stack Overflow user profile type definition
+export interface StackOverflowUser {
+  reputation: number;
+  badgeCounts: {
+    gold: number;
+    silver: number;
+    bronze: number;
+  };
+  profileImage: string;
+  displayName: string;
+}
+
 // Contribution type definition for open source contributions showcase
 export interface Contribution {
   id: string;

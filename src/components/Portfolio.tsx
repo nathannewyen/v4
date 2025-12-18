@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { NAVIGATION_SECTIONS } from "@/constants";
 import { initialProjects } from "@/data/projects";
 import { useGitHubStars, useActiveSection } from "@/hooks";
-import { Hero, Experience, Projects, Connect, Footer } from "@/components/sections";
+import { Hero, Experience, Projects, StackOverflow, Connect, Footer } from "@/components/sections";
 import ThemeToggle from "@/components/ThemeToggle";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
@@ -76,6 +76,9 @@ const Portfolio = () => {
         </ErrorBoundary>
         <ErrorBoundary>
           <Projects projects={projects} isLoading={isLoadingStars} />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <StackOverflow />
         </ErrorBoundary>
         <ErrorBoundary>
           <Connect />
