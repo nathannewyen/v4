@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import { StackOverflowAnswer, StackOverflowUser } from "@/types";
+import { standardSwrConfig } from "@/lib/swrConfig";
 
 // Stack Exchange API response types for answers
 // Note: link field is not returned by default API, so we construct it manually
@@ -79,12 +80,7 @@ const fetchAnswersWithQuestions = async (): Promise<AnswerWithQuestion[]> => {
   // Step 2: Get unique question IDs from answers
   const questionIds = answersData.items.map((answer) => answer.question_id);
 
-  // Step 3: Fetch question details (title, tags) for all questions in one batch request
-  const questionsResponse = await fetch(
-    `https://api.stackexchange.com/2.3/questions/${questionIds.join(";")}/answers?order=desc&sort=votes&site=stackoverflow&filter=!-nt6ev`
-  );
-
-  // Create question lookup map
+  // Create question lookup map for storing fetched question details
   const questionMap: Map<number, StackExchangeQuestionItem> = new Map();
 
   // Try to fetch question details, but continue even if it fails
@@ -157,27 +153,23 @@ const fetchUserProfile = async (): Promise<StackOverflowUser | null> => {
 // Custom hook to fetch Stack Overflow answers and user profile using SWR
 // Fetches answers first, then fetches question details for titles and tags
 const useStackOverflow = (): UseStackOverflowResult => {
-  // SWR configuration for caching
-  const swrConfig = {
-    dedupingInterval: 300000,
-    refreshInterval: 300000,
-    revalidateOnFocus: false,
-    errorRetryCount: 3,
-  };
-
-  // Fetch user profile
+  // Fetch user profile using centralized SWR config
   const {
     data: user,
     isLoading: userLoading,
     error: userError,
-  } = useSWR<StackOverflowUser | null>("stackoverflow-user", fetchUserProfile, swrConfig);
+  } = useSWR<StackOverflowUser | null>("stackoverflow-user", fetchUserProfile, standardSwrConfig);
 
-  // Fetch answers with question details
+  // Fetch answers with question details using centralized SWR config
   const {
     data: answersData,
     isLoading: answersLoading,
     error: answersError,
-  } = useSWR<AnswerWithQuestion[]>("stackoverflow-answers", fetchAnswersWithQuestions, swrConfig);
+  } = useSWR<AnswerWithQuestion[]>(
+    "stackoverflow-answers",
+    fetchAnswersWithQuestions,
+    standardSwrConfig
+  );
 
   // Transform to our StackOverflowAnswer type
   const answers: StackOverflowAnswer[] = answersData ?? [];

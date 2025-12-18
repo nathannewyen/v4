@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { getRepoDisplayName } from "@/hooks/github/utils";
-import { GERRIT_TO_GITHUB_ORG } from "@/constants";
 
 interface ProjectSelectProps {
   projects: string[];
@@ -12,13 +11,13 @@ interface ProjectSelectProps {
   onChange: (value: string) => void;
 }
 
-// Get GitHub organization avatar URL from repo path or Gerrit mapping
+// Get GitHub organization avatar URL from repo path (e.g., "facebook/react" -> "facebook.png")
+// Returns null if repo doesn't follow owner/repo format
 const getAvatarUrl = (repo: string): string | null => {
   if (repo.includes("/")) {
     return `https://github.com/${repo.split("/")[0]}.png`;
   }
-  const githubOrg = GERRIT_TO_GITHUB_ORG[repo];
-  return githubOrg ? `https://github.com/${githubOrg}.png` : null;
+  return null;
 };
 
 // Custom project select dropdown with avatars and display names

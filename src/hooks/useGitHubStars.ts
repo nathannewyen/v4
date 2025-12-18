@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import { Project } from "@/types";
 import { fetcher } from "@/lib/fetcher";
+import { standardSwrConfig } from "@/lib/swrConfig";
 
 // GitHub API response type for repository data
 interface GitHubRepoResponse {
@@ -28,10 +29,11 @@ const useGitHubStars = (initialProjects: Project[]): UseGitHubStarsResult => {
   // Create a stable cache key from all repo names
   const repoNames = initialProjects.map((project) => project.repo).join(",");
 
+  // Fetch GitHub star counts using centralized SWR config for consistent caching
   const { data, isLoading } = useSWR<GitHubRepoResponse[]>(
     repoNames ? `github-stars:${repoNames}` : null,
     async () => {
-      // Fetch all repos in parallel
+      // Fetch all repos in parallel for better performance
       const responses = await Promise.all(
         initialProjects.map((project) =>
           fetcher<GitHubRepoResponse>(`https://api.github.com/repos/${project.repo}`)
@@ -39,16 +41,7 @@ const useGitHubStars = (initialProjects: Project[]): UseGitHubStarsResult => {
       );
       return responses;
     },
-    {
-      // Cache for 5 minutes (300000ms) to reduce API calls
-      dedupingInterval: 300000,
-      // Revalidate every 5 minutes
-      refreshInterval: 300000,
-      // Keep stale data while revalidating
-      revalidateOnFocus: false,
-      // Retry failed requests up to 3 times
-      errorRetryCount: 3,
-    }
+    standardSwrConfig
   );
 
   // Merge fetched star counts with initial project data

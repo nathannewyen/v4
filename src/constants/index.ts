@@ -165,10 +165,6 @@ export const CONTRIBUTION_SOURCES = ["all", "github", "gerrit"] as const;
 // Contribution statuses for filter dropdown
 export const CONTRIBUTION_STATUSES = ["all", "merged", "open", "closed"] as const;
 
-// Mapping for Gerrit repos to their GitHub organization names (for avatars)
-// Note: golang/go uses standard owner/repo format, so no mapping needed
-export const GERRIT_TO_GITHUB_ORG: Record<string, string> = {} as const;
-
 // Animation timing
 export const ANIMATION_DELAY_MS = 50;
 export const HEATMAP_CELL_ANIMATION_DELAY = 5;

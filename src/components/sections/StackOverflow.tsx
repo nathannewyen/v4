@@ -4,21 +4,7 @@ import { useScrollAnimation, useStackOverflow } from "@/hooks";
 import Skeleton from "@/components/Skeleton";
 import { SOCIAL_LINKS } from "@/constants";
 import { ExternalLinkIcon } from "@/components/icons";
-
-// Decode HTML entities from Stack Exchange API (e.g., &amp; -> &, &quot; -> ")
-const decodeHtmlEntities = (text: string): string => {
-  const htmlEntities: Record<string, string> = {
-    "&amp;": "&",
-    "&lt;": "<",
-    "&gt;": ">",
-    "&quot;": '"',
-    "&#39;": "'",
-    "&apos;": "'",
-    "&nbsp;": " ",
-  };
-
-  return text.replace(/&(?:amp|lt|gt|quot|#39|apos|nbsp);/g, (match) => htmlEntities[match]);
-};
+import { decodeHtmlEntities } from "@/lib/utils";
 
 // Stack Overflow section - Displays top answers and reputation
 const StackOverflow = () => {
