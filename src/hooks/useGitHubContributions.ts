@@ -1,27 +1,18 @@
 import useSWR from "swr";
 import { Contribution } from "@/types";
 import { fetchAllContributions, UseGitHubContributionsResult } from "./github";
+import { contributionSwrConfig } from "@/lib/swrConfig";
 
 // Re-export getUniqueProjects for components that need it
 export { getUniqueProjects } from "./github";
 
 // Custom hook to fetch GitHub contributions with caching via SWR
+// Uses contribution-specific config with longer cache duration (10 min vs 5 min)
 const useGitHubContributions = (): UseGitHubContributionsResult => {
   const { data, error, isLoading } = useSWR<Contribution[]>(
     "github-contributions",
     fetchAllContributions,
-    {
-      // Cache for 10 minutes
-      dedupingInterval: 600000,
-      // Revalidate every 10 minutes
-      refreshInterval: 600000,
-      // Don't revalidate on focus to save API calls
-      revalidateOnFocus: false,
-      // Retry 2 times on error
-      errorRetryCount: 2,
-      // Keep previous data while revalidating
-      keepPreviousData: true,
-    }
+    contributionSwrConfig
   );
 
   return {

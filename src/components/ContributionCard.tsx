@@ -8,7 +8,6 @@ import {
   STATUS_CONFIG,
   ANIMATION_DELAY_MS,
   DEFAULT_PROJECT_COLORS,
-  GERRIT_TO_GITHUB_ORG,
 } from "@/constants";
 import { formatDateShort } from "@/lib/dateUtils";
 
@@ -17,12 +16,13 @@ interface ContributionCardProps {
   index: number;
 }
 
-// Get GitHub organization name for avatar from repo path or Gerrit mapping
+// Extract GitHub organization name from repo path (e.g., "facebook/react" -> "facebook")
+// Returns null if repo doesn't follow owner/repo format
 const getGitHubOrg = (repo: string): string | null => {
   if (repo.includes("/")) {
     return repo.split("/")[0];
   }
-  return GERRIT_TO_GITHUB_ORG[repo] ?? null;
+  return null;
 };
 
 // SVG path data for each status icon
