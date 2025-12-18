@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>nathan-v4</h1>
+  <h1>v4</h1>
   <p>The fourth iteration of my personal website built with Next.js 16 and Tailwind CSS 4</p>
 
 <a href="https://nathan-v4.vercel.app/" target="_blank">nathan-v4.vercel.app</a>
@@ -56,8 +56,8 @@
 1. Clone the repository
 
 ```bash
-git clone https://github.com/nathannewyen/nathan-v4.git
-cd nathan-v4
+git clone https://github.com/nathannewyen/v4.git
+cd v4
 ```
 
 2. Install dependencies
