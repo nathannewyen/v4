@@ -2,12 +2,12 @@ import useSWR from "swr";
 import { StackOverflowAnswer, StackOverflowUser } from "@/types";
 
 // Stack Exchange API response types for answers
+// Note: link field is not returned by default API, so we construct it manually
 interface StackExchangeAnswerItem {
   answer_id: number;
   question_id: number;
   is_accepted: boolean;
   score: number;
-  link: string;
   creation_date: number;
 }
 
@@ -105,15 +105,18 @@ const fetchAnswersWithQuestions = async (): Promise<AnswerWithQuestion[]> => {
   }
 
   // Step 4: Merge answers with question details
+  // Note: Stack Exchange API doesn't return link field by default, so we construct it manually
   const answersWithQuestions: AnswerWithQuestion[] = answersData.items.map((answer) => {
     const question = questionMap.get(answer.question_id);
+    // Construct the Stack Overflow answer permalink using the answer_id
+    const answerLink = `https://stackoverflow.com/a/${answer.answer_id}`;
     return {
       answerId: answer.answer_id,
       questionId: answer.question_id,
       questionTitle: question?.title ?? `Question #${answer.question_id}`,
       isAccepted: answer.is_accepted,
       score: answer.score,
-      link: answer.link,
+      link: answerLink,
       creationDate: answer.creation_date,
       tags: question?.tags ?? [],
     };

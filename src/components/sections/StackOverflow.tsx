@@ -45,7 +45,7 @@ const StackOverflow = () => {
         <h3
           className={`text-xl md:text-3xl font-bold mb-8 border-l-4 border-[#1A2234] dark:border-white pl-4 text-[#1A2234] dark:text-white transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
-          HELPING DEVELOPERS SOLVE PROBLEMS
+          CONTRIBUTING TO THE DEV COMMUNITY
         </h3>
 
         {/* Top answers heading with reputation on the right */}
@@ -98,9 +98,10 @@ const StackOverflow = () => {
                 <span className="flex items-center justify-center min-w-[90px] px-3 py-1.5 bg-[#1A2234] dark:bg-white text-white dark:text-[#1A2234] text-sm font-bold">
                   {answer.score} {answer.score === 1 ? "upvote" : "upvotes"}
                 </span>
-                {/* Question title */}
-                <span className="text-sm text-[#1A2234] dark:text-white group-hover:underline flex-1 line-clamp-1">
+                {/* Question title with hover link icon */}
+                <span className="text-sm text-[#1A2234] dark:text-white group-hover:underline flex-1 line-clamp-1 flex items-center gap-2">
                   {decodeHtmlEntities(answer.questionTitle)}
+                  <ExternalLinkIcon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                 </span>
                 {/* Tags (hidden on mobile) */}
                 <div className="hidden md:flex gap-2">
