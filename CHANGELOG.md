@@ -5,7 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2024-12-18
+## [1.0.1] - 2025-12-18
+
+### Added
+
+- Centralized site config (`src/config/site.ts`) for easier forking and customization
+- Detailed customization instructions in README
+
+### Changed
+
+- Updated Hero and Connect components to use centralized site config
+- Site now available at custom domain `newyen.dev`
+- Derived `SOCIAL_LINKS` from site config for backward compatibility
+
+### Fixed
+
+- Fixed Stack Exchange API 400 error in useStackOverflow hook
+- Centralized SWR configuration to reduce duplication across hooks
+
+## [1.0.0] - 2025-12-18
 
 ### Added
 
