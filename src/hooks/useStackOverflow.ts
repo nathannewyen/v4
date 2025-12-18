@@ -52,6 +52,18 @@ interface AnswerWithQuestion {
 // Stack Overflow user ID - configurable via environment variable for easy forking
 const STACKOVERFLOW_USER_ID = process.env.NEXT_PUBLIC_STACKOVERFLOW_USER_ID ?? "14785807";
 
+// Stack Exchange API key - optional but recommended to avoid rate limits
+const STACKEXCHANGE_API_KEY = process.env.NEXT_PUBLIC_STACKEXCHANGE_API_KEY;
+
+// Helper to append API key to URL if available
+const buildApiUrl = (baseUrl: string): string => {
+  if (STACKEXCHANGE_API_KEY) {
+    const separator = baseUrl.includes("?") ? "&" : "?";
+    return `${baseUrl}${separator}key=${STACKEXCHANGE_API_KEY}`;
+  }
+  return baseUrl;
+};
+
 // Return type for useStackOverflow hook
 interface UseStackOverflowResult {
   answers: StackOverflowAnswer[];
@@ -63,9 +75,10 @@ interface UseStackOverflowResult {
 // Fetcher that gets answers and then fetches question details
 const fetchAnswersWithQuestions = async (): Promise<AnswerWithQuestion[]> => {
   // Step 1: Fetch user's top answers
-  const answersResponse = await fetch(
+  const answersUrl = buildApiUrl(
     `https://api.stackexchange.com/2.3/users/${STACKOVERFLOW_USER_ID}/answers?order=desc&sort=votes&site=stackoverflow&pagesize=10`
   );
+  const answersResponse = await fetch(answersUrl);
 
   if (!answersResponse.ok) {
     throw new Error(`Stack Exchange API error: ${answersResponse.status}`);
@@ -85,9 +98,10 @@ const fetchAnswersWithQuestions = async (): Promise<AnswerWithQuestion[]> => {
 
   // Try to fetch question details, but continue even if it fails
   try {
-    const questionsDirectResponse = await fetch(
+    const questionsUrl = buildApiUrl(
       `https://api.stackexchange.com/2.3/questions/${questionIds.join(";")}?site=stackoverflow`
     );
+    const questionsDirectResponse = await fetch(questionsUrl);
 
     if (questionsDirectResponse.ok) {
       const questionsData: StackExchangeResponse<StackExchangeQuestionItem> =
@@ -123,9 +137,10 @@ const fetchAnswersWithQuestions = async (): Promise<AnswerWithQuestion[]> => {
 
 // Fetcher for user profile
 const fetchUserProfile = async (): Promise<StackOverflowUser | null> => {
-  const response = await fetch(
+  const userUrl = buildApiUrl(
     `https://api.stackexchange.com/2.3/users/${STACKOVERFLOW_USER_ID}?site=stackoverflow`
   );
+  const response = await fetch(userUrl);
 
   if (!response.ok) {
     throw new Error(`Stack Exchange API error: ${response.status}`);
