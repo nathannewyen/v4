@@ -24,11 +24,12 @@ Feature suggestions are welcome! Please open an issue with:
 
 ### Pull Requests
 
-1. Fork the repo and create your branch from `main`
+1. Fork the repo and create your branch from `develop`
 2. Make your changes
-3. Ensure the build passes (`npm run build`)
-4. Run linting (`npm run lint`)
-5. Submit your pull request
+3. Run tests (`npm run test`)
+4. Ensure the build passes (`npm run build`)
+5. Run linting (`npm run lint`)
+6. Submit your pull request to `develop`
 
 ## Development Setup
 
