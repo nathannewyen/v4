@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <h1>nathan-v4</h1>
+  <p>The fourth iteration of my personal website built with Next.js 16 and Tailwind CSS 4</p>
+
+<a href="https://nathan-v4.vercel.app/" target="_blank">nathan-v4.vercel.app</a>
+
+</div>
+
+---
+
+## Tech Stack
+
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=flat-square&logo=tailwindcss)
+![Vitest](https://img.shields.io/badge/Vitest-4-6E9F18?style=flat-square&logo=vitest)
+![Playwright](https://img.shields.io/badge/Playwright-E2E-2EAD33?style=flat-square&logo=playwright)
+
+## Features
+
+- Server-side rendering with Next.js App Router
+- Dark/Light theme with `next-themes`
+- GitHub stars fetched via SWR
+- Stack Overflow integration
+- Responsive design with Tailwind CSS 4
+- PWA support with `next-pwa`
+- E2E testing with Playwright
+- Unit testing with Vitest and Testing Library
+
+## Color Reference
+
+### Light Mode
+
+| Color                | Hex       | Preview                                                                         |
+| -------------------- | --------- | ------------------------------------------------------------------------------- |
+| Background           | `#f5f5f5` | ![#f5f5f5](https://img.shields.io/badge/-f5f5f5?style=flat-square&color=f5f5f5) |
+| Primary Text         | `#1A2234` | ![#1A2234](https://img.shields.io/badge/-1A2234?style=flat-square&color=1A2234) |
+| Secondary Background | `#E2E8F0` | ![#E2E8F0](https://img.shields.io/badge/-E2E8F0?style=flat-square&color=E2E8F0) |
+| Tertiary Background  | `#CBD5E1` | ![#CBD5E1](https://img.shields.io/badge/-CBD5E1?style=flat-square&color=CBD5E1) |
+
+### Dark Mode
+
+| Color           | Hex       | Preview                                                                         |
+| --------------- | --------- | ------------------------------------------------------------------------------- |
+| Background      | `#0a0a0f` | ![#0a0a0f](https://img.shields.io/badge/-0a0a0f?style=flat-square&color=0a0a0f) |
+| Navigation      | `#15151f` | ![#15151f](https://img.shields.io/badge/-15151f?style=flat-square&color=15151f) |
+| Primary Text    | `#e5e5e5` | ![#e5e5e5](https://img.shields.io/badge/-e5e5e5?style=flat-square&color=e5e5e5) |
+| Secondary Text  | `#a0a0a0` | ![#a0a0a0](https://img.shields.io/badge/-a0a0a0?style=flat-square&color=a0a0a0) |
+| Card Background | `#1a1a2e` | ![#1a1a2e](https://img.shields.io/badge/-1a1a2e?style=flat-square&color=1a1a2e) |
+| Card Accent     | `#2a2a3e` | ![#2a2a3e](https://img.shields.io/badge/-2a2a3e?style=flat-square&color=2a2a3e) |
+| Border          | `#3a3a4e` | ![#3a3a4e](https://img.shields.io/badge/-3a3a4e?style=flat-square&color=3a3a4e) |
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository
+
+```bash
+git clone https://github.com/nathannewyen/nathan-v4.git
+cd nathan-v4
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
+
+3. Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Script                  | Description                      |
+| ----------------------- | -------------------------------- |
+| `npm run dev`           | Start development server         |
+| `npm run build`         | Build for production             |
+| `npm run start`         | Start production server          |
+| `npm run lint`          | Run ESLint                       |
+| `npm run lint:fix`      | Fix ESLint errors                |
+| `npm run format`        | Format code with Prettier        |
+| `npm run test`          | Run unit tests with Vitest       |
+| `npm run test:ui`       | Run tests with Vitest UI         |
+| `npm run test:coverage` | Generate test coverage report    |
+| `npm run test:e2e`      | Run E2E tests with Playwright    |
+| `npm run test:e2e:ui`   | Run E2E tests with Playwright UI |
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── contributions/      # Contributions page
+│   ├── layout.tsx          # Root layout
+│   └── page.tsx            # Home page
+├── components/
+│   ├── sections/           # Page sections (Hero, Experience, Projects, etc.)
+│   ├── ui/                 # Reusable UI components
+│   └── icons/              # SVG icon components
+├── constants/              # App constants and configuration
+├── data/                   # Static data (projects, experience)
+├── hooks/                  # Custom React hooks
+└── __tests__/              # Test files
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
