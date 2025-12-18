@@ -2,7 +2,7 @@
   <h1>v4</h1>
   <p>The fourth iteration of my personal website built with Next.js 16 and Tailwind CSS 4</p>
 
-<a href="https://nathan-v4.vercel.app/" target="_blank">nathan-v4.vercel.app</a>
+<a href="https://newyen.dev" target="_blank">newyen.dev</a>
 
 </div>
 

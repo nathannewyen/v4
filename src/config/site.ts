@@ -63,7 +63,7 @@ export const siteConfig = {
     "Software Engineer specializing in AI/ML, open source contributions, and full-stack development.",
 
   // Base URL of your deployed site (used for SEO and social sharing)
-  siteUrl: "https://nhannguyen.dev",
+  siteUrl: "https://newyen.dev",
 } as const;
 
 // Type exports for TypeScript support
