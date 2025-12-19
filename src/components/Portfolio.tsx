@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { NAVIGATION_SECTIONS } from "@/constants";
+import { siteConfig } from "@/config/site";
 import { initialProjects } from "@/data/projects";
 import { useGitHubStars, useActiveSection } from "@/hooks";
 import { Hero, Experience, Projects, StackOverflow, Connect, Footer } from "@/components/sections";
@@ -60,6 +61,15 @@ const Portfolio = () => {
                     {section}
                   </button>
                 ))}
+                {/* External link to notes blog */}
+                <a
+                  href={siteConfig.social.notes.url}
+                  className="text-white font-mono uppercase hover:font-bold hover:border-b-2 transition-all"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  NOTES
+                </a>
               </div>
               <ThemeToggle />
             </div>

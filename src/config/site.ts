@@ -45,6 +45,10 @@ export const siteConfig = {
       url: "https://stackoverflow.com/users/14785807/nathan-nguyen",
       displayName: "stackoverflow.com/nathan-nguyen",
     },
+    notes: {
+      url: "https://notes.newyen.dev",
+      displayName: "notes.newyen.dev",
+    },
     email: {
       address: "nhan13574@gmail.com",
       // Display format with (at) to reduce spam scraping
