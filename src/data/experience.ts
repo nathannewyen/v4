@@ -10,53 +10,34 @@ export const experience: Experience[] = [
       {
         title: "Mid-Senior Software Engineer",
         period: "March 2024 – Present",
-        description:
-          "Build internal card product dashboards with React, TypeScript, and Redux, integrating Spring Boot APIs and PostgreSQL for card design, metadata, and inventory workflows.",
+        descriptions: [
+          "Lead developer architecting enterprise card product platforms serving internal operations, building data-driven dashboards with React and TypeScript.",
+          "Own end-to-end feature delivery across frontend and Spring Boot APIs, designing scalable PostgreSQL schemas for card lifecycle management and inventory systems.",
+        ],
       },
       {
         title: "Software Engineer II",
         period: "March 2023 – March 2024",
-        description:
-          "Design and ship REST APIs and schemas, containerize services with Docker, and tune Postgres performance to support reliable, performant production systems.",
+        descriptions: [
+          "Designed and shipped production REST APIs powering card operations infrastructure, establishing containerized deployment patterns with Docker.",
+          "Drove database performance improvements and schema optimization, directly impacting system reliability for high-throughput financial workflows.",
+          "Collaborated with cross-functional teams to migrate legacy monolith services to microservices architecture, reducing deployment times and improving fault isolation.",
+        ],
       },
     ],
   },
   {
     company: "Grably",
-    url: "https://grably.com",
+    url: "https://getgrably.com/",
     location: "Remote",
     roles: [
       {
         title: "Founder",
         period: "May 2023 – Present",
-        description:
-          "Founded and built a B2B ordering platform for restaurant wholesale, owning product, backend, and frontend using Go, FastAPI, React, and TypeScript. Modeled order and customer data in SQL/NoSQL, integrated third-party APIs for auth, notifications, and payment-like workflows, and exposed REST/GraphQL APIs for web and mobile clients.",
-      },
-    ],
-  },
-  {
-    company: "Hawk Ridge System",
-    url: "https://hawkridgesys.com/",
-    location: "Remote",
-    roles: [
-      {
-        title: "Software Engineer",
-        period: "March 2022 – February 2023",
-        description:
-          "Developed end-to-end reporting workflows with Flask, PostgreSQL, React, and TypeScript, combining GraphQL and REST APIs for interactive dashboards. Deployed and maintained AWS infrastructure (RDS, EC2, S3) to improve reliability, performance, and reporting automation.",
-      },
-    ],
-  },
-  {
-    company: "Collaborative Mind",
-    url: "https://collaborativemind.com/",
-    location: "Remote",
-    roles: [
-      {
-        title: "Software Engineer",
-        period: "February 2020 – March 2022",
-        description:
-          "Built a hotel management portal with React and Node.js backed by PostgreSQL and GraphQL for bookings, payments, and confirmations. Reduced check-in errors and improved API latency using better validation and Redis caching.",
+        descriptions: [
+          "Founded and architected a B2B wholesale platform from zero to production, owning full-stack development across Go microservices, FastAPI, and React/TypeScript frontends.",
+          "Designed multi-tenant data models, built real-time order management systems, and integrated payment and notification pipelines serving restaurant wholesale operations.",
+        ],
       },
     ],
   },

@@ -58,9 +58,16 @@ const Experience = () => {
                       <span className="text-base md:text-lg text-[#888] dark:text-[#a0a0a0] block mb-3">
                         {role.period}
                       </span>
-                      <p className="text-base md:text-lg text-[#1A2234] dark:text-[#a0a0a0] leading-relaxed">
-                        {role.description}
-                      </p>
+                      <ul className="list-disc list-outside pl-5 space-y-2">
+                        {role.descriptions.map((description, descIndex) => (
+                          <li
+                            key={descIndex}
+                            className="text-base md:text-lg text-[#1A2234] dark:text-[#a0a0a0] leading-relaxed"
+                          >
+                            {description}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   ))}
                 </div>

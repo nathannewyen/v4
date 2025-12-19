@@ -26,7 +26,7 @@ export interface Project {
 export interface Role {
   title: string;
   period: string;
-  description: string;
+  descriptions: string[];
 }
 
 // Experience type definition for work history entries
