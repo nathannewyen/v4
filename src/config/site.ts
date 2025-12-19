@@ -41,10 +41,6 @@ export const siteConfig = {
       url: "https://www.linkedin.com/in/nhannguyen3112/",
       displayName: "linkedin.com/nhannguyen3112",
     },
-    stackoverflow: {
-      url: "https://stackoverflow.com/users/14785807/nathan-nguyen",
-      displayName: "stackoverflow.com/nathan-nguyen",
-    },
     notes: {
       url: "https://notes.newyen.dev",
       displayName: "notes.newyen.dev",

@@ -62,7 +62,6 @@ export const SOCIAL_LINKS = {
   github: siteConfig.social.github.url,
   twitter: siteConfig.social.twitter.url,
   linkedin: siteConfig.social.linkedin.url,
-  stackoverflow: siteConfig.social.stackoverflow.url,
   email: siteConfig.social.email.address,
 } as const;
 

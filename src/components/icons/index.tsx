@@ -109,10 +109,3 @@ export const NotesIcon = ({ className = "w-7 h-7" }: IconProps) => (
     />
   </svg>
 );
-
-// Stack Overflow logo icon
-export const StackOverflowIcon = ({ className = "w-4 h-4" }: IconProps) => (
-  <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M15.725 0l-1.72 1.277 6.39 8.588 1.72-1.277L15.725 0zm-3.94 3.418l-1.369 1.644 8.225 6.85 1.369-1.644-8.225-6.85zm-3.15 4.465l-.905 1.94 9.702 4.517.905-1.94-9.702-4.517zm-1.85 4.86l-.44 2.093 10.473 2.201.44-2.092-10.473-2.203zM1.89 15.47V24h14.27v-8.53H1.89zm1.8 1.8h10.67v4.93H3.69v-4.93zm1.8 1.8v1.33h7.07v-1.33H5.49z" />
-  </svg>
-);
