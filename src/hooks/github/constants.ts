@@ -8,19 +8,20 @@ export const GERRIT_API_ROUTE = "/api/gerrit";
 // Own repos to include commits from (empty - only show OSS contributions)
 export const OWN_REPOS_TO_INCLUDE: string[] = [];
 
-// Map repo full names to display names for known projects
-// New repos will automatically use the repo name as display name
+// Map organization names to display names for grouping in filters
+// All repos under these orgs will be grouped together (e.g., langchain-ai/* → "LangChain")
+export const ORG_DISPLAY_NAMES: Record<string, string> = {
+  "langchain-ai": "LangChain",
+  golang: "Go",
+};
+
+// Map specific repo full names to display names
+// Used for repos that need custom names different from their org grouping
+// Falls back to repo name if not specified
 export const REPO_DISPLAY_NAMES: Record<string, string> = {
   "facebook/react-native": "React Native",
   "kubernetes/kubernetes": "Kubernetes",
-  "langchain-ai/langchain": "LangChain",
-  "langchain-ai/langchainjs": "LangChainJS",
-  "langchain-ai/langgraph": "LangGraph",
-  "langchain-ai/langgraph-js": "LangGraph JS",
-  "langchain-ai/langchain-docs": "LangChain Docs",
-  "langchain-ai/langserve": "LangServe",
   "stylelint/stylelint": "Stylelint",
   "flutter/flutter": "Flutter",
   "flutter/engine": "Flutter Engine",
-  "golang/go": "Go",
 };

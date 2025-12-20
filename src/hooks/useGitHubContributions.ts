@@ -3,8 +3,8 @@ import { Contribution } from "@/types";
 import { fetchAllContributions, UseGitHubContributionsResult } from "./github";
 import { contributionSwrConfig } from "@/lib/swrConfig";
 
-// Re-export getUniqueProjects for components that need it
-export { getUniqueProjects } from "./github";
+// Re-export utilities for components that need them
+export { getUniqueProjects, repoMatchesProject } from "./github";
 
 // Custom hook to fetch GitHub contributions with caching via SWR
 // Uses contribution-specific config with longer cache duration (10 min vs 5 min)

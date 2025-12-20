@@ -3,22 +3,13 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { getRepoDisplayName } from "@/hooks/github/utils";
+import { getRepoDisplayName, getProjectAvatarUrl } from "@/hooks/github/utils";
 
 interface ProjectSelectProps {
   projects: string[];
   value: string;
   onChange: (value: string) => void;
 }
-
-// Get GitHub organization avatar URL from repo path (e.g., "facebook/react" -> "facebook.png")
-// Returns null if repo doesn't follow owner/repo format
-const getAvatarUrl = (repo: string): string | null => {
-  if (repo.includes("/")) {
-    return `https://github.com/${repo.split("/")[0]}.png`;
-  }
-  return null;
-};
 
 // Custom project select dropdown with avatars and display names
 const ProjectSelect = ({ projects, value, onChange }: ProjectSelectProps) => {
@@ -79,9 +70,9 @@ const ProjectSelect = ({ projects, value, onChange }: ProjectSelectProps) => {
           )}
         >
           {/* Avatar for selected project */}
-          {value !== "all" && getAvatarUrl(value) && (
+          {value !== "all" && getProjectAvatarUrl(value) && (
             <Image
-              src={getAvatarUrl(value)!}
+              src={getProjectAvatarUrl(value)!}
               alt=""
               width={20}
               height={20}
@@ -136,7 +127,7 @@ const ProjectSelect = ({ projects, value, onChange }: ProjectSelectProps) => {
 
             {/* Project options */}
             {projects.map((project) => {
-              const avatarUrl = getAvatarUrl(project);
+              const avatarUrl = getProjectAvatarUrl(project);
               const displayName = getRepoDisplayName(project);
 
               return (
