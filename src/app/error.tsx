@@ -38,10 +38,13 @@ const Error = ({ error, reset }: ErrorProps) => {
 
         {/* Error message */}
         <h1 className="font-mono text-2xl font-bold text-[#1A2234] dark:text-white mb-4">
-          Something went wrong
+          Oops, I broke something
         </h1>
-        <p className="text-[#1A2234] dark:text-[#a0a0a0] mb-8">
-          An unexpected error occurred. Please try again.
+        <p className="text-[#1A2234] dark:text-[#a0a0a0] mb-2">
+          Looks like I pushed to prod without testing.
+        </p>
+        <p className="text-[#666] dark:text-[#777] text-sm mb-8 font-mono">
+          {"// TODO: fix this later"}
         </p>
 
         {/* Retry button */}

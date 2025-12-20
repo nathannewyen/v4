@@ -38,8 +38,13 @@ const GlobalError = ({ error, reset }: GlobalErrorProps) => {
           </div>
 
           {/* Error message */}
-          <h1 className="font-mono text-2xl font-bold text-[#1A2234] mb-4">Something went wrong</h1>
-          <p className="text-[#1A2234] mb-8">A critical error occurred. Please try again.</p>
+          <h1 className="font-mono text-2xl font-bold text-[#1A2234] mb-4">
+            Well, this is embarrassing
+          </h1>
+          <p className="text-[#1A2234] mb-2">
+            The app crashed harder than my first whiteboard interview.
+          </p>
+          <p className="text-[#666] text-sm mb-8 font-mono">git blame: probably me</p>
 
           {/* Retry button */}
           <button
