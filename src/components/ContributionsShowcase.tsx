@@ -14,7 +14,6 @@ import { Footer } from "@/components/sections";
 import ThemeToggle from "@/components/ThemeToggle";
 import Skeleton from "@/components/Skeleton";
 import StaggeredReveal from "@/components/StaggeredReveal";
-import RandomLetterReveal from "@/components/RandomLetterReveal";
 import { FilterSource, StatusFilter, SortOrder } from "@/types";
 import { ITEMS_PER_PAGE } from "@/constants";
 
@@ -111,43 +110,34 @@ const ContributionsShowcase = () => {
       <main className="pt-24 md:pt-28 pb-16 px-4 md:px-16">
         <div className="max-w-[1440px] mx-auto">
           {/* Page header with contribution heatmap */}
-          <header className="mb-8 md:mb-12">
-            {/* Title with random letter animation */}
-            <RandomLetterReveal
-              text="Open Source Contributions"
-              as="h1"
-              className="text-2xl md:text-5xl font-bold mb-3 md:mb-4"
-              baseDelay={0}
-            />
+          <StaggeredReveal delay={0}>
+            <header className="mb-8 md:mb-12">
+              <h1 className="text-2xl md:text-5xl font-bold mb-3 md:mb-4">
+                Open Source Contributions
+              </h1>
 
-            {/* Description and heatmap on same row */}
-            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
-              {/* Description with random letter animation */}
-              <RandomLetterReveal
-                text="A showcase of my contributions to open source projects including React Native, Kubernetes, Go, and LangChain. Click on any contribution to view the code changes."
-                as="p"
-                className="text-[#666] dark:text-[#a0a0a0] text-sm md:text-lg max-w-2xl"
-                baseDelay={0.1}
-              />
+              {/* Description and heatmap on same row */}
+              <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+                <p className="text-[#666] dark:text-[#a0a0a0] text-sm md:text-lg max-w-2xl">
+                  A showcase of my contributions to open source projects including React Native,
+                  Kubernetes, Go, and LangChain. Click on any contribution to view the code changes.
+                </p>
 
-              {/* Heatmap aligned with description (hidden on mobile/tablet) */}
-              <StaggeredReveal
-                delay={0.2}
-                direction="right"
-                className="hidden lg:block flex-shrink-0"
-              >
-                <ContributionHeatmap
-                  contributions={contributions}
-                  selectedDate={selectedDate}
-                  onDateSelect={setSelectedDate}
-                  isLoading={isLoading}
-                />
-              </StaggeredReveal>
-            </div>
-          </header>
+                {/* Heatmap aligned with description (hidden on mobile/tablet) */}
+                <div className="hidden lg:block flex-shrink-0">
+                  <ContributionHeatmap
+                    contributions={contributions}
+                    selectedDate={selectedDate}
+                    onDateSelect={setSelectedDate}
+                    isLoading={isLoading}
+                  />
+                </div>
+              </div>
+            </header>
+          </StaggeredReveal>
 
-          {/* Filters section - flies in from left */}
-          <StaggeredReveal delay={0.3} direction="left">
+          {/* Filters section */}
+          <StaggeredReveal delay={0.1}>
             <section className="mb-8 p-4 bg-white dark:bg-[#15151f] border border-[#e0e0e0] dark:border-[#3a3a4e]">
               <ContributionFilters
                 projects={projects}
@@ -163,8 +153,8 @@ const ContributionsShowcase = () => {
             </section>
           </StaggeredReveal>
 
-          {/* Results section - flies in from right */}
-          <StaggeredReveal delay={0.4} direction="right">
+          {/* Results section */}
+          <StaggeredReveal delay={0.2}>
             {/* Results count - only show when not loading */}
             {!isLoading && (
               <div className="mb-6 text-sm text-[#888] dark:text-[#777]">
