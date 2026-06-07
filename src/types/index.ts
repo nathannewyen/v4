@@ -22,10 +22,24 @@ export interface Project {
   stars: string;
 }
 
+// Project sub-section within a role (e.g., a specific product or initiative)
+export interface RoleProject {
+  name: string;
+  descriptions: string[];
+}
+
 // Role type definition for job positions within a company
 export interface Role {
   title: string;
   period: string;
+  descriptions?: string[];
+  projects?: RoleProject[];
+}
+
+// Personal project type definition for the projects section
+export interface PersonalProject {
+  name: string;
+  url: string;
   descriptions: string[];
 }
 

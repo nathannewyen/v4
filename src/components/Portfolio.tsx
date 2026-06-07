@@ -5,7 +5,14 @@ import { NAVIGATION_SECTIONS } from "@/constants";
 import { siteConfig } from "@/config/site";
 import { initialProjects } from "@/data/projects";
 import { useGitHubStars, useActiveSection } from "@/hooks";
-import { Hero, Experience, Projects, Connect, Footer } from "@/components/sections";
+import {
+  Hero,
+  Experience,
+  PersonalProjects,
+  Projects,
+  Connect,
+  Footer,
+} from "@/components/sections";
 import ThemeToggle from "@/components/ThemeToggle";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
@@ -83,6 +90,9 @@ const Portfolio = () => {
         </ErrorBoundary>
         <ErrorBoundary>
           <Experience />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <PersonalProjects />
         </ErrorBoundary>
         <ErrorBoundary>
           <Projects projects={projects} isLoading={isLoadingStars} />
