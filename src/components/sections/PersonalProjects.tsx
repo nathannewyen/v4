@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { personalProjects } from "@/data/personal-projects";
 import { useScrollAnimation } from "@/hooks";
+import { ExternalLinkIcon } from "@/components/icons";
 
 const PersonalProjects = () => {
   const [sectionRef, isVisible] = useScrollAnimation(0.1);
@@ -18,7 +20,7 @@ const PersonalProjects = () => {
           PROJECTS
         </h2>
 
-        <div className="space-y-10">
+        <div className="space-y-16">
           {personalProjects.map((project, index) => (
             <div
               key={index}
@@ -27,25 +29,106 @@ const PersonalProjects = () => {
             >
               <div className="absolute -left-4 top-0 w-8 h-8 bg-[#1A2234] dark:bg-white" />
 
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-lg md:text-xl font-bold italic text-[#1A2234] dark:text-[#d0d0d0] hover:underline underline-offset-4 block mb-4"
-              >
-                {project.name}
-              </a>
-
-              <ul className="list-disc list-outside pl-5 space-y-2">
-                {project.descriptions.map((desc, descIndex) => (
-                  <li
-                    key={descIndex}
-                    className="text-base md:text-lg text-[#1A2234] dark:text-[#a0a0a0] leading-relaxed"
+              <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2 mb-3">
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-lg md:text-2xl font-bold italic text-[#1A2234] dark:text-[#d0d0d0] hover:underline underline-offset-4"
+                >
+                  {project.name}
+                </a>
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sm md:text-base text-[#1A2234] dark:text-[#a0a0a0] hover:underline"
                   >
-                    {desc}
-                  </li>
-                ))}
-              </ul>
+                    Live demo
+                    <ExternalLinkIcon />
+                  </a>
+                )}
+              </div>
+
+              {project.tagline && (
+                <p className="text-base md:text-lg text-[#1A2234] dark:text-[#a0a0a0] leading-relaxed mb-4 max-w-4xl">
+                  {project.tagline}
+                </p>
+              )}
+
+              {project.techStack && project.techStack.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 text-xs md:text-sm bg-[#e8e8e8] dark:bg-[#2a2a3e] text-[#1A2234] dark:text-[#d0d0d0]"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {project.screenshots && project.screenshots.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                  {project.screenshots.map((shot, shotIndex) => (
+                    <a
+                      key={shotIndex}
+                      href={shot.src}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative block aspect-[16/10] overflow-hidden border-2 border-[#1A2234] dark:border-[#3a3a4e] bg-white dark:bg-[#15151f] group"
+                    >
+                      <Image
+                        src={shot.src}
+                        alt={shot.alt}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </a>
+                  ))}
+                </div>
+              )}
+
+              {project.features && project.features.length > 0 && (
+                <div className="mb-4">
+                  <h3 className="text-base md:text-lg font-bold text-[#1A2234] dark:text-white mb-2">
+                    Key features
+                  </h3>
+                  <ul className="list-disc list-outside pl-5 space-y-2">
+                    {project.features.map((feature, featureIndex) => (
+                      <li
+                        key={featureIndex}
+                        className="text-base md:text-lg text-[#1A2234] dark:text-[#a0a0a0] leading-relaxed"
+                      >
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {project.descriptions.length > 0 && (
+                <div>
+                  {project.features && project.features.length > 0 && (
+                    <h3 className="text-base md:text-lg font-bold text-[#1A2234] dark:text-white mb-2">
+                      What I built
+                    </h3>
+                  )}
+                  <ul className="list-disc list-outside pl-5 space-y-2">
+                    {project.descriptions.map((desc, descIndex) => (
+                      <li
+                        key={descIndex}
+                        className="text-base md:text-lg text-[#1A2234] dark:text-[#a0a0a0] leading-relaxed"
+                      >
+                        {desc}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           ))}
         </div>

@@ -36,11 +36,23 @@ export interface Role {
   projects?: RoleProject[];
 }
 
+// Screenshot for a personal project showcase
+export interface ProjectScreenshot {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
 // Personal project type definition for the projects section
 export interface PersonalProject {
   name: string;
   url: string;
+  liveUrl?: string;
+  tagline?: string;
+  techStack?: string[];
+  features?: string[];
   descriptions: string[];
+  screenshots?: ProjectScreenshot[];
 }
 
 // Experience type definition for work history entries
