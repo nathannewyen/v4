@@ -2,7 +2,7 @@
 
 import { siteConfig } from "@/config/site";
 import { SOCIAL_LINKS } from "@/constants";
-import { GitHubIcon, XIcon } from "@/components/icons";
+import { GitHubIcon, XIcon, LinkedInIcon } from "@/components/icons";
 
 interface HeroProps {
   isLoaded: boolean;
@@ -57,6 +57,15 @@ const Hero = ({ isLoaded }: HeroProps) => {
               >
                 <GitHubIcon />
                 <span className="text-xs font-bold tracking-wider">GITHUB</span>
+              </a>
+              <a
+                href={SOCIAL_LINKS.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-2 px-4 py-2.5 border-2 border-[#1A2234] dark:border-white text-[#1A2234] dark:text-white hover:bg-[#1A2234] dark:hover:bg-white hover:text-white dark:hover:text-[#1A2234] transition-all duration-200"
+              >
+                <LinkedInIcon />
+                <span className="text-xs font-bold tracking-wider">LINKEDIN</span>
               </a>
             </div>
           </div>
