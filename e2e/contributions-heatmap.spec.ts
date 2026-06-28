@@ -51,8 +51,7 @@ test.describe("Contributions Heatmap", () => {
     // Reload page to see skeleton
     await page.reload();
 
-    // Check for skeleton (may or may not be visible depending on cache)
-    const skeleton = page.getByTestId("heatmap-skeleton");
+    // Eventually heatmap should be visible
     const heatmap = page.getByTestId("contribution-heatmap");
 
     // Eventually heatmap should be visible
@@ -90,17 +89,9 @@ test.describe("Contributions Heatmap", () => {
     const heatmap = page.getByTestId("contribution-heatmap");
     await expect(heatmap).toBeVisible({ timeout: 10000 });
 
-    // Get initial contribution count
-    const resultsText = page.locator(
-      "text=/Showing \\d+-\\d+ of \\d+ contributions|\\d+ contributions found/"
-    );
-
     // Get a cell and click it
     const cells = page.getByTestId("heatmap-cell");
     const targetCell = cells.first();
-
-    // Get the date from the cell
-    const cellDate = await targetCell.getAttribute("data-date");
 
     // Click the cell to filter
     await targetCell.click();
