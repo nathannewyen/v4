@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { personalProjects } from "@/data/personal-projects";
 import { useScrollAnimation } from "@/hooks";
 import { ExternalLinkIcon } from "@/components/icons";
@@ -26,30 +27,40 @@ const PersonalProjects = () => {
             >
               <div className="absolute -left-4 top-0 w-8 h-8 bg-[#1A2234] dark:bg-white" />
 
-              <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2 mb-3">
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-lg md:text-2xl font-bold italic text-[#1A2234] dark:text-[#d0d0d0] hover:underline underline-offset-4"
-                >
-                  {project.name}
-                </a>
-                {project.liveUrl && (
+              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 mb-3">
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
                   <a
-                    href={project.liveUrl}
+                    href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm md:text-base text-[#1A2234] dark:text-[#a0a0a0] hover:underline"
+                    className="text-lg md:text-2xl font-bold italic text-[#1A2234] dark:text-[#d0d0d0] hover:underline underline-offset-4"
                   >
-                    Live demo
-                    <ExternalLinkIcon />
+                    {project.name}
                   </a>
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-sm md:text-base text-[#1A2234] dark:text-[#a0a0a0] hover:underline"
+                    >
+                      Live demo
+                      <ExternalLinkIcon />
+                    </a>
+                  )}
+                </div>
+                {project.caseStudyUrl && (
+                  <Link
+                    href={project.caseStudyUrl}
+                    className="inline-flex items-center gap-1 text-sm md:text-base font-semibold text-[#1A2234] dark:text-white hover:underline underline-offset-4"
+                  >
+                    Read the case study →
+                  </Link>
                 )}
               </div>
 
               {project.tagline && (
-                <p className="text-base md:text-lg text-[#1A2234] dark:text-[#a0a0a0] leading-relaxed mb-4 max-w-4xl">
+                <p className="text-sm md:text-base text-[#1A2234] dark:text-[#a0a0a0] leading-7 mb-4 max-w-3xl">
                   {project.tagline}
                 </p>
               )}
@@ -107,7 +118,7 @@ const PersonalProjects = () => {
                 </div>
               )}
 
-              {project.descriptions.length > 0 && (
+              {project.descriptions && project.descriptions.length > 0 && (
                 <div>
                   {project.features && project.features.length > 0 && (
                     <h3 className="text-base md:text-lg font-bold text-[#1A2234] dark:text-white mb-2">
@@ -118,7 +129,7 @@ const PersonalProjects = () => {
                     {project.descriptions.map((desc, descIndex) => (
                       <li
                         key={descIndex}
-                        className="text-base md:text-lg text-[#1A2234] dark:text-[#a0a0a0] leading-relaxed"
+                        className="text-sm md:text-base text-[#1A2234] dark:text-[#a0a0a0] leading-7"
                       >
                         {desc}
                       </li>

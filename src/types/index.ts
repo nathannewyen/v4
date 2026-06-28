@@ -32,6 +32,7 @@ export interface RoleProject {
 export interface Role {
   title: string;
   period: string;
+  summary?: string;
   descriptions?: string[];
   projects?: RoleProject[];
 }
@@ -48,10 +49,11 @@ export interface PersonalProject {
   name: string;
   url: string;
   liveUrl?: string;
+  caseStudyUrl?: string;
   tagline?: string;
   techStack?: string[];
   features?: string[];
-  descriptions: string[];
+  descriptions?: string[];
   screenshots?: ProjectScreenshot[];
 }
 
