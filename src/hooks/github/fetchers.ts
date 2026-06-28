@@ -1,7 +1,7 @@
 import { Contribution } from "@/types";
 import { DESCRIPTION_MAX_LENGTH, PR_DETAILS_FETCH_LIMIT, COMMITS_PER_PAGE } from "@/constants";
 import { isoToLocalDate, extractDateFromISO } from "@/lib/dateUtils";
-import { GitHubPR, GitHubSearchResponse, GitHubCommit } from "./types";
+import { GitHubSearchResponse, GitHubCommit } from "./types";
 import { GITHUB_USERNAME, GERRIT_API_ROUTE, OWN_REPOS_TO_INCLUDE } from "./constants";
 import { getRepoFromUrl, getRepoDisplayName } from "./utils";
 
