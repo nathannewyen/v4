@@ -16,7 +16,10 @@ const Projects = ({ projects, isLoading }: ProjectsProps) => {
   const [sectionRef, isVisible] = useScrollAnimation(0.1);
 
   return (
-    <section id="projects" className="py-16 md:py-32 px-4 md:px-16 bg-[#f5f5f5] dark:bg-[#0a0a0f]">
+    <section
+      id="open-source"
+      className="py-16 md:py-32 px-4 md:px-16 bg-[#f5f5f5] dark:bg-[#0a0a0f]"
+    >
       <div ref={sectionRef} className="max-w-[1440px] mx-auto">
         <h2
           className={`text-4xl md:text-6xl font-bold mb-4 border-b-8 border-[#1A2234] dark:border-white pb-4 inline-block text-[#1A2234] dark:text-white transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
