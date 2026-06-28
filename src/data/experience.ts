@@ -8,7 +8,7 @@ export const experience: Experience[] = [
     roles: [
       {
         title: "Software Engineer III",
-        period: "March 2023 — March 2026",
+        period: "March 2023 — June 2026",
         projects: [
           {
             name: "Card Product Launch — internal catalog tool for marketing",
