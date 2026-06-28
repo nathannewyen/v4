@@ -32,11 +32,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Nhan Nguyen | Software Engineer",
   description:
-    "Full-stack software engineer at JPMorgan Chase. Interested in AI agents, drones, rockets, and software development. Contributor to React Native, Kubernetes, Go, and LangChain.",
+    "Product engineer. Interested in UI/UX, AI agents, drones, rockets, and software development. Contributor to React Native, Kubernetes, Go, and LangChain.",
   keywords: [
     "software engineer",
+    "UI/UX",
     "AI",
-    "ML",
     "React",
     "TypeScript",
     "Go",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Nhan Nguyen | Software Engineer",
     description:
-      "Full-stack software engineer at JPMorgan Chase. Interested in AI agents, drones, rockets, and software development.",
+      "Product engineer. Interested in UI/UX, AI agents, drones, rockets, and software development.",
     url: "https://nathan-v4.vercel.app",
     siteName: "Nhan Nguyen Portfolio",
     type: "website",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Nhan Nguyen | Software Engineer",
     description:
-      "Full-stack software engineer at JPMorgan Chase. Interested in AI agents, drones, rockets, and software development.",
+      "Product engineer. Interested in UI/UX, AI agents, drones, rockets, and software development.",
     creator: "@nathannewyenn",
   },
   robots: {
