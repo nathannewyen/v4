@@ -44,14 +44,20 @@ const Experience = () => {
                       {roleIndex > 0 && (
                         <div className="border-t border-[#e0e0e0] dark:border-[#3a3a4e] my-6" />
                       )}
-                      <h3 className="text-lg md:text-xl font-bold text-[#4A5568] dark:text-[#9CA3AF]">
-                        {role.title}
-                      </h3>
-                      <span className="text-base md:text-lg text-[#888] dark:text-[#a0a0a0] block mb-3">
-                        {role.period}
-                      </span>
+                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-3">
+                        <h3 className="text-base md:text-lg font-bold text-[#1A2234] dark:text-white">
+                          {role.title}
+                        </h3>
+                        <span className="text-sm md:text-base text-[#888] dark:text-[#a0a0a0]">
+                          · {role.period}
+                        </span>
+                      </div>
 
-                      {role.projects && role.projects.length > 0 ? (
+                      {role.summary ? (
+                        <p className="text-sm md:text-base leading-7 text-[#1A2234] dark:text-[#d0d0d0] max-w-3xl">
+                          {role.summary}
+                        </p>
+                      ) : role.projects && role.projects.length > 0 ? (
                         <div className="space-y-6">
                           {role.projects.map((project, projectIndex) => (
                             <div key={projectIndex}>
