@@ -27,17 +27,4 @@ export const experience: Experience[] = [
       },
     ],
   },
-  {
-    company: "Amazon",
-    url: "https://www.amazon.com/",
-    location: "Remote",
-    roles: [
-      {
-        title: "Software Engineer Intern",
-        period: "June 2019 — September 2019",
-        summary:
-          "Provisioned AWS infrastructure (EC2, S3, IAM, VPC) and built internal monitoring utilities for cloud-native applications.",
-      },
-    ],
-  },
 ];
