@@ -44,3 +44,82 @@ nextjs-portal {
   animation: fadeIn 0.5s ease-out forwards;
   opacity: 0;
 }
+
+/* Print styles — used when exporting the portfolio to PDF via the browser's
+   Print dialog. Forces light theme, reveals scroll/framer-motion animated
+   content, hides the fixed nav and decorative chrome, and tightens spacing
+   so each section flows naturally across pages. */
+@media print {
+  /* Force light theme regardless of .dark class or user preference */
+  html,
+  body,
+  .dark,
+  .dark * {
+    background: #ffffff !important;
+    color: #1a2234 !important;
+  }
+
+  /* Reveal anything hidden by entrance animations (Tailwind opacity-0,
+     translate utilities, framer-motion inline styles). */
+  *,
+  *::before,
+  *::after {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* Hide interactive / decorative chrome that doesn't belong in a PDF */
+  nav,
+  .sr-only,
+  [aria-label="Toggle theme"],
+  button[aria-label*="theme" i] {
+    display: none !important;
+  }
+
+  /* Drop full-viewport sizing so the hero doesn't eat a blank page */
+  .min-h-screen {
+    min-height: 0 !important;
+  }
+
+  /* Tighten section padding for print */
+  section {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Start each major section on a new page (except the first) */
+  #experience,
+  #projects,
+  #open-source {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  /* Keep links readable in print: show URLs in monospace next to text */
+  a[href^="http"]::after,
+  a[href^="mailto"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: #555;
+    word-break: break-all;
+  }
+
+  /* But don't print URLs for in-page anchors or the GitHub/LinkedIn buttons
+     in the hero (icons + label already convey it) */
+  a[href^="#"]::after {
+    content: "";
+  }
+
+  /* Remove the dark footer bar styling so it doesn't dump ink */
+  footer {
+    background: #ffffff !important;
+    border-top: 1px solid #1a2234;
+  }
+  footer * {
+    color: #1a2234 !important;
+  }
+}

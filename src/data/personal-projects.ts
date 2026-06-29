@@ -2,6 +2,19 @@ import { PersonalProject } from "@/types";
 
 export const personalProjects: PersonalProject[] = [
   {
+    name: "@spacing-ui/core — Headless React UI Primitives",
+    url: "https://github.com/nathannewyen/space-ui",
+    liveUrl: "https://www.npmjs.com/package/@spacing-ui/core",
+    tagline:
+      "An open-source React component library of headless, accessible UI primitives — published to npm and consumed by this portfolio. Bring your own styles; the library handles ARIA, focus, and keyboard interaction.",
+    techStack: ["React 19", "TypeScript", "tsup", "Vitest", "ESM + CJS"],
+    features: [
+      "Fully accessible Select with arrow keys, Home/End, typeahead, and Esc/Tab focus return",
+      "Compound API (Select.Trigger / Content / Option) with render-prop children for full styling control",
+      "Dual ESM + CJS output, tree-shakable, zero runtime dependencies beyond React",
+    ],
+  },
+  {
     name: "The Beuter Design — Ecommerce Platform",
     url: "https://github.com/nathannewyen/the-beuter-design-ecommerce-platform",
     caseStudyUrl: "/projects/the-beuter-design",
@@ -12,27 +25,6 @@ export const personalProjects: PersonalProject[] = [
       { src: "/projects/beuter/home.jpg", alt: "Beuter homepage with campaign hero" },
       { src: "/projects/beuter/shop.jpg", alt: "Beuter shop listing with category sidebar" },
       { src: "/projects/beuter/product.jpg", alt: "Beuter product detail page" },
-    ],
-  },
-  {
-    name: "Grably — Mobile Ordering for Food Distribution",
-    url: "https://github.com/nathannewyen/grably-mobile-ui",
-    tagline:
-      "Cross-platform mobile app in React Native + TypeScript connecting food distributors with their customers — catalog, ordering, and real-time order tracking.",
-    techStack: ["React Native", "TypeScript", "Python", "PostgreSQL", "AWS"],
-    screenshots: [
-      {
-        src: "/projects/grably/workflow.jpg",
-        alt: "Grably catalog screen with promotions and reorder suggestions",
-      },
-      {
-        src: "/projects/grably/payments-plaid.jpg",
-        alt: "Grably payments screen with Plaid integration and overdue invoices",
-      },
-      {
-        src: "/projects/grably/order-agent.jpg",
-        alt: "GrablyAI order agent parsing a delivery request into line items",
-      },
     ],
   },
 ];
