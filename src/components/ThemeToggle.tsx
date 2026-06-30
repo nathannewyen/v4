@@ -2,6 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { Tooltip } from "@spacing-ui/core";
 
 // Theme toggle button - cycles through light, dark, and system modes
 const ThemeToggle = () => {
@@ -105,13 +106,22 @@ const ThemeToggle = () => {
   };
 
   return (
-    <button
-      onClick={cycleTheme}
-      className="p-2 hover:opacity-70 transition-opacity cursor-pointer"
-      aria-label={getAriaLabel()}
-    >
-      {renderIcon()}
-    </button>
+    <Tooltip delayDuration={200}>
+      <span className="relative inline-block">
+        <Tooltip.Trigger>
+          <button
+            onClick={cycleTheme}
+            className="p-2 hover:opacity-70 transition-opacity cursor-pointer"
+            aria-label={getAriaLabel()}
+          >
+            {renderIcon()}
+          </button>
+        </Tooltip.Trigger>
+        <Tooltip.Content className="absolute top-full right-0 mt-2 px-2 py-1 rounded bg-[#24292f] text-white text-xs whitespace-nowrap shadow-lg z-50">
+          {getAriaLabel()}
+        </Tooltip.Content>
+      </span>
+    </Tooltip>
   );
 };
 
