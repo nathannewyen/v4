@@ -5,19 +5,17 @@ import ContributionsShowcase from "@/components/ContributionsShowcase";
 export const metadata: Metadata = {
   title: "Open Source Contributions | Nhan Nguyen",
   description:
-    "View my open source contributions to React Native, Kubernetes, Go, and LangChain. Pull requests, commits, and code changes to major open source projects.",
+    "View my open source contributions to React, Redux, Expo, and LangChain. Pull requests, commits, and code changes to major open source projects.",
   openGraph: {
     title: "Open Source Contributions | Nhan Nguyen",
-    description:
-      "View my open source contributions to React Native, Kubernetes, Go, and LangChain.",
-    url: "https://nathan-v4.vercel.app/contributions",
+    description: "View my open source contributions to React, Redux, Expo, and LangChain.",
+    url: "https://newyen.dev/contributions",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Open Source Contributions | Nhan Nguyen",
-    description:
-      "View my open source contributions to React Native, Kubernetes, Go, and LangChain.",
+    description: "View my open source contributions to React, Redux, Expo, and LangChain.",
   },
 };
 

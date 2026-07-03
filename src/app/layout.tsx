@@ -32,18 +32,17 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Nhan Nguyen | Software Engineer",
   description:
-    "Product engineer. Interested in UI/UX, AI agents, drones, rockets, and software development. Contributor to React Native, Kubernetes, Go, and LangChain.",
+    "Software Engineer. Interested in UI/UX, AI agents, drones, rockets, and software development. Contributor to React, Redux, Expo, and LangChain.",
   keywords: [
     "software engineer",
     "UI/UX",
     "AI",
     "React",
+    "Redux",
+    "Expo",
     "TypeScript",
-    "Go",
-    "Kubernetes",
-    "React Native",
+    "Next.js",
     "LangChain",
-    "JPMorgan Chase",
   ],
   authors: [{ name: "Nhan Nguyen", url: "https://github.com/nathannewyen" }],
   creator: "Nhan Nguyen",
@@ -56,8 +55,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Nhan Nguyen | Software Engineer",
     description:
-      "Product engineer. Interested in UI/UX, AI agents, drones, rockets, and software development.",
-    url: "https://nathan-v4.vercel.app",
+      "Software Engineer. Interested in UI/UX, AI agents, drones, rockets, and software development.",
+    url: "https://newyen.dev",
     siteName: "Nhan Nguyen Portfolio",
     type: "website",
     locale: "en_US",
@@ -66,7 +65,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Nhan Nguyen | Software Engineer",
     description:
-      "Product engineer. Interested in UI/UX, AI agents, drones, rockets, and software development.",
+      "Software Engineer. Interested in UI/UX, AI agents, drones, rockets, and software development.",
     creator: "@nathannewyenn",
   },
   robots: {
@@ -76,7 +75,7 @@ export const metadata: Metadata = {
   verification: {
     google: "9IWr-bceEU9CEWHYL_ttTxwSK4rxv7SBdT5C-Qr1XCA",
   },
-  metadataBase: new URL("https://nathan-v4.vercel.app"),
+  metadataBase: new URL("https://newyen.dev"),
 };
 
 // JSON-LD structured data for SEO - helps Google understand this is a professional portfolio
@@ -85,17 +84,13 @@ const jsonLd = {
   "@type": "Person",
   name: "Nhan Nguyen",
   jobTitle: "Software Engineer",
-  worksFor: {
-    "@type": "Organization",
-    name: "JPMorgan Chase",
-  },
-  url: "https://nathan-v4.vercel.app",
+  url: "https://newyen.dev",
   sameAs: [
     "https://github.com/nathannewyen",
     "https://x.com/nathannewyenn",
-    "https://linkedin.com/in/nathannewyen",
+    "https://linkedin.com/in/nhannguyen3112",
   ],
-  knowsAbout: ["React", "TypeScript", "Go", "Kubernetes", "AI", "LangChain", "React Native"],
+  knowsAbout: ["React", "Redux", "TypeScript", "Next.js", "Expo", "AI", "LangChain"],
 };
 
 // Root layout component - wraps all pages with fonts and global styles

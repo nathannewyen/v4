@@ -10,7 +10,7 @@ export const experience: Experience[] = [
         title: "Software Engineer III",
         period: "March 2023 — June 2026",
         summary:
-          "Built the React/TypeScript frontend for the consumer card catalog (500+ marketing users, 10+ card products) and the customer-facing rewards UI across JPMC's consumer card portfolio.",
+          "Built the React/TypeScript frontend for the Chase card platform (customer browsing + marketer tooling, 10+ card products), and worked in Java/Spring Boot on the backend rewards engine (promotions, offers, points logic).",
       },
     ],
   },
