@@ -4,31 +4,31 @@ import { Project } from "@/types";
 // Star counts are updated dynamically from GitHub API on client
 export const initialProjects: Project[] = [
   {
-    name: "React Native",
-    repo: "facebook/react-native",
+    name: "React",
+    repo: "facebook/react",
     description:
-      "A framework for building native applications using React. Build mobile apps for iOS and Android.",
-    tags: ["React", "Mobile", "JavaScript"],
-    url: "https://github.com/facebook/react-native",
-    stars: "120k",
+      "The library for web and native user interfaces. Build declarative, component-based UIs with a rich ecosystem.",
+    tags: ["React", "JavaScript", "UI"],
+    url: "https://github.com/facebook/react",
+    stars: "230k",
   },
   {
-    name: "Kubernetes",
-    repo: "kubernetes/kubernetes",
+    name: "Redux",
+    repo: "reduxjs/redux",
     description:
-      "Production-grade container orchestration. Automate deployment, scaling, and management of containerized applications.",
-    tags: ["Go", "Containers", "Cloud"],
-    url: "https://github.com/kubernetes/kubernetes",
-    stars: "112k",
+      "A predictable state container for JavaScript apps. Centralize application state and logic to enable powerful debugging.",
+    tags: ["React", "State Management", "JavaScript"],
+    url: "https://github.com/reduxjs/redux",
+    stars: "60k",
   },
   {
-    name: "Go",
-    repo: "golang/go",
+    name: "Expo",
+    repo: "expo/expo",
     description:
-      "The Go programming language. An open source programming language that makes it easy to build simple, reliable, and efficient software.",
-    tags: ["Go", "Programming Language", "Systems"],
-    url: "https://github.com/golang/go",
-    stars: "125k",
+      "An open-source platform for making universal native apps with React. Build one JavaScript/TypeScript project that runs on Android, iOS, and the web.",
+    tags: ["React Native", "TypeScript", "Mobile"],
+    url: "https://github.com/expo/expo",
+    stars: "35k",
   },
   {
     name: "LangChain",

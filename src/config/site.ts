@@ -16,10 +16,10 @@ export const siteConfig = {
   },
 
   // Your professional title (displayed below your name)
-  title: "Software Engineer @ JPMorgan Chase",
+  title: "Software Engineer",
 
   // Short bio or tagline describing yourself
-  bio: "Product Engineer. Interested in UI/UX, AI agents, drones, rockets, and software development.",
+  bio: "Software Engineer. Interested in UI/UX, AI agents, drones, rockets, and software development.",
 
   // Path to your resume PDF (place the file in the /public folder)
   resumePath: "/resume.pdf",
@@ -60,7 +60,7 @@ export const siteConfig = {
 
   // Site description for SEO
   siteDescription:
-    "Product engineer specializing in UI/UX, React, and TypeScript, with open source contributions across the JS and Go ecosystems.",
+    "Product engineer specializing in UI, DX, and accessible frontends with React, TypeScript, and the modern JavaScript ecosystem.",
 
   // Base URL of your deployed site (used for SEO and social sharing)
   siteUrl: "https://newyen.dev",
