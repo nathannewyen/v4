@@ -8,7 +8,7 @@ const PersonalProjects = () => {
 
   return (
     <section id="projects" className="py-24 md:py-40 px-4 md:px-16 bg-[#f5f5f5] dark:bg-[#0a0a0f]">
-      <div ref={sectionRef} className="max-w-[1280px] mx-auto">
+      <div ref={sectionRef} className="max-w-[1440px] mx-auto">
         <h2
           className={`text-5xl md:text-6xl font-bold uppercase border-b-8 border-[#1A2234] dark:border-white pb-4 inline-block text-[#1A2234] dark:text-white mb-12 md:mb-20 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >

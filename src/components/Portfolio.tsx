@@ -61,7 +61,7 @@ const Portfolio = () => {
                     key={section}
                     onClick={() => scrollToSection(section)}
                     aria-current={activeSection === section ? "page" : undefined}
-                    className={`text-white font-mono uppercase cursor-pointer ${
+                    className={`text-white font-mono uppercase cursor-pointer hover:font-bold hover:border-b-2 transition-all ${
                       activeSection === section ? "font-bold border-b-2" : ""
                     }`}
                   >

@@ -5,7 +5,7 @@ const Footer = () => {
       <div className="max-w-[1440px] mx-auto">
         <p className="text-sm md:text-base text-white text-center tracking-wider flex items-center justify-center gap-1">
           <span className="leading-none">©</span>
-          <span>2025 NHAN NGUYEN. ALL RIGHTS RESERVED.</span>
+          <span>{new Date().getFullYear()} NHAN NGUYEN. ALL RIGHTS RESERVED.</span>
         </p>
       </div>
     </footer>

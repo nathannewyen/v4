@@ -117,7 +117,7 @@ const ThemeToggle = () => {
             {renderIcon()}
           </button>
         </Tooltip.Trigger>
-        <Tooltip.Content className="absolute top-full right-0 mt-2 px-2 py-1 rounded bg-[#24292f] text-white text-xs whitespace-nowrap shadow-lg z-50">
+        <Tooltip.Content className="absolute top-full right-0 mt-2 px-2 py-1 rounded bg-[#fef3c7] text-[#1A2234] text-xs whitespace-nowrap shadow-lg z-50">
           {getAriaLabel()}
         </Tooltip.Content>
       </span>

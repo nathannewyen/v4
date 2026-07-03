@@ -75,13 +75,13 @@ const Hero = ({ isLoaded }: HeroProps) => {
             className={`hidden xl:block relative w-[520px] h-[400px] transition-all duration-700 delay-300 ${isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}
             aria-hidden="true"
           >
-            {/* OSS Box - Bottom left, in front */}
-            <div className="absolute bottom-0 -left-40 w-48 h-48 md:w-64 md:h-64 bg-[#CBD5E1] dark:bg-[#2a2a3e] border-4 border-[#1A2234] dark:border-[#3a3a4e] flex items-center justify-center z-20">
-              <span className="font-display text-3xl text-[#1A2234] dark:text-white">OSS</span>
+            {/* UI Box - Left, in front */}
+            <div className="absolute top-1/2 -translate-y-1/2 left-0 w-64 h-64 bg-[#CBD5E1] dark:bg-[#2a2a3e] border-4 border-[#1A2234] dark:border-[#3a3a4e] flex items-center justify-center z-20">
+              <span className="font-display text-3xl text-[#1A2234] dark:text-white">UI</span>
             </div>
-            {/* AI Box - Top right, behind OSS */}
-            <div className="absolute top-0 right-0 w-64 h-64 md:w-96 md:h-96 bg-[#E2E8F0] dark:bg-[#1a1a2e] border-4 border-[#1A2234] dark:border-[#3a3a4e] flex items-center justify-center z-10">
-              <span className="font-display text-3xl text-[#1A2234] dark:text-white">AI</span>
+            {/* DX Box - Right, behind UI */}
+            <div className="absolute top-1/2 -translate-y-1/2 right-0 w-64 h-64 bg-[#E2E8F0] dark:bg-[#1a1a2e] border-4 border-[#1A2234] dark:border-[#3a3a4e] flex items-center justify-center z-10">
+              <span className="font-display text-3xl text-[#1A2234] dark:text-white">DX</span>
             </div>
           </div>
         </div>
