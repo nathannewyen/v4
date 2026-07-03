@@ -60,7 +60,7 @@ export const siteConfig = {
 
   // Site description for SEO
   siteDescription:
-    "Product engineer specializing in UI, DX, and accessible frontends with React, TypeScript, and the modern JavaScript ecosystem.",
+    "Software Engineer specializing in UI, DX, and accessible frontends with React, TypeScript, and the modern JavaScript ecosystem.",
 
   // Base URL of your deployed site (used for SEO and social sharing)
   siteUrl: "https://newyen.dev",
