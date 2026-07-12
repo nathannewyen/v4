@@ -23,34 +23,53 @@ const PersonalProjects = () => {
             return (
               <li
                 key={index}
-                className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                className={`py-8 md:py-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block py-8 md:py-12"
-                >
-                  <div className="flex items-start justify-between gap-6">
-                    <div className="flex-1 min-w-0 transition-transform duration-300 group-hover:translate-x-2">
-                      <h3 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight text-[#1A2234] dark:text-white">
-                        {name}
-                      </h3>
-                      {subtitle && (
-                        <p className="mt-3 md:mt-4 text-sm md:text-base font-normal text-[#1A2234]/60 dark:text-white/50">
-                          {subtitle}
-                        </p>
-                      )}
-                    </div>
-                    <span
-                      aria-hidden="true"
-                      className="shrink-0 text-2xl md:text-3xl text-[#1A2234]/40 dark:text-white/40 transition-all duration-300 group-hover:text-[#1A2234] dark:group-hover:text-white group-hover:-translate-y-1 group-hover:translate-x-1"
-                    >
-                      ↗
-                    </span>
+                <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-[1.1] tracking-tight text-[#1A2234] dark:text-white break-words">
+                      {name}
+                    </h3>
+                    {subtitle && (
+                      <p className="mt-3 md:mt-4 text-sm md:text-base font-normal text-[#1A2234]/60 dark:text-white/50">
+                        {subtitle}
+                      </p>
+                    )}
                   </div>
-                </a>
+                  <div className="flex shrink-0 flex-wrap items-center gap-3 md:mt-4">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex items-center gap-2 border border-[#1A2234] dark:border-white px-4 py-2 text-sm font-mono uppercase tracking-wide text-[#1A2234] dark:text-white transition-colors hover:bg-[#1A2234] hover:text-white dark:hover:bg-white dark:hover:text-[#1A2234]"
+                      >
+                        Live
+                        <span
+                          aria-hidden="true"
+                          className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                        >
+                          ↗
+                        </span>
+                      </a>
+                    )}
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center gap-2 border border-[#1A2234] dark:border-white px-4 py-2 text-sm font-mono uppercase tracking-wide text-[#1A2234] dark:text-white transition-colors hover:bg-[#1A2234] hover:text-white dark:hover:bg-white dark:hover:text-[#1A2234]"
+                    >
+                      GitHub
+                      <span
+                        aria-hidden="true"
+                        className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      >
+                        ↗
+                      </span>
+                    </a>
+                  </div>
+                </div>
               </li>
             );
           })}

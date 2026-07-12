@@ -2,9 +2,16 @@ import { PersonalProject } from "@/types";
 
 export const personalProjects: PersonalProject[] = [
   {
+    name: "studio-agent — Visual AI Agent Builder",
+    url: "https://github.com/nathannewyen/studio-agent",
+    liveUrl: "https://agent-studio-ui-chi.vercel.app/",
+    tagline:
+      "A visual studio for composing AI agents — chain models, tools, and prompts together in a node-based UI.",
+  },
+  {
     name: "@spacing-ui/core — Headless React UI Primitives",
     url: "https://github.com/nathannewyen/space-ui",
-    liveUrl: "https://www.npmjs.com/package/@spacing-ui/core",
+    liveUrl: "https://space-ui-docs.vercel.app/",
     tagline:
       "An open-source React component library of headless, accessible UI primitives — published to npm and consumed by this portfolio. Bring your own styles; the library handles ARIA, focus, and keyboard interaction.",
     techStack: ["React 19", "TypeScript", "tsup", "Vitest", "ESM + CJS"],
@@ -15,8 +22,9 @@ export const personalProjects: PersonalProject[] = [
     ],
   },
   {
-    name: "The Beuter Design — Ecommerce Platform",
+    name: "the-beuter-design-ecommerce-platform — Ecommerce Storefront",
     url: "https://github.com/nathannewyen/the-beuter-design-ecommerce-platform",
+    liveUrl: "https://the-beuter-design-ecommerce-platfor.vercel.app/",
     caseStudyUrl: "/projects/the-beuter-design",
     tagline:
       "An ecommerce frontend in Next.js 16, React 19, and Tailwind v4 — using the BEUTER® brand system as a forcing function to ship a real DTC storefront end to end.",

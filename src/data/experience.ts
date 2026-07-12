@@ -17,13 +17,13 @@ export const experience: Experience[] = [
   {
     company: "Hawk Ridge Systems",
     url: "https://hawkridgesys.com/",
-    location: "Remote",
+    location: "Dallas, TX",
     roles: [
       {
         title: "Software Engineer",
         period: "January 2020 — February 2023",
         summary:
-          "Owned the React/TypeScript frontend for an enterprise ecommerce platform selling 3D scanning and 3D printing hardware (100–200 SKUs) — checkout, search, and the internal component library.",
+          "Owned the React/TypeScript frontend for an enterprise ecommerce platform selling 3D scanning and 3D printing hardware (100–200 SKUs), checkout, search, and the internal component library.",
       },
     ],
   },
