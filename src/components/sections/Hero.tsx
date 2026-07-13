@@ -3,6 +3,7 @@
 import { siteConfig } from "@/config/site";
 import { SOCIAL_LINKS } from "@/constants";
 import { GitHubIcon, XIcon, LinkedInIcon } from "@/components/icons";
+import TerminalCTA from "@/components/TerminalCTA";
 
 interface HeroProps {
   isLoaded: boolean;
@@ -70,19 +71,11 @@ const Hero = ({ isLoaded }: HeroProps) => {
             </div>
           </div>
 
-          {/* Right Side - Decorative overlapping boxes (hidden from screen readers) */}
+          {/* Right Side - Interactive agent terminal */}
           <div
-            className={`hidden xl:block relative w-[520px] h-[400px] transition-all duration-700 delay-300 ${isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}
-            aria-hidden="true"
+            className={`hidden xl:flex items-center justify-end transition-opacity duration-700 delay-300 ${isLoaded ? "opacity-100" : "opacity-0"}`}
           >
-            {/* UI Box - Left, in front */}
-            <div className="absolute top-1/2 -translate-y-1/2 left-0 w-64 h-64 bg-[#CBD5E1] dark:bg-[#2a2a3e] border-4 border-[#1A2234] dark:border-[#3a3a4e] flex items-center justify-center z-20">
-              <span className="font-display text-3xl text-[#1A2234] dark:text-white">UI</span>
-            </div>
-            {/* DX Box - Right, behind UI */}
-            <div className="absolute top-1/2 -translate-y-1/2 right-0 w-64 h-64 bg-[#E2E8F0] dark:bg-[#1a1a2e] border-4 border-[#1A2234] dark:border-[#3a3a4e] flex items-center justify-center z-10">
-              <span className="font-display text-3xl text-[#1A2234] dark:text-white">DX</span>
-            </div>
+            <TerminalCTA />
           </div>
         </div>
       </div>
