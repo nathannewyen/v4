@@ -22,34 +22,42 @@ const Connect = () => {
           {/* GitHub link with icon */}
           <a
             href={siteConfig.social.github.url}
-            className="flex items-center gap-3 text-lg text-[#1A2234] dark:text-white hover:underline transition-colors"
+            className="group flex items-center gap-3 text-lg text-[#1A2234] dark:text-white no-underline"
           >
             <GitHubIcon className="w-7 h-7" />
-            <span>{siteConfig.social.github.displayName}</span>
+            <span className="border-b-2 border-transparent group-hover:border-[#1A2234] dark:group-hover:border-white pb-1 transition-colors">
+              {siteConfig.social.github.displayName}
+            </span>
           </a>
           {/* X/Twitter link with icon */}
           <a
             href={siteConfig.social.twitter.url}
-            className="flex items-center gap-3 text-lg text-[#1A2234] dark:text-white hover:underline transition-colors"
+            className="group flex items-center gap-3 text-lg text-[#1A2234] dark:text-white no-underline"
           >
             <XIcon className="w-7 h-7" />
-            <span>{siteConfig.social.twitter.displayName}</span>
+            <span className="border-b-2 border-transparent group-hover:border-[#1A2234] dark:group-hover:border-white pb-1 transition-colors">
+              {siteConfig.social.twitter.displayName}
+            </span>
           </a>
           {/* LinkedIn link with icon */}
           <a
             href={siteConfig.social.linkedin.url}
-            className="flex items-center gap-3 text-lg text-[#1A2234] dark:text-white hover:underline transition-colors"
+            className="group flex items-center gap-3 text-lg text-[#1A2234] dark:text-white no-underline"
           >
             <LinkedInIcon className="w-7 h-7" />
-            <span>{siteConfig.social.linkedin.displayName}</span>
+            <span className="border-b-2 border-transparent group-hover:border-[#1A2234] dark:group-hover:border-white pb-1 transition-colors">
+              {siteConfig.social.linkedin.displayName}
+            </span>
           </a>
           {/* Email link with icon */}
           <a
             href={`mailto:${siteConfig.social.email.address}`}
-            className="flex items-center gap-3 text-lg text-[#1A2234] dark:text-white hover:underline transition-colors"
+            className="group flex items-center gap-3 text-lg text-[#1A2234] dark:text-white no-underline"
           >
             <EmailIcon />
-            <span>{siteConfig.social.email.displayName}</span>
+            <span className="border-b-2 border-transparent group-hover:border-[#1A2234] dark:group-hover:border-white pb-1 transition-colors">
+              {siteConfig.social.email.displayName}
+            </span>
           </a>
         </div>
       </div>

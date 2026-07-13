@@ -45,6 +45,44 @@ nextjs-portal {
   opacity: 0;
 }
 
+/* Hide the browser's default resizer square on the terminal — we render
+   a custom affordance in the bottom-right corner instead. */
+.terminal-resize::-webkit-resizer {
+  display: none;
+}
+
+/* Schedule tab expand animation — slides in from the right edge with a
+   soft ease-out curve. Applied when the recruiter clicks the chevron. */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.animate-slideOutRight {
+  animation: slideOutRight 0.3s cubic-bezier(0.7, 0, 0.84, 0) both;
+}
+
 /* Print styles — used when exporting the portfolio to PDF via the browser's
    Print dialog. Forces light theme, reveals scroll/framer-motion animated
    content, hides the fixed nav and decorative chrome, and tightens spacing

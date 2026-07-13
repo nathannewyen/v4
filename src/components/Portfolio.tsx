@@ -14,6 +14,10 @@ import {
 } from "@/components/sections";
 import ThemeToggle from "@/components/ThemeToggle";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import dynamic from "next/dynamic";
+
+// Lazy so Calendly's script never touches the initial bundle.
+const ScheduleTab = dynamic(() => import("@/components/ScheduleTab"), { ssr: false });
 
 // Portfolio component - main landing page with hero, experience, projects, and contact sections
 const Portfolio = () => {
@@ -92,6 +96,8 @@ const Portfolio = () => {
         </ErrorBoundary>
         <Footer />
       </main>
+
+      <ScheduleTab />
     </div>
   );
 };

@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { openCalendly } from "@/lib/openCalendly";
+import { siteConfig } from "@/config/site";
 
 const BOOT_COMMAND = "Hi, I'm Newyen.";
 const MAX_INPUT = 8000;
@@ -8,8 +10,14 @@ const PLACEHOLDER_EXAMPLES = [
   "tell me about nhan",
   "what are his top skills",
   "take me to his projects",
+  "book a call with nhan",
   "paste a job description…",
 ];
+
+const BOOKING_INTENT =
+  /\b(book|schedule|set[- ]?up|arrange|plan|reserve)\b.*\b(call|meeting|chat|time|interview|intro)\b|\bcalendly\b|\bmeet(ing)?\b/i;
+
+const EMAIL_INTENT = /\b(email|e-mail|mailto)\b/i;
 
 const NAV_TARGETS: { pattern: RegExp; id: string; label: string }[] = [
   {
@@ -127,6 +135,27 @@ export default function TerminalCTA() {
     setInput("");
     setError(null);
 
+    // Booking intent → open Calendly popup, no API call
+    if (BOOKING_INTENT.test(question)) {
+      setTurns((prev) => [...prev, { question, answer: "→ Opening scheduler…" }]);
+      setTimeout(() => {
+        openCalendly();
+        inputRef.current?.focus();
+      }, 150);
+      return;
+    }
+
+    // Email intent → open mail client, no API call
+    if (EMAIL_INTENT.test(question)) {
+      const email = siteConfig.social.email.address;
+      setTurns((prev) => [...prev, { question, answer: `→ Opening mail to ${email}…` }]);
+      setTimeout(() => {
+        window.location.href = `mailto:${email}`;
+        inputRef.current?.focus();
+      }, 150);
+      return;
+    }
+
     // Navigation intent → scroll page, no API call
     const nav = detectNavIntent(question);
     if (nav) {
@@ -190,7 +219,7 @@ export default function TerminalCTA() {
 
   return (
     <div
-      className="relative border border-[#1A2234] dark:border-white/70 bg-[#fdf6e3] dark:bg-[#0f0f18] font-mono overflow-hidden"
+      className="terminal-resize group/terminal relative border border-[#1A2234] dark:border-white/70 bg-[#fdf6e3] dark:bg-[#0f0f18] font-mono overflow-hidden"
       style={{
         width: 620,
         height: 400,
@@ -278,26 +307,15 @@ export default function TerminalCTA() {
         )}
       </div>
 
-      {/* Visible resize grip in bottom-right */}
+      {/* Custom resize affordance — three tapered bars in the bottom-right.
+          Non-interactive; the whole container is resizable via CSS. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-1 right-1 flex flex-col items-end gap-[2px] opacity-40"
+        className="pointer-events-none absolute bottom-2 right-2 flex flex-col items-end gap-[3px] opacity-50 group-hover/terminal:opacity-100 transition-opacity"
       >
-        <div className="flex gap-[2px]">
-          <span className="block h-[2px] w-[2px] bg-[#1A2234]/50 dark:bg-white/70" />
-          <span className="block h-[2px] w-[2px] bg-[#1A2234]/50 dark:bg-white/70" />
-          <span className="block h-[2px] w-[2px] bg-[#1A2234]/50 dark:bg-white/70" />
-        </div>
-        <div className="flex gap-[2px]">
-          <span className="block h-[2px] w-[2px] bg-transparent" />
-          <span className="block h-[2px] w-[2px] bg-[#1A2234]/50 dark:bg-white/70" />
-          <span className="block h-[2px] w-[2px] bg-[#1A2234]/50 dark:bg-white/70" />
-        </div>
-        <div className="flex gap-[2px]">
-          <span className="block h-[2px] w-[2px] bg-transparent" />
-          <span className="block h-[2px] w-[2px] bg-transparent" />
-          <span className="block h-[2px] w-[2px] bg-[#1A2234]/50 dark:bg-white/70" />
-        </div>
+        <span className="block h-[2px] w-[6px] bg-[#1A2234] dark:bg-white/80" />
+        <span className="block h-[2px] w-[10px] bg-[#1A2234] dark:bg-white/80" />
+        <span className="block h-[2px] w-[14px] bg-[#1A2234] dark:bg-white/80" />
       </div>
     </div>
   );

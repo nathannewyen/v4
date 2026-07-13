@@ -48,11 +48,12 @@ const nextConfig: NextConfig = {
       "default-src 'self'",
       // 'unsafe-inline' + 'unsafe-eval' needed for Next.js runtime and framer-motion.
       // Vercel Analytics loads from va.vercel-scripts.com.
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com",
-      "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob: https://github.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://assets.calendly.com",
+      "style-src 'self' 'unsafe-inline' https://assets.calendly.com",
+      "img-src 'self' data: blob: https://github.com https://*.calendly.com",
       "font-src 'self' data:",
-      "connect-src 'self' https://api.github.com https://agent.newyen.dev https://vitals.vercel-analytics.com https://va.vercel-scripts.com",
+      "connect-src 'self' https://api.github.com https://agent.newyen.dev https://vitals.vercel-analytics.com https://va.vercel-scripts.com https://calendly.com",
+      "frame-src https://calendly.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
