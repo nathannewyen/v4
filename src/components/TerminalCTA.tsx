@@ -110,6 +110,14 @@ export default function TerminalCTA() {
     }
   }, [turns, status]);
 
+  // Auto-grow the textarea to fit its content, capped at ~8 lines
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = Math.min(el.scrollHeight, 160) + "px";
+  }, [input]);
+
   async function sendMessage() {
     const trimmed = input.trim();
     if (!trimmed || trimmed.length > MAX_INPUT || status === "loading" || status === "streaming")
@@ -152,16 +160,23 @@ export default function TerminalCTA() {
       setStatus("streaming");
       const decoder = new TextDecoder();
       let acc = "";
+      const TYPE_DELAY_MS = 12; // ~80 chars/sec — fast typist feel
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        acc += decoder.decode(value, { stream: true });
-        setTurns((prev) => {
-          const next = [...prev];
-          next[next.length - 1] = { question, answer: acc };
-          return next;
-        });
+        const chunk = decoder.decode(value, { stream: true });
+
+        // Reveal the chunk character-by-character for a live-typing effect.
+        for (const ch of chunk) {
+          acc += ch;
+          setTurns((prev) => {
+            const next = [...prev];
+            next[next.length - 1] = { question, answer: acc };
+            return next;
+          });
+          await new Promise((resolve) => setTimeout(resolve, TYPE_DELAY_MS));
+        }
       }
 
       setStatus("idle");
@@ -210,9 +225,11 @@ export default function TerminalCTA() {
           const isThinking = isLast && status === "loading";
           return (
             <div key={i} className="mt-5 space-y-2">
-              <div className="flex items-baseline gap-2 text-white/90">
+              <div className="flex items-baseline gap-2">
                 <span className="text-[#28c840]">›</span>
-                <span className="whitespace-pre-wrap break-words">{turn.question}</span>
+                <span className="whitespace-pre-wrap break-words text-white font-medium">
+                  {turn.question}
+                </span>
               </div>
               {isThinking && (
                 <div className="flex items-baseline gap-2 text-white/50 pl-4">
@@ -220,12 +237,7 @@ export default function TerminalCTA() {
                   <LoadingDots />
                 </div>
               )}
-              {turn.answer && (
-                <div className="text-white/85 whitespace-pre-wrap break-words pl-4">
-                  {turn.answer}
-                  {isStreaming && <BlinkingCursor />}
-                </div>
-              )}
+              {turn.answer && <AnswerBlock text={turn.answer} isStreaming={isStreaming} />}
             </div>
           );
         })}
@@ -243,9 +255,9 @@ export default function TerminalCTA() {
               e.preventDefault();
               sendMessage();
             }}
-            className="mt-5 flex items-center gap-2 animate-fadeIn"
+            className="mt-5 flex items-start gap-2 animate-fadeIn"
           >
-            <span className="text-[#28c840] leading-none">›</span>
+            <span className="text-[#28c840] leading-[1.55]">›</span>
             <textarea
               ref={inputRef}
               value={input}
@@ -259,7 +271,7 @@ export default function TerminalCTA() {
               rows={1}
               disabled={status === "loading" || status === "streaming"}
               placeholder={PLACEHOLDER_EXAMPLES[placeholderIdx]}
-              className="flex-1 resize-none bg-transparent text-white/90 placeholder:text-white/25 focus:outline-none text-[13px] leading-relaxed min-h-[20px] disabled:opacity-40"
+              className="flex-1 resize-none bg-transparent text-white/90 placeholder:text-white/25 focus:outline-none text-[13px] leading-[1.55] min-h-[20px] max-h-[160px] overflow-y-auto disabled:opacity-40"
               aria-label="Ask the agent"
             />
           </form>
@@ -287,6 +299,38 @@ export default function TerminalCTA() {
           <span className="block h-[2px] w-[2px] bg-white/70" />
         </div>
       </div>
+    </div>
+  );
+}
+
+// Renders a streamed answer as visually-separated sections.
+// Splits on blank lines, and treats a first line ending in ":" as a section label.
+function AnswerBlock({ text, isStreaming }: { text: string; isStreaming: boolean }) {
+  const sections = text.split(/\n{2,}/).filter((s) => s.trim().length > 0);
+
+  return (
+    <div className="pl-4 space-y-4">
+      {sections.map((section, i) => {
+        const lines = section.split("\n");
+        const firstLine = lines[0]?.trim() ?? "";
+        const isLabeled = /^[A-Z][A-Za-z0-9 /()&+.-]{1,40}:$/.test(firstLine);
+        const body = isLabeled ? lines.slice(1).join("\n") : section;
+        const isLast = i === sections.length - 1;
+
+        return (
+          <div key={i} className="space-y-1.5">
+            {isLabeled && (
+              <div className="text-[11px] uppercase tracking-widest text-[#febc2e] font-bold">
+                {firstLine.replace(/:$/, "")}
+              </div>
+            )}
+            <div className="whitespace-pre-wrap break-words text-[#8ec5ff] leading-relaxed">
+              {body}
+              {isStreaming && isLast && <BlinkingCursor />}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
