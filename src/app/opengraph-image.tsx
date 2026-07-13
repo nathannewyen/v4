@@ -78,7 +78,7 @@ export default async function Image() {
           fontFamily: "monospace",
         }}
       >
-        Software Engineer @ JPMorgan Chase
+        Software Engineer
       </span>
 
       {/* Description */}

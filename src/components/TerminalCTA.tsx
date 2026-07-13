@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { openCalendly } from "@/lib/openCalendly";
+import { BOOKING_INTENT, EMAIL_INTENT } from "@/lib/intents";
 import { siteConfig } from "@/config/site";
 
 const BOOT_COMMAND = "Hi, I'm Newyen.";
@@ -13,11 +14,6 @@ const PLACEHOLDER_EXAMPLES = [
   "book a call with nhan",
   "paste a job description…",
 ];
-
-const BOOKING_INTENT =
-  /\b(book|schedule|set[- ]?up|arrange|plan|reserve)\b.*\b(call|meeting|chat|time|interview|intro)\b|\bcalendly\b|\bmeet(ing)?\b/i;
-
-const EMAIL_INTENT = /\b(email|e-mail|mailto)\b/i;
 
 const NAV_TARGETS: { pattern: RegExp; id: string; label: string }[] = [
   {
