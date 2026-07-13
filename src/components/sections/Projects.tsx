@@ -67,7 +67,7 @@ const Projects = ({ projects, isLoading }: ProjectsProps) => {
               </div>
               <a
                 href={project.url}
-                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#1A2234] dark:text-white hover:underline"
+                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#1A2234] dark:text-white pb-1 border-b-2 border-transparent hover:border-[#1A2234] dark:hover:border-white transition-colors"
               >
                 VIEW PROJECT
                 <ExternalLinkIcon />
