@@ -53,7 +53,14 @@
       "Bash(claude config set:*)",
       "Bash(git fetch:*)",
       "Bash(npx tsc *)",
-      "Bash(gh auth *)"
+      "Bash(gh auth *)",
+      "Bash(pnpm typecheck *)",
+      "Bash(npx --prefix /Users/nathannewyen/Desktop/repositories/newyen-agent tsc --noEmit -p /Users/nathannewyen/Desktop/repositories/newyen-agent/tsconfig.json)",
+      "Bash(vercel --version)",
+      "Bash(dig agent.newyen.dev +short)",
+      "Bash(npm run *)",
+      "Bash(npx prettier *)",
+      "Bash(npx vitest *)"
     ]
   }
 }

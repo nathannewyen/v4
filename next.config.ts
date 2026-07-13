@@ -24,6 +24,20 @@ const nextConfig: NextConfig = {
   },
   // Empty turbopack config to allow both turbopack and webpack plugins
   turbopack: {},
+  // Proxy the agent's endpoints to the standalone agent app so the terminal
+  // in the hero can call them same-origin (no CORS setup needed).
+  async rewrites() {
+    return [
+      {
+        source: "/api/analyze",
+        destination: "https://agent.newyen.dev/api/analyze",
+      },
+      {
+        source: "/api/chat",
+        destination: "https://agent.newyen.dev/api/chat",
+      },
+    ];
+  },
   // Security headers for production
   async headers() {
     return [
