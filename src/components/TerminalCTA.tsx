@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const BOOT_COMMAND = "Hi, I am Nhan's Agent";
+const BOOT_COMMAND = "Hi, I'm Newyen.";
 const MAX_INPUT = 8000;
 const PLACEHOLDER_EXAMPLES = [
   "tell me about nhan",

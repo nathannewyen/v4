@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { NAVIGATION_SECTIONS } from "@/constants";
 import { siteConfig } from "@/config/site";
 import { initialProjects } from "@/data/projects";
@@ -18,17 +17,10 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Portfolio component - main landing page with hero, experience, projects, and contact sections
 const Portfolio = () => {
-  // Track if the page has finished loading for animation purposes
-  const [isLoaded, setIsLoaded] = useState(false);
   // Fetch and update project star counts from GitHub API
   const { projects, isLoading: isLoadingStars } = useGitHubStars(initialProjects);
   // Track which navigation section is currently visible based on scroll position
   const activeSection = useActiveSection(NAVIGATION_SECTIONS);
-
-  // Set loaded state to true after component mounts to trigger entrance animations
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
 
   // Scroll to a section smoothly
   const scrollToSection = (sectionId: string) => {
@@ -46,9 +38,7 @@ const Portfolio = () => {
       </a>
 
       {/* Navigation - Fixed header with section links */}
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 bg-[#1A2234] dark:bg-[#15151f] transition-all duration-500 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}
-      >
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1A2234] dark:bg-[#15151f]">
         <div className="px-4 md:px-16 py-5">
           <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
             <a href="#" className="text-white font-mono text-xl font-bold">
@@ -86,7 +76,7 @@ const Portfolio = () => {
 
       <main id="main" className="relative">
         <ErrorBoundary>
-          <Hero isLoaded={isLoaded} />
+          <Hero />
         </ErrorBoundary>
         <ErrorBoundary>
           <Experience />

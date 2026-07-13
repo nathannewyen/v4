@@ -105,7 +105,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} ${spaceMono.variable} antialiased`}>
+      <body
+        className={`${inter.variable} ${spaceMono.variable} antialiased`}
+        suppressHydrationWarning
+      >
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
       </body>
