@@ -32,7 +32,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Nhan Nguyen | Software Engineer",
   description:
-    "Software Engineer. Interested in UI/UX, AI agents, drones, rockets, and software development. Contributor to React, Redux, Expo, and LangChain.",
+    "Interested in UI/UX, AI agents, drones, rockets, and software development. Contributor to React, Redux, Expo, and LangChain.",
   keywords: [
     "software engineer",
     "UI/UX",
@@ -54,8 +54,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Nhan Nguyen | Software Engineer",
-    description:
-      "Software Engineer. Interested in UI/UX, AI agents, drones, rockets, and software development.",
+    description: "Interested in UI/UX, AI agents, drones, rockets, and software development.",
     url: "https://newyen.dev",
     siteName: "Nhan Nguyen Portfolio",
     type: "website",
@@ -64,8 +63,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Nhan Nguyen | Software Engineer",
-    description:
-      "Software Engineer. Interested in UI/UX, AI agents, drones, rockets, and software development.",
+    description: "Interested in UI/UX, AI agents, drones, rockets, and software development.",
     creator: "@nathannewyenn",
   },
   robots: {

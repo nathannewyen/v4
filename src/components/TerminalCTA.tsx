@@ -190,9 +190,9 @@ export default function TerminalCTA() {
 
   return (
     <div
-      className="relative border border-[#1A2234] dark:border-white/70 bg-[#0f0f18] font-mono overflow-hidden"
+      className="relative border border-[#1A2234] dark:border-white/70 bg-[#fdf6e3] dark:bg-[#0f0f18] font-mono overflow-hidden"
       style={{
-        width: 600,
+        width: 620,
         height: 400,
         resize: "vertical",
         minHeight: 300,
@@ -200,8 +200,8 @@ export default function TerminalCTA() {
       }}
     >
       {/* Terminal header */}
-      <div className="flex items-center justify-center border-b border-white/15 px-4 py-2.5 select-none">
-        <span className="text-[11px] uppercase tracking-widest text-white/50">
+      <div className="flex items-center justify-center border-b border-[#1A2234]/15 dark:border-white/15 px-4 py-2.5 select-none">
+        <span className="text-[11px] uppercase tracking-widest text-[#1A2234]/60 dark:text-white/50">
           agent.newyen.dev
         </span>
       </div>
@@ -213,8 +213,8 @@ export default function TerminalCTA() {
         style={{ height: "calc(100% - 44px)" }}
         onClick={() => inputRef.current?.focus()}
       >
-        <div className="flex items-baseline gap-2 text-white/90">
-          <span className="text-[#28c840]">$</span>
+        <div className="flex items-baseline gap-2 text-[#1A2234]/90 dark:text-white/90">
+          <span className="text-[#059669] dark:text-[#28c840]">$</span>
           <span>{typed}</span>
           {!cmdDone && <BlinkingCursor />}
         </div>
@@ -226,14 +226,14 @@ export default function TerminalCTA() {
           return (
             <div key={i} className="mt-5 space-y-2">
               <div className="flex items-baseline gap-2">
-                <span className="text-[#28c840]">›</span>
-                <span className="whitespace-pre-wrap break-words text-white font-medium">
+                <span className="text-[#059669] dark:text-[#28c840]">›</span>
+                <span className="whitespace-pre-wrap break-words text-[#1A2234] dark:text-white font-medium">
                   {turn.question}
                 </span>
               </div>
               {isThinking && (
-                <div className="flex items-baseline gap-2 text-white/50 pl-4">
-                  <span className="text-[#febc2e]">▸</span>
+                <div className="flex items-baseline gap-2 text-[#1A2234]/60 dark:text-white/50 pl-4">
+                  <span className="text-[#b45309] dark:text-[#febc2e]">▸</span>
                   <LoadingDots />
                 </div>
               )}
@@ -243,7 +243,7 @@ export default function TerminalCTA() {
         })}
 
         {status === "error" && error && (
-          <div className="mt-5 flex items-baseline gap-2 text-[#ff5f57]">
+          <div className="mt-5 flex items-baseline gap-2 text-[#dc2626] dark:text-[#ff5f57]">
             <span>✗</span>
             <span>{error}</span>
           </div>
@@ -257,7 +257,7 @@ export default function TerminalCTA() {
             }}
             className="mt-5 flex items-start gap-2 animate-fadeIn"
           >
-            <span className="text-[#28c840] leading-[1.55]">›</span>
+            <span className="text-[#059669] dark:text-[#28c840] leading-[1.55]">›</span>
             <textarea
               ref={inputRef}
               value={input}
@@ -271,7 +271,7 @@ export default function TerminalCTA() {
               rows={1}
               disabled={status === "loading" || status === "streaming"}
               placeholder={PLACEHOLDER_EXAMPLES[placeholderIdx]}
-              className="flex-1 resize-none bg-transparent text-white/90 placeholder:text-white/25 focus:outline-none text-[13px] leading-[1.55] min-h-[20px] max-h-[160px] overflow-y-auto disabled:opacity-40"
+              className="flex-1 resize-none bg-transparent text-[#1A2234] dark:text-white/90 placeholder:text-[#1A2234]/40 dark:placeholder:text-white/25 focus:outline-none text-[13px] leading-[1.55] min-h-[20px] max-h-[160px] overflow-y-auto disabled:opacity-40"
               aria-label="Ask the agent"
             />
           </form>
@@ -284,19 +284,19 @@ export default function TerminalCTA() {
         className="pointer-events-none absolute bottom-1 right-1 flex flex-col items-end gap-[2px] opacity-40"
       >
         <div className="flex gap-[2px]">
-          <span className="block h-[2px] w-[2px] bg-white/70" />
-          <span className="block h-[2px] w-[2px] bg-white/70" />
-          <span className="block h-[2px] w-[2px] bg-white/70" />
+          <span className="block h-[2px] w-[2px] bg-[#1A2234]/50 dark:bg-white/70" />
+          <span className="block h-[2px] w-[2px] bg-[#1A2234]/50 dark:bg-white/70" />
+          <span className="block h-[2px] w-[2px] bg-[#1A2234]/50 dark:bg-white/70" />
         </div>
         <div className="flex gap-[2px]">
           <span className="block h-[2px] w-[2px] bg-transparent" />
-          <span className="block h-[2px] w-[2px] bg-white/70" />
-          <span className="block h-[2px] w-[2px] bg-white/70" />
+          <span className="block h-[2px] w-[2px] bg-[#1A2234]/50 dark:bg-white/70" />
+          <span className="block h-[2px] w-[2px] bg-[#1A2234]/50 dark:bg-white/70" />
         </div>
         <div className="flex gap-[2px]">
           <span className="block h-[2px] w-[2px] bg-transparent" />
           <span className="block h-[2px] w-[2px] bg-transparent" />
-          <span className="block h-[2px] w-[2px] bg-white/70" />
+          <span className="block h-[2px] w-[2px] bg-[#1A2234]/50 dark:bg-white/70" />
         </div>
       </div>
     </div>
@@ -320,11 +320,11 @@ function AnswerBlock({ text, isStreaming }: { text: string; isStreaming: boolean
         return (
           <div key={i} className="space-y-1.5">
             {isLabeled && (
-              <div className="text-[11px] uppercase tracking-widest text-[#febc2e] font-bold">
+              <div className="text-[11px] uppercase tracking-widest text-[#b45309] dark:text-[#febc2e] font-bold">
                 {firstLine.replace(/:$/, "")}
               </div>
             )}
-            <div className="whitespace-pre-wrap break-words text-[#8ec5ff] leading-relaxed">
+            <div className="whitespace-pre-wrap break-words text-[#1d4ed8] dark:text-[#8ec5ff] leading-relaxed">
               {body}
               {isStreaming && isLast && <BlinkingCursor />}
             </div>
@@ -339,7 +339,7 @@ function BlinkingCursor() {
   return (
     <span
       aria-hidden="true"
-      className="inline-block h-[14px] w-[8px] ml-0.5 -mb-[2px] bg-[#28c840] animate-pulse align-middle"
+      className="inline-block h-[14px] w-[8px] ml-0.5 -mb-[2px] bg-[#059669] dark:bg-[#28c840] animate-pulse align-middle"
     />
   );
 }
@@ -352,5 +352,5 @@ function LoadingDots() {
     }, 400);
     return () => clearInterval(iv);
   }, []);
-  return <span className="text-[#febc2e]">thinking{dots}</span>;
+  return <span className="text-[#b45309] dark:text-[#febc2e]">thinking{dots}</span>;
 }

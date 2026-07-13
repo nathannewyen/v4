@@ -19,7 +19,7 @@ export const siteConfig = {
   title: "Software Engineer",
 
   // Short bio or tagline describing yourself
-  bio: "Software Engineer. Interested in UI/UX, AI agents, drones, rockets, and software development.",
+  bio: "Interested in UI/UX, AI agents, drones, rockets, and software development.",
 
   // Path to your resume PDF (place the file in the /public folder)
   resumePath: "/resume.pdf",
