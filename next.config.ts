@@ -13,6 +13,11 @@ const withPWA = withPWAInit({
 const nextConfig: NextConfig = {
   // Disable source maps in production to protect code from being copied
   productionBrowserSourceMaps: false,
+  // Strip console.log/debug/info from production bundles. Keeps error and warn
+  // so legit error reporting (ErrorBoundary, API failures) still works.
+  compiler: {
+    removeConsole: { exclude: ["error", "warn"] },
+  },
   // Optimize barrel imports for heavier packages so unused exports are tree-shaken
   experimental: {
     optimizePackageImports: ["swr", "@spacing-ui/core"],

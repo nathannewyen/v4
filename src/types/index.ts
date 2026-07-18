@@ -47,7 +47,7 @@ export interface ProjectScreenshot {
 // Personal project type definition for the projects section
 export interface PersonalProject {
   name: string;
-  url: string;
+  url?: string;
   liveUrl?: string;
   caseStudyUrl?: string;
   tagline?: string;

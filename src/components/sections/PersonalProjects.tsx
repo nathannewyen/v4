@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { Images } from "lucide-react";
 import { personalProjects } from "@/data/personal-projects";
 import { useScrollAnimation } from "@/hooks";
 
@@ -35,6 +37,16 @@ const LiveLink = ({ href }: { href: string }) => (
     <span>Live</span>
     <ArrowUpRight className="h-4 w-4" />
   </a>
+);
+
+const CaseStudyLink = ({ href }: { href: string }) => (
+  <Link
+    href={href}
+    aria-label="View case study"
+    className="inline-flex h-10 w-10 items-center justify-center border border-[#1A2234] dark:border-white text-[#1A2234] dark:text-white transition-colors hover:bg-[#1A2234] hover:text-white dark:hover:bg-white dark:hover:text-[#1A2234]"
+  >
+    <Images className="h-4 w-4" />
+  </Link>
 );
 
 const GitHubLink = ({ href }: { href: string }) => (
@@ -85,7 +97,8 @@ const PersonalProjects = () => {
                   </div>
                   <div className="flex shrink-0 flex-wrap items-center gap-3 md:mt-4">
                     {project.liveUrl && <LiveLink href={project.liveUrl} />}
-                    <GitHubLink href={project.url} />
+                    {project.caseStudyUrl && <CaseStudyLink href={project.caseStudyUrl} />}
+                    {project.url && <GitHubLink href={project.url} />}
                   </div>
                 </div>
               </li>
